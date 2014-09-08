@@ -6,8 +6,9 @@ public class BankOperationDebit extends BankOperation {
 	 * This method updated a available money and a balance of the AccountBank
 	 */
 	@Override
-	public void execute(AccountBank aAccount, Movement aMovement,Integer aAmount) {
-		aAccount.setAvailable(aMovement.processAmount(aAccount.getAvailable(), aAmount));
+	public void execute(AccountBank account,OperationBankAccount operationBankAccount) {
+		account.setAvailable(operationBankAccount.getMovement().processAmount(account.getAvailable(), operationBankAccount.getAmount()));
+		operationBankAccount.updateBalance(account);
 	}
 
 

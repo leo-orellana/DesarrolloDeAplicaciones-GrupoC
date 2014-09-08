@@ -7,7 +7,7 @@ public class OperationBankAccount extends Operation{
 	@Override
 	public void execute(Account aAccount)
 	{
-		this.getBankOperation().execute((AccountBank)aAccount,this.getMovement(),this.getAmount());
+		this.getBankOperation().execute((AccountBank)aAccount,this);
 	}
 
 	public BankOperation getBankOperation() {

@@ -2,9 +2,18 @@ package ar.edu.unq.desapp.grupoc;
 
 public class AccountManager {
 	
-	private AccountCash AccountCash;
+	private AccountCash accountCash;
 	private AccountChecking accountChecking;
-	private AccountBank accountbank;
+	private AccountBank accountBank;
+	
+
+	public AccountManager(AccountCash accountCash,
+			AccountChecking accountChecking, AccountBank accountBank) {
+		super();
+		this.setAccountCash(accountCash);
+		this.setAccountChecking(accountChecking);
+		this.setAccountbank(accountBank);
+	}
 	
 	/**
 	 * 
@@ -34,7 +43,7 @@ public class AccountManager {
 	 */
 	public Integer getCashBalance()
 	{
-		return null;
+		return getAccountCash().getBalance();
 	}
 
 	/**
@@ -44,7 +53,7 @@ public class AccountManager {
 	 */
 	public Integer getBankBalance()
 	{
-		return null;
+		return getAccountbank().getBalance();
 	}
 	
 	/**
@@ -53,7 +62,7 @@ public class AccountManager {
 	 */
 	public Integer getCheckingAccountBalance()
 	{
-		return null;
+		return getAccountChecking().getBalance();
 	}
 	
 	/**
@@ -62,7 +71,7 @@ public class AccountManager {
 	 */
 	public Integer getAvailableMoney()
 	{
-		return null;
+		return getAccountbank().getAvailable();
 	}
 	
 	/**
@@ -71,15 +80,15 @@ public class AccountManager {
 	 */
 	public Integer getAccruedMoney()
 	{
-		return null;
+		return getAccountbank().getAccrued();
 	}
 
 	public AccountCash getAccountCash() {
-		return AccountCash;
+		return accountCash;
 	}
 
 	public void setAccountCash(AccountCash accountCash) {
-		AccountCash = accountCash;
+		this.accountCash = accountCash;
 	}
 
 	public AccountChecking getAccountChecking() {
@@ -91,10 +100,10 @@ public class AccountManager {
 	}
 
 	public AccountBank getAccountbank() {
-		return accountbank;
+		return accountBank;
 	}
 
-	public void setAccountbank(AccountBank accountbank) {
-		this.accountbank = accountbank;
+	public void setAccountbank(AccountBank accountBank) {
+		this.accountBank = accountBank;
 	}
 }

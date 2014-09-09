@@ -3,8 +3,14 @@ package ar.edu.unq.desapp.grupoc;
 public class Operation {
 
 	private Movement movement;
-	private Integer amount;
+	private Double amount;
 	
+	public Operation(Movement movement, Double amount) {
+		super();
+		setMovement(movement);
+		setAmount(amount);
+	}
+
 	/**
 	 * This method updated a balance of the aAccount.
 	 * @param aAccount
@@ -20,11 +26,11 @@ public class Operation {
 	//////////
 
 
-	public Integer getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 

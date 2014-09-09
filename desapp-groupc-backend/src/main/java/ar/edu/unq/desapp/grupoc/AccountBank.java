@@ -2,24 +2,27 @@ package ar.edu.unq.desapp.grupoc;
 
 public class AccountBank extends Account{
 
-	private Integer available;
-	private Integer accrued;
+	private Double available;
+	private Double accrued;
 	
-	public AccountBank(Integer available, Integer accrued) {
+	public AccountBank(Double available, Double accrued) {
 		super();
 		this.setAvailable(available);
 		this.setAccrued(accrued);
 	}
-	public Integer getAvailable() {
+	
+	//////////
+	
+	public Double getAvailable() {
 		return available;
 	}
-	public void setAvailable(Integer available) {
+	public void setAvailable(Double available) {
 		this.available = available;
 	}
-	public Integer getAccrued() {
+	public Double getAccrued() {
 		return accrued;
 	}
-	public void setAccrued(Integer accrued) {
+	public void setAccrued(Double accrued) {
 		this.accrued = accrued;
 	}
 	

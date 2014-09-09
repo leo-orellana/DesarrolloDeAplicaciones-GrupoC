@@ -1,9 +1,23 @@
 package ar.edu.unq.desapp.grupoc;
 
-import sun.util.calendar.LocalGregorianCalendar.Date;
+import java.util.Date;
+
 
 public class Transaction {
 
+	public Transaction(Subcategory subcategory, Time time, String concept,
+			OperationCashAccount operationCashAccount,
+			OperationCheckingAccount operationCheckingAccount,
+			OperationBankAccount operationBankAccount, Date date) {
+		super();
+		this.subcategory = subcategory;
+		this.time = time;
+		this.concept = concept;
+		this.operationCashAccount = operationCashAccount;
+		this.operationCheckingAccount = operationCheckingAccount;
+		this.operationBankAccount = operationBankAccount;
+		this.date = date;
+	}
 	private Subcategory subcategory;
 	private Time time;
 	private String concept;
@@ -11,9 +25,14 @@ public class Transaction {
 	private OperationCheckingAccount operationCheckingAccount;
 	private OperationBankAccount operationBankAccount;
 	private Date date;
+	
 	public Subcategory getSubcategory() {
 		return subcategory;
 	}
+	
+	
+	//////////
+	
 	public void setSubcategory(Subcategory subcategory) {
 		this.subcategory = subcategory;
 	}

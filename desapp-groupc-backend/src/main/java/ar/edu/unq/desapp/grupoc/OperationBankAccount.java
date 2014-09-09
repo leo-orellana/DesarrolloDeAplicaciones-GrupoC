@@ -4,6 +4,11 @@ public class OperationBankAccount extends Operation{
 
 	private BankOperation bankOperation;
 	
+	public OperationBankAccount(Movement movement, Double amount, BankOperation bankOperation) {
+		super(movement, amount);
+		setBankOperation(bankOperation);
+	}
+	
 	@Override
 	public void execute(Account aAccount)
 	{
@@ -14,7 +19,7 @@ public class OperationBankAccount extends Operation{
 		return bankOperation;
 	}
 
-	public void setTypeOperationBank(BankOperation typeOperationBank) {
+	public void setBankOperation(BankOperation typeOperationBank) {
 		this.bankOperation = typeOperationBank;
 	}
 

@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoc;
 
 public class Account {
 
-	private Integer balance;
+	private Double balance;
 	
 	/**
 	 * 
@@ -14,11 +14,11 @@ public class Account {
 		aOperation.execute(this);
 	}
 
-	public Integer getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Integer balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 	

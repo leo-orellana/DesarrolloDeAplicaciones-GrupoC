@@ -41,7 +41,7 @@ public class AccountManager {
 	 * 
 	 * @return The balance of the cash account.
 	 */
-	public Integer getCashBalance()
+	public Double getCashBalance()
 	{
 		return getAccountCash().getBalance();
 	}
@@ -51,7 +51,7 @@ public class AccountManager {
 	 * @return The balance of the bank account. This is the sum of available money and 
 	 * accrued money.
 	 */
-	public Integer getBankBalance()
+	public Double getBankBalance()
 	{
 		return getAccountbank().getBalance();
 	}
@@ -60,7 +60,7 @@ public class AccountManager {
 	 * 
 	 * @return The balance of the checking account.
 	 */
-	public Integer getCheckingAccountBalance()
+	public Double getCheckingAccountBalance()
 	{
 		return getAccountChecking().getBalance();
 	}
@@ -69,7 +69,7 @@ public class AccountManager {
 	 * 
 	 * @return The available monew. This money is only in the bank account.
 	 */
-	public Integer getAvailableMoney()
+	public Double getAvailableMoney()
 	{
 		return getAccountbank().getAvailable();
 	}
@@ -78,7 +78,7 @@ public class AccountManager {
 	 * 
 	 * @return The accrued money. This money is only in the bank account.
 	 */
-	public Integer getAccruedMoney()
+	public Double getAccruedMoney()
 	{
 		return getAccountbank().getAccrued();
 	}

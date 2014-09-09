@@ -8,5 +8,5 @@ public abstract class Movement {
 	 * @param aAmount
 	 * @return a new total
 	 */
-	public abstract Integer processAmount(Integer aTotal, Integer aAmount);
+	public abstract Double processAmount(Double total, Double amount);
 }

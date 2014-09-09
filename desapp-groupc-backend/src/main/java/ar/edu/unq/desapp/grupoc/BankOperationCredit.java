@@ -9,8 +9,6 @@ public class BankOperationCredit extends BankOperation {
 	public void execute(AccountBank account,OperationBankAccount operationBankAccount) {
 		account.setAccrued(operationBankAccount.getMovement().processAmount(account.getAccrued(),operationBankAccount.getAmount()));
 		operationBankAccount.updateBalance(account);
-	}
-
-	
+	}	
 
 }

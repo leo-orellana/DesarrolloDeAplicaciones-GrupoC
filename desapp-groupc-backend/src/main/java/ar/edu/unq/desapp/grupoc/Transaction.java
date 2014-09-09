@@ -4,6 +4,15 @@ import java.util.Date;
 
 public class Transaction {
 
+	
+    private Subcategory subcategory;
+    private Time time;
+    private String concept;
+    private OperationCashAccount operationCashAccount;
+    private OperationCheckingAccount operationCheckingAccount;
+    private OperationBankAccount operationBankAccount;
+    private Date date;
+    
     public Transaction(Subcategory subcategory, Time time, String concept,
             OperationCashAccount operationCashAccount,
             OperationCheckingAccount operationCheckingAccount,
@@ -17,14 +26,6 @@ public class Transaction {
         this.operationBankAccount = operationBankAccount;
         this.date = date;
     }
-
-    private Subcategory subcategory;
-    private Time time;
-    private String concept;
-    private OperationCashAccount operationCashAccount;
-    private OperationCheckingAccount operationCheckingAccount;
-    private OperationBankAccount operationBankAccount;
-    private Date date;
 
     public Subcategory getSubcategory() {
         return subcategory;

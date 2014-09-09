@@ -13,4 +13,9 @@ public class BankOperationCredit extends BankOperation {
         operationBankAccount.updateBalance(account);
     }
 
+	@Override
+	public Boolean isCredit() {
+		return new Boolean(true);
+	}
+
 }

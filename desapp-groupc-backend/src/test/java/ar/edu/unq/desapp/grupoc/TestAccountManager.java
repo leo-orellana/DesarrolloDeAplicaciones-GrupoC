@@ -1,6 +1,11 @@
 package ar.edu.unq.desapp.grupoc;
 
 import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import ar.edu.unq.desapp.grupoc.builders.BuilderAccountManager;
 import junit.framework.TestCase;
 
@@ -84,6 +89,39 @@ public class TestAccountManager extends TestCase {
         mockAccountManager.getAccruedMoney();
 
         verify(mockBank, times(1)).getAccrued();
+    }
+    
+    public void testDeleteConsolidationTransactionRemoveOneTransaction()
+    {
+    	ServiceDataBase mockServiceDB = mock(ServiceDataBase.class);
+    	AccruedTransaction mockAccruedTransactionTrue = mock(AccruedTransaction.class);
+    	AccruedTransaction mockAccruedTransactionFalse = mock(AccruedTransaction.class);
+    	
+    	when(mockAccruedTransactionTrue.wasProcessed()).thenReturn(new Boolean(true));
+    	when(mockAccruedTransactionFalse.wasProcessed()).thenReturn(new Boolean(false));
+    	List<AccruedTransaction> transactions = new ArrayList<AccruedTransaction>(
+    			Arrays.asList(mockAccruedTransactionFalse,mockAccruedTransactionTrue));
+    	AccountManager accountManager = BuilderAccountManager.getInstance().build();
+    	List<AccruedTransaction> newTransactions = new ArrayList<AccruedTransaction>();
+  
+    	accountManager.deleteConsolidateTransactions(mockServiceDB,transactions,newTransactions);
+    	
+    	assertTrue(newTransactions.contains(mockAccruedTransactionFalse));
+    	assertFalse(newTransactions.contains(mockAccruedTransactionTrue));
+    }
+    
+    public void testConsolidationAccrued(){
+    	AccountBank mockAccountBank = mock(AccountBank.class);
+    	AccountManager accountManager = BuilderAccountManager.getInstance().withAccountBank(mockAccountBank).build();
+    	AccruedTransaction mockAccruedTransactionTrue = mock(AccruedTransaction.class);
+    	AccruedTransaction mockAccruedTransactionFalse = mock(AccruedTransaction.class);
+    	List<AccruedTransaction> transactions = new ArrayList<AccruedTransaction>(
+    			Arrays.asList(mockAccruedTransactionFalse,mockAccruedTransactionTrue));
+    	
+    	accountManager.consolidateAccrued(transactions);
+    	
+    	verify(mockAccountBank).consolidateTransaction(mockAccruedTransactionFalse);
+    	verify(mockAccountBank).consolidateTransaction(mockAccruedTransactionTrue);
     }
 
 }

@@ -26,4 +26,10 @@ public class TestBankOperationDebit extends TestCase {
         verify(mockAccountBank).setAvailable(newAvailable);
         verify(mockOperationBankAccount).updateBalance(mockAccountBank);
     }
+    
+    public void testIsCreditAndReturnFalse(){
+    	BankOperationDebit operation = new BankOperationDebit();
+    	
+    	assertFalse(operation.isCredit());
+    }
 }

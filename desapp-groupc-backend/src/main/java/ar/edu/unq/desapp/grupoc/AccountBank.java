@@ -28,5 +28,17 @@ public class AccountBank extends Account {
     public void setAccrued(Double accrued) {
         this.accrued = accrued;
     }
+    /**
+     * This method condolidate a transaction if it should be consolidate.
+     * @param transaction
+     */
+	public void consolidateTransaction(AccruedTransaction accruedTransaction) {
+		if(accruedTransaction.shouldBeConsolidate()){
+			Double amountAccrued = accruedTransaction.getTrasaction().getOperationBankAccount().getAmount();
+			setAvailable(getAvailable() + amountAccrued);
+			setAccrued(getAccrued() - amountAccrued);
+			accruedTransaction.setWasProcessed(new Boolean(true));
+		}
+	}
 
 }

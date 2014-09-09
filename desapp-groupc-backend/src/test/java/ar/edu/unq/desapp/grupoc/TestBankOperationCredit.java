@@ -25,4 +25,10 @@ public class TestBankOperationCredit extends TestCase {
         verify(mockAccountBank).setAccrued(newAccrued);
         verify(mockOperationBankAccount).updateBalance(mockAccountBank);
     }
+    
+    public void testIsCreditReturnTrue(){
+    	BankOperationCredit operation = new BankOperationCredit();
+    	
+    	assertTrue(operation.isCredit());
+    }
 }

@@ -2,33 +2,31 @@ package ar.edu.unq.desapp.grupoc;
 
 public class Subcategory {
 
-	public String name;
-	public Category category;
-	
-	public Subcategory(String name, Category category) {
-		super();
-		this.setName(name);
-		this.setCategory(category);
-	}
+    public String name;
+    public Category category;
 
-	//////////
-	
-	public String getName() {
-		return name;
-	}
+    public Subcategory(String name, Category category) {
+        super();
+        this.setName(name);
+        this.setCategory(category);
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    // ////////
 
-	public Category getCategory() {
-		return category;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-	
-	
-	
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
 }

@@ -2,29 +2,29 @@ package ar.edu.unq.desapp.grupoc;
 
 public class Category {
 
-	public String name;
-	public Movement movement;
-	
-	public Category(String name, Movement movement) {
-		super();
-		this.name = name;
-		this.movement = movement;
-	}
+    public String name;
+    public Movement movement;
 
-	public String getName() {
-		return name;
-	}
+    public Category(String name, Movement movement) {
+        super();
+        this.name = name;
+        this.movement = movement;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Movement getMovement() {
-		return movement;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setTypeOperation(Movement movement) {
-		this.movement = movement;
-	}
-	
+    public Movement getMovement() {
+        return movement;
+    }
+
+    public void setTypeOperation(Movement movement) {
+        this.movement = movement;
+    }
+
 }

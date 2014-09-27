@@ -2,8 +2,11 @@ package ar.edu.unq.desapp.grupoc.model;
 
 public class Category {
 
+	public Integer id;
     public String name;
     public Movement movement;
+    
+    public Category(){}
 
     public Category(String name, Movement movement) {
         super();
@@ -23,8 +26,15 @@ public class Category {
         return movement;
     }
 
-    public void setTypeOperation(Movement movement) {
+    public void setMovement(Movement movement) {
         this.movement = movement;
     }
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

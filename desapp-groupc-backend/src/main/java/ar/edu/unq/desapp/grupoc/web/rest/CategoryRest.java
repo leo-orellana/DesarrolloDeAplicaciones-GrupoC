@@ -10,14 +10,12 @@ import javax.ws.rs.Produces;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
-import ar.edu.unq.desapp.grupoc.utils.HibernateUtil;
 import ar.edu.unq.desapp.grupoc.utils.JSONObject;
 
 @Service
@@ -61,7 +59,10 @@ public class CategoryRest {
 		
 		/////
 		List<Category> categorias = getCategoryService().retriveAll();
-		return JSONObject.getInstance().ObjectToJSON(categorias);
+		for (Category category : categorias) {
+			System.out.println(category.getMovement());
+		}
+			return JSONObject.getInstance().ObjectToJSON(categorias);
 	}
 
 	public CategoryService getCategoryService() {

@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupoc.model.Category;
@@ -37,7 +38,7 @@ public class CategoryRest {
 	@GET
 	@Path("/all")
 	@Produces("application/json")
-	public String getAllCategories() throws JsonGenerationException, JsonMappingException, IOException{
+	public List<Category> getAllCategories() throws JsonGenerationException, JsonMappingException, IOException{
 		
 		Ingress ingress = new Ingress();
 		ingress.setName("Ingress");
@@ -59,10 +60,8 @@ public class CategoryRest {
 		
 		/////
 		List<Category> categorias = getCategoryService().retriveAll();
-		for (Category category : categorias) {
-			System.out.println(category.getMovement());
-		}
-			return JSONObject.getInstance().ObjectToJSON(categorias);
+		return categorias;
+		//return JSONObject.getInstance().ObjectToJSON(categorias);
 	}
 
 	public CategoryService getCategoryService() {

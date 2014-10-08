@@ -26,7 +26,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 <!-- =========Servicios  ========= -->
 <!-- =========================== -->
 
-	<jaxrs:server id="category"  > 
+	<jaxrs:server id="category" address="/"> 
 		<jaxrs:serviceBeans>
 			<ref bean="categoryRest" />
 		</jaxrs:serviceBeans>
@@ -44,6 +44,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	</jaxrs:server>
 	
 	<bean id="categoryRest" class="ar.edu.unq.desapp.grupoc.web.rest.CategoryRest">
+		<property name="categoryService" ref="services.categories" />
 	</bean>
 
 </beans>

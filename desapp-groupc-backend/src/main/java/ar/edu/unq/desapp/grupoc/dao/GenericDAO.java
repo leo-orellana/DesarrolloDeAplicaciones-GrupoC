@@ -20,4 +20,6 @@ public interface GenericDAO<T> {
 	int count();
 
 	List<T> findByExample(T exampleObject);
+	
+	List<T> filterByName(String name);
 }

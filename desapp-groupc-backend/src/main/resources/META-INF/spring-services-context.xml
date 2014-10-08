@@ -14,6 +14,9 @@
 	<bean id="services.movements" class="ar.edu.unq.desapp.grupoc.services.MovementService">
 		<property name="dao" ref="persistence.movementdao" />
 	</bean>
-
+	
+	<bean id="services.subcategories" class="ar.edu.unq.desapp.grupoc.services.SubCategoryService">
+		<property name="dao" ref="persistence.subcategorydao" />
+	</bean>
 
 </beans>

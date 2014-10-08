@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoc.model;
 
 public class Subcategory {
 
+	public Integer id; 
     public String name;
     public Category category;
 
@@ -10,6 +11,8 @@ public class Subcategory {
         this.setName(name);
         this.setCategory(category);
     }
+    
+    public Subcategory(){};
 
     // ////////
 
@@ -29,4 +32,11 @@ public class Subcategory {
         this.category = category;
     }
 
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

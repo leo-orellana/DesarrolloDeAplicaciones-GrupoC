@@ -110,5 +110,8 @@
 	<bean id="persistence.movementdao" class="ar.edu.unq.desapp.grupoc.dao.MovementDAO" >
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
+	<bean id="persistence.subcategorydao" class="ar.edu.unq.desapp.grupoc.dao.SubCategoryDAO" >
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
 
 </beans>

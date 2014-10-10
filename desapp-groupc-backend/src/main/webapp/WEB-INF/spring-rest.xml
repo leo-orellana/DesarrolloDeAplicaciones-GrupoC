@@ -47,6 +47,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	
 	<bean id="categoryRest" class="ar.edu.unq.desapp.grupoc.web.rest.CategoryRest">
 		<property name="categoryService" ref="services.categories" />
+		<property name="movementService" ref="services.movements" />
 	</bean>
 
 	<bean id="movementRest" class="ar.edu.unq.desapp.grupoc.web.rest.MovementRest">

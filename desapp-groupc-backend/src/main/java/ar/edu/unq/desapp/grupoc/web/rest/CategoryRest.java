@@ -10,21 +10,29 @@ import javax.ws.rs.Produces;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupoc.model.Category;
-import ar.edu.unq.desapp.grupoc.model.Egress;
-import ar.edu.unq.desapp.grupoc.model.Ingress;
+import ar.edu.unq.desapp.grupoc.model.Movement;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
+import ar.edu.unq.desapp.grupoc.services.MovementService;
 
 @Service
-@Path("/categories")
+@Path("/categoryService")
 public class CategoryRest {
 
 	private CategoryService categoryService;
+	private MovementService movementService;
 
 	@GET
-	@Path("/all")
+	@Path("/category/{id}")
+	@Produces("application/json")
+	public Category getCategory(@PathParam("id") final int id) {
+		Category cat = getCategoryService().getById(id);
+		return cat;
+	}
+
+	@GET
+	@Path("/categories")
 	@Produces("application/json")
 	public List<Category> getCategories() {
-		this.initializeContext();
 		return getCategoryService().retriveAll();
 	}
 
@@ -34,7 +42,33 @@ public class CategoryRest {
 	public List<Category> filterByName(@PathParam("name") final String name) {
 		return getCategoryService().filterByName(name);
 	}
-	
+
+	@GET
+	@Path("/save/{name}/{movementId}")
+	@Produces("application/json")
+	public void saveCategory(@PathParam("name") final String name,
+			@PathParam("movementId") final int movementId) {
+		Category cat = new Category();
+		Movement mov = getMovementService().getById(movementId);
+		cat.setName(name);
+		cat.setMovement(mov);
+		getCategoryService().save(cat);
+	}
+
+	@GET
+	@Path("/update/{id}/{name}/{movementId}")
+	@Produces("application/json")
+	public Category updateCategory(@PathParam("id") final int id,
+			@PathParam("name") final String name,
+			@PathParam("movementId") final int movementId) {
+		Category cat = getCategoryService().getById(id);
+		Movement mov = getMovementService().getById(movementId);
+		cat.setName(name);
+		cat.setMovement(mov);
+		getCategoryService().update(cat);
+		return cat;
+	}
+
 	public CategoryService getCategoryService() {
 		return categoryService;
 	}
@@ -43,21 +77,11 @@ public class CategoryRest {
 		this.categoryService = categoryService;
 	}
 
-	public void initializeContext() {
-		Ingress ingress = new Ingress();
-		ingress.setName("Ingress");
-		Egress egress = new Egress();
-		egress.setName("Egress");
+	public MovementService getMovementService() {
+		return movementService;
+	}
 
-		Category ventas = new Category();
-		ventas.setName("Ventas");
-		ventas.setMovement(ingress);
-
-		Category rifas = new Category();
-		rifas.setName("Rifas");
-		rifas.setMovement(ingress);
-
-		getCategoryService().save(ventas);
-		getCategoryService().save(rifas);
+	public void setMovementService(MovementService movementService) {
+		this.movementService = movementService;
 	}
 }

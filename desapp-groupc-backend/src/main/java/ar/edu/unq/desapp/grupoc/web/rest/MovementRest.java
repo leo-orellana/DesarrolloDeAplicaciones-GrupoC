@@ -12,13 +12,13 @@ import ar.edu.unq.desapp.grupoc.model.Movement;
 import ar.edu.unq.desapp.grupoc.services.MovementService;
 
 @Service
-@Path("/movements")
+@Path("/movementService")
 public class MovementRest {
 
 	private MovementService movementService;
 
 	@GET
-	@Path("/all")
+	@Path("/movements")
 	@Produces("application/json")
 	public List<Movement> getMovements() {
 		return getMovementService().retriveAll();

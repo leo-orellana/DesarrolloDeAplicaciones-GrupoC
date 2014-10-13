@@ -2,32 +2,39 @@
 
 /**
  * @ngdoc overview
- * @name myAppApp
- * @description
- * # myAppApp
- *
+ * @name app
+ * @description # app
+ * 
  * Main module of the application.
  */
-angular
-  .module('myAppApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+var app = angular.module(
+		'app',
+		[ 'ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize',
+				'ngTouch', 'ngGrid' ]).config(function($routeProvider) {
+	$routeProvider
+	.when('/categories', {
+		templateUrl : 'views/categories.html',
+		controller : 'CategoryController'
+	})
+	.when('/editCategory/:categoryId', {
+		templateUrl : 'views/editCategory.html'
+		//controller : 'EditCategoryController'
+	})
+	.when('/deleteCategory/:categoryId', {
+		controller : 'DeleteCategoryController'
+	})
+	.otherwise({
+		redirectTo : '/'
+	});
+});
+
+
+
+function CategoryController($scope, $http) {
+	$http.get("http://localhost:8081/backend/rest/categoryService/categories")
+			.success(function(response) {
+				$scope.categories = response;
+			}).error(function() {
+				console.log("error");
+			});
+}

@@ -1,0 +1,37 @@
+body { padding-top: 70px; } 
+
+.table th {
+   text-align: center;   
+}
+
+.statistics a {
+    font-size: 20px;
+    color: red !important;
+}
+
+.statistics a:hover {
+    font-size: 20px;
+    color: white !important;
+}
+
+.sis {
+    font-weight: bold;
+    color: white !important;
+    font-size:20px;
+}
+
+.load{
+   text-align: center;   
+}
+
+.actions{
+   text-align: center;   
+}
+
+.egress{
+    color: red !important;
+}
+
+.amount-detail{
+   text-align: center;   
+}

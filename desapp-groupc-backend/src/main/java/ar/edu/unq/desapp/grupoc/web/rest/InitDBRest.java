@@ -24,8 +24,11 @@ public class InitDBRest {
 		
 		// CREATE MOVEMENTS
 		Ingress ingress = new Ingress();
+		ingress.setName("Ingress");
+
 		Egress egress = new Egress();
-		
+		egress.setName("Egress");
+
 		getMovementService().save(ingress);
 		getMovementService().save(egress);
 		

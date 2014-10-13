@@ -8,7 +8,7 @@ public class Repo {
 
 	
 	public void createObjects(){
-	Ingress ingress = new Ingress();
+		Ingress ingress = new Ingress();
 		ingress.setName("Ingress");
 		Egress egress = new Egress();
 		egress.setName("Egress");

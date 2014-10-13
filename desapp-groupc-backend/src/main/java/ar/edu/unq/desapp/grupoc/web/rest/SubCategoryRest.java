@@ -13,6 +13,7 @@ import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
+import ar.edu.unq.desapp.grupoc.services.CategoryService;
 import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
 
 @Service
@@ -20,6 +21,7 @@ import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
 public class SubCategoryRest {
 	
 	private SubCategoryService subCategoryService;
+	private CategoryService categoryService;
 	
 	@GET
 	@Path("/subcategories")
@@ -71,4 +73,11 @@ public class SubCategoryRest {
 		getSubCategoryService().save(autos);
 	}
 
+	public CategoryService getCategoryService() {
+		return categoryService;
+	}
+
+	public void setCategoryService(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
 }

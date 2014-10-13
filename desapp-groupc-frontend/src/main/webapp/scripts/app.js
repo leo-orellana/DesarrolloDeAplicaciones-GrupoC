@@ -14,11 +14,11 @@ var app = angular.module(
 	$routeProvider
 	.when('/categories', {
 		templateUrl : 'views/categories.html',
-		controller : 'CategoryController'
+		controller : 'CategoryControllerList'
 	})
 	.when('/editCategory/:categoryId', {
 		templateUrl : 'views/editCategory.html'
-		//controller : 'EditCategoryController'
+		//controller : 'CategoryControllerEdit'
 	})
 	.when('/deleteCategory/:categoryId', {
 		controller : 'DeleteCategoryController'
@@ -30,11 +30,11 @@ var app = angular.module(
 
 
 
-function CategoryController($scope, $http) {
-	$http.get("http://localhost:8081/backend/rest/categoryService/categories")
-			.success(function(response) {
-				$scope.categories = response;
-			}).error(function() {
-				console.log("error");
-			});
-}
+//function CategoryController($scope, $http) {
+//	$http.get("http://localhost:8081/backend/rest/categoryService/categories")
+//			.success(function(response) {
+//				$scope.categories = response;
+//			}).error(function() {
+//				console.log("error");
+//			});
+//}

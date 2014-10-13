@@ -4,9 +4,17 @@ body { padding-top: 70px; }
    text-align: center;   
 }
 
+.table tr {
+   text-align: center;   
+}
+
 .statistics a {
     font-size: 20px;
     color: red !important;
+}
+
+.delete {
+	color: red !important;
 }
 
 .statistics a:hover {

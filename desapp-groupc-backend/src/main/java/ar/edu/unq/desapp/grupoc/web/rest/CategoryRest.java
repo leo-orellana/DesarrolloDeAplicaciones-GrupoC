@@ -55,13 +55,14 @@ public class CategoryRest {
 	@GET
 	@Path("/save/{name}/{movementId}")
 	@Produces("application/json")
-	public void saveCategory(@PathParam("name") final String name,
+	public Category saveCategory(@PathParam("name") final String name,
 			@PathParam("movementId") final int movementId) {
 		Category cat = new Category();
 		Movement mov = getMovementService().getById(movementId);
 		cat.setName(name);
 		cat.setMovement(mov);
 		getCategoryService().save(cat);
+		return cat;
 	}
 
 	@GET

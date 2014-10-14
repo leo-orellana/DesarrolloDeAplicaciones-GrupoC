@@ -7,15 +7,28 @@ function CategoryControllerList($scope, $http) {
 			});
 }
 
-function CategoryControllerNew($scope, $http){
-	$scope.movs="1";
-	
+function CategoryControllerNew($scope, $http, $location, alert){
 	$http.get("http://localhost:8081/backend/rest/movementService/movements")
 			.success(function(response) {
 				$scope.movements = response;
-			}).error(function() {
+			})
+			.error(function() {
 				console.log("error");
-			});		
+			});	
+	
+	$scope.submit = function(form){
+		$http.get("http://localhost:8081/backend/rest/categoryService/save/"+$scope.nameCategory+"/"+$scope.idMovement)
+			.success(function(response){
+				console.log("Exito!");
+				alert("La categoría <" + response.name + "> se ha creado correctamente")
+					.then(function(){
+						$location.path('/categories');
+					});
+			})
+			.error(function() {
+				console.log("error");
+		});
+	}
 }
 
 function CategoryControllerEdit($scope, $http, $routeParams){

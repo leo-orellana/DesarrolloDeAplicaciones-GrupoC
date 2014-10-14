@@ -32,3 +32,25 @@ var app = angular.module(
 		redirectTo : '/'
 	});
 });
+
+app.factory(
+		"alert",
+		function( $window, $q ) {
+		 
+		// Define promise-based alert() method.
+		function alert( message ) {
+		 
+		var defer = $q.defer();
+		 
+		$window.alert( message );
+		 
+		defer.resolve();
+		 
+		return( defer.promise );
+		 
+		}
+		 
+		return( alert );
+		 
+		}
+		);

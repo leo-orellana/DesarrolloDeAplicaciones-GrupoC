@@ -54,3 +54,14 @@ body { padding-top: 70px; }
 	top: 40%;
 	bottom: 40%;
 }
+
+.messageNew{
+	text-align: center;
+	width: 40%;
+	position: absolute;
+	left: 30%;
+	right: 30%;
+	heigth: 30%;
+	top: 40%;
+	bottom: 40%;
+}

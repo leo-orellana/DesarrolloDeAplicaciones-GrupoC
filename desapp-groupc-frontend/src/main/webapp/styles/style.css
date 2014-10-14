@@ -43,3 +43,14 @@ body { padding-top: 70px; }
 .amount-detail{
    text-align: center;   
 }
+
+.messageDelete{
+	text-align: center;
+	width: 40%;
+	position: absolute;
+	left: 30%;
+	right: 30%;
+	heigth: 30%;
+	top: 40%;
+	bottom: 40%;
+}

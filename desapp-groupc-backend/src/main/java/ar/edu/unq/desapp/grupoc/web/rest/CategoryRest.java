@@ -28,6 +28,15 @@ public class CategoryRest {
 		Category cat = getCategoryService().getById(id);
 		return cat;
 	}
+	
+	@GET
+	@Path("/delete/{id}")
+	@Produces("application/json")
+	public Category deleteCategory(@PathParam("id") final int id) {
+		Category c = this.getCategory(id);
+		getCategoryService().delete(c);
+		return c;
+	}
 
 	@GET
 	@Path("/categories")

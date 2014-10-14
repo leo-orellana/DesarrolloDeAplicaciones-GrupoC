@@ -16,12 +16,9 @@ var app = angular.module(
 		templateUrl : 'views/categories.html',
 		controller : 'CategoryControllerList'
 	})
-	.when('/editCategory/:categoryId', {
-		templateUrl : 'views/editCategory.html'
-		//controller : 'CategoryControllerEdit'
-	})
 	.when('/deleteCategory/:categoryId', {
-		controller : 'DeleteCategoryController'
+		templateUrl : 'views/deleteCategory.html',
+		controller : 'CategoryControllerDelete'
 	})
 	.when('/newCategory', {
 		templateUrl : 'views/newCategory.html',
@@ -31,14 +28,3 @@ var app = angular.module(
 		redirectTo : '/'
 	});
 });
-
-
-
-//function CategoryController($scope, $http) {
-//	$http.get("http://localhost:8081/backend/rest/categoryService/categories")
-//			.success(function(response) {
-//				$scope.categories = response;
-//			}).error(function() {
-//				console.log("error");
-//			});
-//}

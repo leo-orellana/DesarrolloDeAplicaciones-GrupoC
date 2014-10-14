@@ -15,13 +15,12 @@ function CategoryControllerNew($scope, $http, $location, alert){
 			.error(function() {
 				console.log("error");
 			});	
-	
+	$scope.title = 'New category';
 	$scope.submit = function(form){
 		$http.get("http://localhost:8081/backend/rest/categoryService/save/"+$scope.nameCategory+"/"+$scope.idMovement)
 			.success(function(response){
-				console.log("Exito!");
-				alert("La categoría <" + response.name + "> se ha creado correctamente")
-					.then(function(){
+				alert("The category <" + response.name + "> was created successfully")
+				.then(function(){
 						$location.path('/categories');
 					});
 			})
@@ -31,29 +30,49 @@ function CategoryControllerNew($scope, $http, $location, alert){
 	}
 }
 
-function CategoryControllerEdit($scope, $http, $routeParams){
-	$scope.movs="1";
-	
+function CategoryControllerEdit($scope, $http, $routeParams, $location, alert){
+	$http.get("http://localhost:8081/backend/rest/movementService/movements")
+	.success(function(response) {
+		$scope.movements = response;
+	})
+	.error(function() {
+		console.log("error");
+	});	
+	$scope.title = 'Edit category';
 	$http.get("http://localhost:8081/backend/rest/categoryService/category/" + $routeParams.categoryId)
-		.success(function(response) {
-			$scope.category = response;
-			$http.get("http://localhost:8081/backend/rest/movementService/movements")
-				.success(function(response){
-					$scope.movements = response;
-				}).error(function(){
-					console.log("error");
-				});
-		}).error(function() {
-			console.log("error");
-		});			
+	.success(function(response) {
+		$scope.category = response;
+		$scope.nameCategory =  $scope.category.name;
+		$scope.idMovement = $scope.category.movement.id;
+	})
+	.error(function() {
+		console.log("error");
+	});	
+	
+	
+		
+	$scope.submit = function(form){
+		$http.get("http://localhost:8081/backend/rest/categoryService/update/"+$routeParams.categoryId+'/'+$scope.nameCategory+"/"+$scope.idMovement)
+			.success(function(response){
+				alert("The category <" + response.name + "> was updated successfully")
+					.then(function(){
+						$location.path('/categories');
+					});
+			})
+			.error(function() {
+				console.log("error");
+		});
+	}		
 }
 
-function CategoryControllerDelete($scope, $http, $routeParams) {
+function CategoryControllerDelete($scope, $http, $routeParams, $location, alert) {
 			$http.get("http://localhost:8081/backend/rest/categoryService/delete/"+$routeParams.categoryId)
 			.success(function(response){
-				$scope.message = "The category <" + response.name + "> has been deleted";
+				alert("The category <" + response.name + "> was deleted successfully")
+				.then(function(){
+					$location.path('/categories');
+				});
 			}).error(function(){
 				console.log("error");
-				$scope.message = "Error!";
 			});
 }

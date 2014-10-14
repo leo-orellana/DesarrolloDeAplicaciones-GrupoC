@@ -17,11 +17,11 @@ var app = angular.module(
 		controller : 'CategoryControllerList'
 	})
 	.when('/deleteCategory/:categoryId', {
-		templateUrl : 'views/deleteCategory.html',
+		templateUrl : 'views/categories.html',
 		controller : 'CategoryControllerDelete'
 	})
 	.when('/newCategory', {
-		templateUrl : 'views/newCategory.html',
+		templateUrl : 'views/editCategory.html',
 		controller : 'CategoryControllerNew'
 	})
 	.when('/editCategory/:categoryId', {

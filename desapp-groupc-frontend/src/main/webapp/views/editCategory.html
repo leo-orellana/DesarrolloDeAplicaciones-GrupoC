@@ -1,30 +1,29 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<h2>Edit Category</h2>
+		<h2>{{title}}</h2>
 
-		<form role="form">
+		<form role="form" name="newCategoryForm">
 			<div class="form-group">
 				<label for="categorieName">Type operation</label>
 				<div class="row">
-	                <div class="col-md-3" ng-repeat="mov in movements">
+					<div class="col-md-3" ng-repeat="mov in movements">
 						<div class="radio">
 							<label>
-							<input type="radio" name="optionsMovements" id="{{mov.id}}" ng-model="1" value="{{mov.id}}">
-							{{mov.name}}
-							</label> 
+							<input type="radio" name="optionsMovements" id="{{mov.id}}" ng-model="$parent.idMovement" value="{{mov.id}}">
+							{{mov.name}}</label> 
 						</div>
-	                </div>
+					</div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="categorieName">Name</label> <input type="text"
 					class="form-control" id="exampleInputName"
-					value="{{category.name}}">
+					placeholder="Enter categorie name" ng-model="nameCategory">
 			</div>
 
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<button data-ng-click="submit(newCategoryForm)" class="btn btn-primary">Submit</button>
+			<a href="#/categories" class="btn btn-danger">Cancel</a>
 		</form>
 	</div>
 </div>
-

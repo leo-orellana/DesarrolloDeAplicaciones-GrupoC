@@ -7,3 +7,14 @@ function CategoryControllerList($scope, $http) {
 			});
 }
 
+function CategoryControllerNew($scope, $http){
+	$scope.movs="1";
+	
+	$http.get("http://localhost:8081/backend/rest/movementService/movements")
+			.success(function(response) {
+				$scope.movements = response;
+			}).error(function() {
+				console.log("error");
+			});		
+}
+

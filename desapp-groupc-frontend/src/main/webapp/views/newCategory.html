@@ -6,17 +6,10 @@
 			<div class="form-group">
 				<label for="categorieName">Type operation</label>
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-3" ng-repeat="mov in movements">
 						<div class="radio">
-							<label> <input type="radio" name="optionsRadios"
-								id="optionsRadios1" value="option1" checked> Ingress
-							</label>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="radio">
-							<label> <input type="radio" name="optionsRadios"
-								id="optionsRadios2" value="option2"> Egress
+							<label> <input type="radio" name="optionsMovements" ng-model="movs"
+								id="{{mov.id}}" value="{{mov.id}}"> {{mov.name}}
 							</label>
 						</div>
 					</div>
@@ -32,6 +25,4 @@
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
-</div>
-
 </div>

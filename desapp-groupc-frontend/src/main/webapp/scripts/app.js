@@ -23,6 +23,10 @@ var app = angular.module(
 	.when('/deleteCategory/:categoryId', {
 		controller : 'DeleteCategoryController'
 	})
+	.when('/newCategory', {
+		templateUrl : 'views/newCategory.html',
+		controller : 'CategoryControllerNew'
+	})
 	.otherwise({
 		redirectTo : '/'
 	});

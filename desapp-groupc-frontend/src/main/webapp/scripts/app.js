@@ -24,6 +24,10 @@ var app = angular.module(
 		templateUrl : 'views/newCategory.html',
 		controller : 'CategoryControllerNew'
 	})
+	.when('/editCategory/:categoryId', {
+		templateUrl : 'views/editCategory.html',
+		controller : 'CategoryControllerEdit'
+	})
 	.otherwise({
 		redirectTo : '/'
 	});

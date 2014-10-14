@@ -1,32 +1,26 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<h2>Load new category</h2>
+		<h2>Edit Category</h2>
 
 		<form role="form">
 			<div class="form-group">
 				<label for="categorieName">Type operation</label>
 				<div class="row">
-					<div class="col-md-3">
+	                <div class="col-md-3" ng-repeat="mov in movements">
 						<div class="radio">
-							<label> <input type="radio" name="optionsRadios"
-								id="optionsRadios1" value="option1" checked> Ingress
-							</label>
+							<label>
+							<input type="radio" name="optionsMovements" id="{{mov.id}}" ng-model="1" value="{{mov.id}}">
+							{{mov.name}}
+							</label> 
 						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="radio">
-							<label> <input type="radio" name="optionsRadios"
-								id="optionsRadios2" value="option2"> Egress
-							</label>
-						</div>
-					</div>
+	                </div>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="categorieName">Name</label> <input type="text"
 					class="form-control" id="exampleInputName"
-					placeholder="Enter categorie name">
+					value="{{category.name}}">
 			</div>
 
 			<button type="submit" class="btn btn-primary">Submit</button>
@@ -34,4 +28,3 @@
 	</div>
 </div>
 
-</div>

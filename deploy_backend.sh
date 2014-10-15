@@ -15,7 +15,7 @@ cd $BACKEND_ROOT_PATH
 mvn clean install
 cd target
 mv desapp-groupc-backend-1.0-SNAPSHOT.war backend.war
-cp backend.war $TOMCAT_PATH/webapp
+cp backend.war $TOMCAT_PATH/webapps
 
 # start tomcat
 cd $TOMCAT_PATH

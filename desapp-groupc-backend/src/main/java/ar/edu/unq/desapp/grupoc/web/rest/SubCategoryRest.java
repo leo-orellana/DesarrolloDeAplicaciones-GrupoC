@@ -10,8 +10,6 @@ import javax.ws.rs.Produces;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupoc.model.Category;
-import ar.edu.unq.desapp.grupoc.model.Egress;
-import ar.edu.unq.desapp.grupoc.model.Ingress;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
 import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
@@ -24,10 +22,26 @@ public class SubCategoryRest {
 	private CategoryService categoryService;
 	
 	@GET
+	@Path("/subcategory/{id}")
+	@Produces("application/json")
+	public Subcategory getSubCategory(@PathParam("id") final int id) {
+		Subcategory subcat = getSubCategoryService().getById(id);
+		return subcat;
+	}
+	
+	@GET
+	@Path("/delete/{id}")
+	@Produces("application/json")
+	public Subcategory deleteSubCategory(@PathParam("id") final int id) {
+		Subcategory subcat = this.getSubCategory(id);
+		getSubCategoryService().delete(subcat);
+		return subcat;
+	}
+	
+	@GET
 	@Path("/subcategories")
 	@Produces("application/json")
-	public List<Subcategory> getCategories() {
-		this.initializeContext();
+	public List<Subcategory> getSubCategories() {
 		return getSubCategoryService().retriveAll();
 	}
 
@@ -38,6 +52,33 @@ public class SubCategoryRest {
 		return getSubCategoryService().filterByName(name);
 	}
 	
+	@GET
+	@Path("/save/{name}/{categoryId}")
+	@Produces("application/json")
+	public Subcategory saveSubcategory(@PathParam("name") final String name,
+			@PathParam("categoryId") final int categoryId) {
+		Subcategory subcat = new Subcategory();
+		Category cat = getCategoryService().getById(categoryId);
+		subcat.setName(name);
+		subcat.setCategory(cat);
+		getSubCategoryService().save(subcat);
+		return subcat;
+	}
+	
+	@GET
+	@Path("/update/{id}/{name}/{categoryId}")
+	@Produces("application/json")
+	public Subcategory updateSubcategory(@PathParam("id") final int id,
+			@PathParam("name") final String name,
+			@PathParam("categoryId") final int categoryId) {
+		Subcategory subcat = getSubCategoryService().getById(id);
+		Category cat = getCategoryService().getById(categoryId);
+		subcat.setName(name);
+		subcat.setCategory(cat);
+		getSubCategoryService().update(subcat);
+		return subcat;
+	}
+
 	
 	public SubCategoryService getSubCategoryService() {
 		return subCategoryService;
@@ -45,32 +86,6 @@ public class SubCategoryRest {
 
 	public void setSubCategoryService(SubCategoryService subCategoryService) {
 		this.subCategoryService = subCategoryService;
-	}
-	
-	private void initializeContext() {
-		Ingress ingress = new Ingress();
-		ingress.setName("Ingress");
-		Egress egress = new Egress();
-		egress.setName("Egress");
-
-		Category ventas = new Category();
-		ventas.setName("Ventas");
-		ventas.setMovement(ingress);
-
-		Category rifas = new Category();
-		rifas.setName("Rifas");
-		rifas.setMovement(ingress);
-		
-		Subcategory televisores = new Subcategory();
-		televisores.setCategory(ventas);
-		televisores.setName("Televisores");
-		
-		Subcategory autos = new Subcategory();
-		autos.setCategory(ventas);
-		autos.setName("Autos");
-		
-		getSubCategoryService().save(televisores);
-		getSubCategoryService().save(autos);
 	}
 
 	public CategoryService getCategoryService() {

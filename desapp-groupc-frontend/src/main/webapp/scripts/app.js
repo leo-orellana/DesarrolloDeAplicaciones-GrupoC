@@ -12,6 +12,8 @@ var app = angular.module(
 		[ 'ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize',
 				'ngTouch', 'ngGrid' ]).config(function($routeProvider) {
 	$routeProvider
+	
+	/*** CATEGORIES ***/
 	.when('/categories', {
 		templateUrl : 'views/categories.html',
 		controller : 'CategoryControllerList'
@@ -28,6 +30,17 @@ var app = angular.module(
 		templateUrl : 'views/editCategory.html',
 		controller : 'CategoryControllerEdit'
 	})
+	
+	/*** SUBCATEGORIES ***/
+	.when('/subcategories', {
+		templateUrl : 'views/subcategories.html',
+		controller : 'SubcategoryControllerList'
+	})
+	.when('/newSubcategory', {
+		templateUrl : 'views/editSubcategory.html',
+		controller : 'SubcategoryControllerNew'
+	})
+	
 	.otherwise({
 		redirectTo : '/'
 	});

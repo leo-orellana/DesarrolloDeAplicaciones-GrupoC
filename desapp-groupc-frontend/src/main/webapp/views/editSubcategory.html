@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<h2>{{title}}</h2>
+
+		<form role="form" name="newSubcategoryForm">
+			<div class="form-group">
+				<label for="subcategorieName">Type operation</label>
+				<div class="row">
+					<div class="col-md-3" ng-repeat="cat in categories">
+						<div class="radio">
+							<label>
+							<input type="radio" name="optionsMovements" id="{{cat.id}}" ng-model="$parent.idCategory" value="{{cat.id}}">
+							{{cat.name}}</label> 
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="subcategorieName">Name</label> <input type="text"
+					class="form-control" id="exampleInputName"
+					placeholder="Enter sub categorie name" ng-model="nameSubcategory">
+			</div>
+
+			<button data-ng-click="submit(newSubcategoryForm)" class="btn btn-primary">Submit</button>
+			<a href="#/subcategories" class="btn btn-danger">Cancel</a>
+		</form>
+	</div>
+</div>

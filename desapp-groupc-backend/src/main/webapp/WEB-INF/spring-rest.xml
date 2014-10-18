@@ -65,6 +65,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	<bean id="DBRest" class="ar.edu.unq.desapp.grupoc.web.rest.InitDBRest">
 		<property name="categoryService" ref="services.categories" />
 		<property name="movementService" ref="services.movements" />
+		<property name="subcategoryService" ref="services.subcategories" />
 	</bean>
 	
 </beans>

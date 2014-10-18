@@ -27,7 +27,6 @@ public class SubCategoryRest {
 	@Path("/subcategories")
 	@Produces("application/json")
 	public List<Subcategory> getCategories() {
-		this.initializeContext();
 		return getSubCategoryService().retriveAll();
 	}
 

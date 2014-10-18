@@ -8,13 +8,16 @@ import org.springframework.stereotype.Service;
 import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
+import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
 import ar.edu.unq.desapp.grupoc.services.MovementService;
+import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
 
 @Service
 @Path("/db")
 public class InitDBRest {
 
+	private SubCategoryService subcategoryService;
 	private CategoryService categoryService;
 	private MovementService movementService;
 	
@@ -33,16 +36,23 @@ public class InitDBRest {
 		getMovementService().save(egress);
 		
 		// CREATE CATEGORIES
-		Category pagoSueldos = new Category();
-		pagoSueldos.setName("Pago Sueldos");
-		pagoSueldos.setMovement(egress);
+		Category pagos = new Category();
+		pagos.setName("Pago");
+		pagos.setMovement(egress);
 		
 		Category ventas = new Category();
 		ventas.setName("Ventas");
 		ventas.setMovement(ingress);
 		
-		getCategoryService().save(pagoSueldos);
+		getCategoryService().save(pagos);
 		getCategoryService().save(ventas);
+		
+		// CREATE SUBCATEGORIES
+		Subcategory pagoSueldos = new Subcategory("Pago Sueldos", pagos);
+		Subcategory televisores = new Subcategory("Venta televisores", ventas);
+		
+		getSubcategoryService().save(pagoSueldos);
+		getSubcategoryService().save(televisores);
 	}
 
 	public CategoryService getCategoryService() {
@@ -59,5 +69,12 @@ public class InitDBRest {
 
 	public void setMovementService(MovementService movementService) {
 		this.movementService = movementService;
+	}
+	public SubCategoryService getSubcategoryService() {
+		return subcategoryService;
+	}
+	
+	public void setSubcategoryService(SubCategoryService subcategoryService) {
+		this.subcategoryService = subcategoryService;
 	}
 }

@@ -40,6 +40,14 @@ var app = angular.module(
 		templateUrl : 'views/editSubcategory.html',
 		controller : 'SubcategoryControllerNew'
 	})
+	.when('/deleteSubcategory/:subcategoryId', {
+		templateUrl : 'views/subcategories.html',
+		controller : 'SubcategoryControllerDelete'
+	})
+	.when('/editSubcategory/:subcategoryId', {
+		templateUrl : 'views/editSubcategory.html',
+		controller : 'SubcategoryControllerEdit'
+	})
 	
 	.otherwise({
 		redirectTo : '/'

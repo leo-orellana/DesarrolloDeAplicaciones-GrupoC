@@ -4,14 +4,12 @@
 
 		<form role="form" name="newSubcategoryForm">
 			<div class="form-group">
-				<label for="subcategorieName">Type operation</label>
+				<label for="subcategorieName">Select the category</label>
 				<div class="row">
-					<div class="col-md-3" ng-repeat="cat in categories">
-						<div class="radio">
-							<label>
-							<input type="radio" name="optionsMovements" id="{{cat.id}}" ng-model="$parent.idCategory" value="{{cat.id}}">
-							{{cat.name}}</label> 
-						</div>
+					<div class="col-md-4">
+						<select class="form-control" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories">
+							<option value="">-- select category --</option>
+						</select>
 					</div>
 				</div>
 			</div>

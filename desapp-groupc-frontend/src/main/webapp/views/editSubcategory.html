@@ -7,7 +7,7 @@
 				<label for="subcategorieName">Select the category</label>
 				<div class="row">
 					<div class="col-md-4">
-						<select class="form-control" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories">
+						<select required class="form-control" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories">
 							<option value="">-- select category --</option>
 						</select>
 					</div>
@@ -15,7 +15,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="subcategorieName">Name</label> <input type="text"
+				<label for="subcategorieName">Name</label> <input required type="text"
 					class="form-control" id="exampleInputName"
 					placeholder="Enter sub categorie name" ng-model="nameSubcategory">
 			</div>

@@ -9,7 +9,7 @@
 					<div class="col-md-3" ng-repeat="mov in movements">
 						<div class="radio">
 							<label>
-							<input type="radio" name="optionsMovements" id="{{mov.id}}" ng-model="$parent.idMovement" value="{{mov.id}}">
+							<input required type="radio" name="optionsMovements" id="{{mov.id}}" ng-model="$parent.idMovement" value="{{mov.id}}">
 							{{mov.name}}</label> 
 						</div>
 					</div>
@@ -17,7 +17,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="categorieName">Name</label> <input type="text"
+				<label for="categorieName">Name</label> <input required type="text"
 					class="form-control" id="exampleInputName"
 					placeholder="Enter categorie name" ng-model="nameCategory">
 			</div>

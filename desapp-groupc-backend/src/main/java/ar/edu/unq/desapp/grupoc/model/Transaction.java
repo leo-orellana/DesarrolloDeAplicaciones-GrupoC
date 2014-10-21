@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoc.model;
 
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Transaction {
 
@@ -20,13 +21,13 @@ public class Transaction {
             OperationCheckingAccount operationCheckingAccount,
             OperationBankAccount operationBankAccount, Date date) {
         super();
-        this.subcategory = subcategory;
-        this.time = time;
-        this.concept = concept;
-        this.operationCashAccount = operationCashAccount;
-        this.operationCheckingAccount = operationCheckingAccount;
-        this.operationBankAccount = operationBankAccount;
-        this.date = date;
+        this.setSubcategory(subcategory);
+        this.setTime(time);
+        this.setConcept(concept);
+        this.setOperationCashAccount(operationCashAccount);
+        this.setOperationBankAccount(operationBankAccount);
+        this.setOperationCheckingAccount(operationCheckingAccount);
+        this.setDate(date);
     }
 
     public Subcategory getSubcategory() {

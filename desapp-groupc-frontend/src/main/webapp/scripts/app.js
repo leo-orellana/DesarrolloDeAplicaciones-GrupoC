@@ -49,6 +49,12 @@ var app = angular.module(
 		controller : 'SubcategoryControllerEdit'
 	})
 	
+	// TRANSACTIONS
+	.when('/transactions', {
+		templateUrl : 'views/transactions.html',
+		controller : 'TransactionControllerList'
+	})
+	
 	.otherwise({
 		redirectTo : '/'
 	});

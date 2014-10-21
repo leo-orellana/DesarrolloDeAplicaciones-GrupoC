@@ -4,14 +4,16 @@ import java.util.Date;
 
 public class Transaction {
 
-	
-    private Subcategory subcategory;
-    private Time time;
-    private String concept;
-    private OperationCashAccount operationCashAccount;
-    private OperationCheckingAccount operationCheckingAccount;
-    private OperationBankAccount operationBankAccount;
-    private Date date;
+	public Integer id;
+	public Subcategory subcategory;
+    public Time time;
+    public String concept;
+    public OperationCashAccount operationCashAccount;
+    public OperationCheckingAccount operationCheckingAccount;
+    public OperationBankAccount operationBankAccount;
+    public Date date;
+    
+    public Transaction(){}
     
     public Transaction(Subcategory subcategory, Time time, String concept,
             OperationCashAccount operationCashAccount,
@@ -87,5 +89,12 @@ public class Transaction {
     public void setDate(Date date) {
         this.date = date;
     }
+    
+    public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

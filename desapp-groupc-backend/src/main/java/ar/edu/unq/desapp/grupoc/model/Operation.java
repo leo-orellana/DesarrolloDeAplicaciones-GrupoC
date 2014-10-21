@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoc.model;
 
 public class Operation {
 
+	private int id;
     private Movement movement;
     private Double amount;
 
@@ -11,7 +12,9 @@ public class Operation {
         setAmount(amount);
     }
 
-    /**
+    public Operation() {}
+
+	/**
      * This method updated a balance of the aAccount.
      * 
      * @param aAccount
@@ -42,5 +45,13 @@ public class Operation {
     public void setMovement(Movement movement) {
         this.movement = movement;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 }

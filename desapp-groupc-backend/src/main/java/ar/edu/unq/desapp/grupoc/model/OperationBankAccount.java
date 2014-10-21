@@ -3,6 +3,10 @@ package ar.edu.unq.desapp.grupoc.model;
 public class OperationBankAccount extends Operation {
 
     private BankOperation bankOperation;
+    
+    public OperationBankAccount(){
+    	super();
+    }
 
     public OperationBankAccount(Movement movement, Double amount,
             BankOperation bankOperation) {

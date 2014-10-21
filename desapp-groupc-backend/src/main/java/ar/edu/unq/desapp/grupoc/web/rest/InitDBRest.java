@@ -1,17 +1,26 @@
 package ar.edu.unq.desapp.grupoc.web.rest;
 
+import java.util.Date;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Service;
 
+import ar.edu.unq.desapp.grupoc.model.BankOperation;
+import ar.edu.unq.desapp.grupoc.model.BankOperationCredit;
 import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
+import ar.edu.unq.desapp.grupoc.model.Movement;
+import ar.edu.unq.desapp.grupoc.model.OperationBankAccount;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
+import ar.edu.unq.desapp.grupoc.model.Time;
+import ar.edu.unq.desapp.grupoc.model.Transaction;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
 import ar.edu.unq.desapp.grupoc.services.MovementService;
 import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
+import ar.edu.unq.desapp.grupoc.services.TransactionService;
 
 @Service
 @Path("/db")
@@ -20,6 +29,7 @@ public class InitDBRest {
 	private SubCategoryService subcategoryService;
 	private CategoryService categoryService;
 	private MovementService movementService;
+	private TransactionService transactionService;
 	
 	@GET
 	@Path("/init")
@@ -53,6 +63,17 @@ public class InitDBRest {
 		
 		getSubcategoryService().save(pagoSueldos);
 		getSubcategoryService().save(televisores);
+		
+		// CREATE TRANSACTIONS
+		Transaction transaction1 = new Transaction();
+		transaction1.setConcept("transaction example");
+		transaction1.setDate(new Date(2014, 10, 20));
+		transaction1.setTime(Time.Morning);
+		transaction1.setSubcategory(pagoSueldos);
+		BankOperation bankOp = new BankOperationCredit();
+		transaction1.setOperationBankAccount(new OperationBankAccount(ingress, new Double(10), bankOp));
+		
+		getTransactionService().save(transaction1);
 	}
 
 	public CategoryService getCategoryService() {
@@ -76,5 +97,13 @@ public class InitDBRest {
 	
 	public void setSubcategoryService(SubCategoryService subcategoryService) {
 		this.subcategoryService = subcategoryService;
+	}
+
+	public TransactionService getTransactionService() {
+		return transactionService;
+	}
+
+	public void setTransactionService(TransactionService transactionService) {
+		this.transactionService = transactionService;
 	}
 }

@@ -18,5 +18,13 @@
 	<bean id="services.subcategories" class="ar.edu.unq.desapp.grupoc.services.SubCategoryService">
 		<property name="dao" ref="persistence.subcategorydao" />
 	</bean>
+	
+	<bean id="services.transactions" class="ar.edu.unq.desapp.grupoc.services.TransactionService">
+		<property name="dao" ref="persistence.transactiondao" />
+	</bean>
+	
+	<bean id="services.operations" class="ar.edu.unq.desapp.grupoc.services.OperationService">
+		<property name="dao" ref="persistence.operationdao" />
+	</bean>
 
 </beans>

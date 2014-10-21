@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false" default-access="field"
+	default-cascade="save-update">
+	<class name="ar.edu.unq.desapp.grupoc.model.Transaction" table="transactions">
+		<id name="id" type="int" column="id">
+	        <generator class="native"/>
+	    </id>
+	    <property name="concept"></property>
+		<many-to-one name="subcategory" class="ar.edu.unq.desapp.grupoc.model.Subcategory">
+			<column name="subcategoryID"></column>
+		</many-to-one>
+		<property name="date" type="date"></property>
+		<property name="time" column="time">
+      		<type name="org.hibernate.type.EnumType">
+         	<param name="enumClass">ar.edu.unq.desapp.grupoc.model.Time</param>
+         	<param name="type">12</param>
+      		</type>
+   	 	</property>
+   	 	
+   	 	<many-to-one name="operationCashAccount" class="ar.edu.unq.desapp.grupoc.model.OperationCashAccount">
+			<column name="operationCashAccount"></column>
+		</many-to-one>
+		<many-to-one name="operationCheckingAccount" class="ar.edu.unq.desapp.grupoc.model.OperationCheckingAccount">
+			<column name="operationCheckingAccount"></column>
+		</many-to-one>
+		<many-to-one name="operationBankAccount" class="ar.edu.unq.desapp.grupoc.model.OperationBankAccount">
+			<column name="operationBankAccount"></column>
+		</many-to-one>
+		
+	</class>
+	
+</hibernate-mapping>

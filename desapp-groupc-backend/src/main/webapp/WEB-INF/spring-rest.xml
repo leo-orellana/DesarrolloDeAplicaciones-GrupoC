@@ -30,6 +30,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
 	<jaxrs:server id="category" address="/"> 
 		<jaxrs:serviceBeans>
+			<ref bean="transactionRest" />
+			<ref bean="operationRest" />
 			<ref bean="categoryRest" />
 			<ref bean="movementRest" />
 			<ref bean="subcategoryRest" />
@@ -57,6 +59,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	<bean id="movementRest" class="ar.edu.unq.desapp.grupoc.web.rest.MovementRest">
 		<property name="movementService" ref="services.movements" />
 	</bean>
+	
+	<bean id="operationRest" class="ar.edu.unq.desapp.grupoc.web.rest.OperationRest">
+		<property name="operationService" ref="services.operations" />
+	</bean>
 
 	<bean id="subcategoryRest" class="ar.edu.unq.desapp.grupoc.web.rest.SubCategoryRest">
 		<property name="subCategoryService" ref="services.subcategories" />
@@ -67,6 +73,11 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<property name="categoryService" ref="services.categories" />
 		<property name="movementService" ref="services.movements" />
 		<property name="subcategoryService" ref="services.subcategories" />
+		<property name="transactionService" ref="services.transactions" />
+	</bean>
+	
+	<bean id="transactionRest" class="ar.edu.unq.desapp.grupoc.web.rest.TransactionRest">
+		<property name="transactionService" ref="services.transactions" />
 	</bean>
 	
 </beans>

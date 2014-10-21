@@ -12,6 +12,9 @@
 	    <one-to-one name="movement" class="ar.edu.unq.desapp.grupoc.model.Movement"></one-to-one>
 	    <property name="amount" type="double" column ="amount" /> 
 	    <subclass name="ar.edu.unq.desapp.grupoc.model.OperationBankAccount" discriminator-value="OP_BANK">
+	    	<many-to-one name="bankOperation" class="ar.edu.unq.desapp.grupoc.model.BankOperation">
+				<column name="bankOperationID"></column>
+			</many-to-one>
 	    </subclass>
 		<subclass name="ar.edu.unq.desapp.grupoc.model.OperationCashAccount" discriminator-value="OP_CASH">
 	    </subclass>

@@ -26,5 +26,9 @@
 	<bean id="services.operations" class="ar.edu.unq.desapp.grupoc.services.OperationService">
 		<property name="dao" ref="persistence.operationdao" />
 	</bean>
+	
+	<bean id="services.bankOperations" class="ar.edu.unq.desapp.grupoc.services.BankOperationService">
+		<property name="dao" ref="persistence.bankoperationdao" />
+	</bean>
 
 </beans>

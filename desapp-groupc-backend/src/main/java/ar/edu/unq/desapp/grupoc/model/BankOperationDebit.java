@@ -2,6 +2,10 @@ package ar.edu.unq.desapp.grupoc.model;
 
 public class BankOperationDebit extends BankOperation {
 
+	public BankOperationDebit(){
+		super();
+	}
+	
     /**
      * This method updated a available money and a balance of the AccountBank
      */

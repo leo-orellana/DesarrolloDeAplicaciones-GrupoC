@@ -2,6 +2,9 @@ package ar.edu.unq.desapp.grupoc.model;
 
 public class BankOperationCredit extends BankOperation {
 
+	public BankOperationCredit(){
+		super();
+	}
     /**
      * This method updated a accrued money and a balance of the AccountBank
      */

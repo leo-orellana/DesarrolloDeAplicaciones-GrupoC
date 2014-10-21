@@ -14,6 +14,8 @@ import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
 import ar.edu.unq.desapp.grupoc.model.Movement;
 import ar.edu.unq.desapp.grupoc.model.OperationBankAccount;
+import ar.edu.unq.desapp.grupoc.model.OperationCashAccount;
+import ar.edu.unq.desapp.grupoc.model.OperationCheckingAccount;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.model.Time;
 import ar.edu.unq.desapp.grupoc.model.Transaction;
@@ -71,7 +73,9 @@ public class InitDBRest {
 		transaction1.setTime(Time.Morning);
 		transaction1.setSubcategory(pagoSueldos);
 		BankOperation bankOp = new BankOperationCredit();
-		transaction1.setOperationBankAccount(new OperationBankAccount(ingress, new Double(10), bankOp));
+		transaction1.setOperationBankAccount(new OperationBankAccount(egress, new Double(10), bankOp));
+		transaction1.setOperationCashAccount(new OperationCashAccount(egress,new Double(15)));
+		transaction1.setOperationCheckingAccount(new OperationCheckingAccount(egress,new Double(20)));
 		
 		getTransactionService().save(transaction1);
 	}

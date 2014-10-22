@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoc.model;
 
 import java.util.Date;
-import java.util.TimeZone;
 
 public class Transaction {
 

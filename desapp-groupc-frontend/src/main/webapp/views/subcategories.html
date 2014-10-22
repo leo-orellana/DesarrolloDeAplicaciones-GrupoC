@@ -11,7 +11,7 @@
                     <div class="col-md-6">
                         <br/>
                         <div class="input-group">
-                            <input class="form-control" type="search" placeholder="Search">
+                            <input class="form-control" type="search" placeholder="Search by name" ng-model="query">
                             <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="subcategory in subcategories">
+                        <tr ng-repeat="subcategory in subcategories | filter:query">
                             <td class="actions">
                                 <a href="#/editSubcategory/{{subcategory.id}}" class="btn btn-link"><i class="fa fa-pencil fa-fw"></i></a>
                                 <a href="#/deleteSubcategory/{{subcategory.id}}" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></a>

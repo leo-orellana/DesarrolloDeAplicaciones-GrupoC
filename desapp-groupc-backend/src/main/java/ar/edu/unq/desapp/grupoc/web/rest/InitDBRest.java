@@ -12,7 +12,6 @@ import ar.edu.unq.desapp.grupoc.model.BankOperationCredit;
 import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
-import ar.edu.unq.desapp.grupoc.model.Movement;
 import ar.edu.unq.desapp.grupoc.model.OperationBankAccount;
 import ar.edu.unq.desapp.grupoc.model.OperationCashAccount;
 import ar.edu.unq.desapp.grupoc.model.OperationCheckingAccount;
@@ -77,7 +76,29 @@ public class InitDBRest {
 		transaction1.setOperationCashAccount(new OperationCashAccount(egress,new Double(15)));
 		transaction1.setOperationCheckingAccount(new OperationCheckingAccount(egress,new Double(20)));
 		
+		Transaction transaction2 = new Transaction();
+		transaction2.setConcept("transactional exaple");
+		transaction2.setDate(new Date(2014, 10, 21));
+		transaction2.setTime(Time.Afternoon);
+		transaction2.setSubcategory(pagoSueldos);
+		BankOperation bankOp2 = new BankOperationCredit();
+		transaction2.setOperationBankAccount(new OperationBankAccount(egress, new Double(10), bankOp2));
+		transaction2.setOperationCashAccount(new OperationCashAccount(egress,new Double(15)));
+		transaction2.setOperationCheckingAccount(new OperationCheckingAccount(egress,new Double(20)));
+
+		Transaction transaction3 = new Transaction();
+		transaction3.setConcept("algo diferente");
+		transaction3.setDate(new Date(2014, 10, 22));
+		transaction3.setTime(Time.Afternoon);
+		transaction3.setSubcategory(pagoSueldos);
+		BankOperation bankOp3 = new BankOperationCredit();
+		transaction3.setOperationBankAccount(new OperationBankAccount(egress, new Double(10), bankOp3));
+		transaction3.setOperationCashAccount(new OperationCashAccount(egress,new Double(15)));
+		transaction3.setOperationCheckingAccount(new OperationCheckingAccount(egress,new Double(20)));
+		
 		getTransactionService().save(transaction1);
+		getTransactionService().save(transaction2);
+		getTransactionService().save(transaction3);
 	}
 
 	public CategoryService getCategoryService() {

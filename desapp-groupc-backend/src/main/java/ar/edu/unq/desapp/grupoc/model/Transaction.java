@@ -18,7 +18,7 @@ public class Transaction {
     public Transaction(Subcategory subcategory, Time time, String concept,
             OperationCashAccount operationCashAccount,
             OperationCheckingAccount operationCheckingAccount,
-            OperationBankAccount operationBankAccount, Date date) {
+            OperationBankAccount operationBankAccount) {
         super();
         this.setSubcategory(subcategory);
         this.setTime(time);
@@ -26,7 +26,7 @@ public class Transaction {
         this.setOperationCashAccount(operationCashAccount);
         this.setOperationBankAccount(operationBankAccount);
         this.setOperationCheckingAccount(operationCheckingAccount);
-        this.setDate(date);
+        this.setDate(new Date());
     }
 
     public Subcategory getSubcategory() {

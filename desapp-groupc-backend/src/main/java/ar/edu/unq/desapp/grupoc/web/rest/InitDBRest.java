@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Service;
 
+import ar.edu.unq.desapp.grupoc.model.AccountManager;
 import ar.edu.unq.desapp.grupoc.model.BankOperation;
 import ar.edu.unq.desapp.grupoc.model.BankOperationCredit;
 import ar.edu.unq.desapp.grupoc.model.Category;
@@ -18,6 +19,7 @@ import ar.edu.unq.desapp.grupoc.model.OperationCheckingAccount;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.model.Time;
 import ar.edu.unq.desapp.grupoc.model.Transaction;
+import ar.edu.unq.desapp.grupoc.services.AccountManagerService;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
 import ar.edu.unq.desapp.grupoc.services.MovementService;
 import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
@@ -31,6 +33,7 @@ public class InitDBRest {
 	private CategoryService categoryService;
 	private MovementService movementService;
 	private TransactionService transactionService;
+	private AccountManagerService accountManagerService;
 	
 	@GET
 	@Path("/init")
@@ -99,6 +102,10 @@ public class InitDBRest {
 		getTransactionService().save(transaction1);
 		getTransactionService().save(transaction2);
 		getTransactionService().save(transaction3);
+		
+		// ACCOUNT MANAGER
+		AccountManager accountManager = new AccountManager(null, null, null);
+		getAccountManagerService().save(accountManager);
 	}
 
 	public CategoryService getCategoryService() {
@@ -130,5 +137,13 @@ public class InitDBRest {
 
 	public void setTransactionService(TransactionService transactionService) {
 		this.transactionService = transactionService;
+	}
+
+	public AccountManagerService getAccountManagerService() {
+		return accountManagerService;
+	}
+
+	public void setAccountManagerService(AccountManagerService accountManagerService) {
+		this.accountManagerService = accountManagerService;
 	}
 }

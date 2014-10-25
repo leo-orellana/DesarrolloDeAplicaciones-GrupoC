@@ -5,6 +5,7 @@ import java.util.List;
 
 public class AccountManager {
 
+	private int id;
 	private AccountCash accountCash;
 	private AccountChecking accountChecking;
 	private AccountBank accountBank;
@@ -16,6 +17,8 @@ public class AccountManager {
 		this.setAccountChecking(accountChecking);
 		this.setAccountbank(accountBank);
 	}
+
+	public AccountManager() {}
 
 	/**
 	 * The consolidation of the account at the moment. This method check the
@@ -121,5 +124,13 @@ public class AccountManager {
 
 	public void setAccountbank(AccountBank accountBank) {
 		this.accountBank = accountBank;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

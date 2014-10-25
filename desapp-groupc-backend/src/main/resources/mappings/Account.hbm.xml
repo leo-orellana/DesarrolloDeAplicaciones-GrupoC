@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" default-access="field"
+	default-cascade="save-update">
+	<class name="ar.edu.unq.desapp.grupoc.model.Account" table="accounts">
+	    <id name="id" type="int" column="id">
+	        <generator class="native"/>
+	    </id>
+	    <discriminator column="account_type" type="string"/>
+	    <property name="balance" type="double" column ="balance" /> 
+	    <subclass name="ar.edu.unq.desapp.grupoc.model.AccountCash" discriminator-value="CASH">
+	    </subclass>
+	    <subclass name="ar.edu.unq.desapp.grupoc.model.AccountBank" discriminator-value="BANK">
+	    	<property name="available" type="double" column ="available" />
+	    	<property name="accrued" type="double" column ="accrued" />
+	    </subclass>
+	    <subclass name="ar.edu.unq.desapp.grupoc.model.AccountChecking" discriminator-value="CHECK">
+	    </subclass>
+	</class>
+</hibernate-mapping>

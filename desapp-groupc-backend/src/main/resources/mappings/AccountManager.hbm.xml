@@ -7,6 +7,9 @@
 		<id name="id" type="int" column="id">
 	        <generator class="native"/>
 	    </id>
+	    <many-to-one name="accountCash" class="ar.edu.unq.desapp.grupoc.model.AccountCash"></many-to-one>
+	    <many-to-one name="accountChecking" class="ar.edu.unq.desapp.grupoc.model.AccountChecking"></many-to-one>
+	    <many-to-one name="accountBank" class="ar.edu.unq.desapp.grupoc.model.AccountBank"></many-to-one>
 	</class>
 	
 </hibernate-mapping>

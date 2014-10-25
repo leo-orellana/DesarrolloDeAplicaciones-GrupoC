@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoc.model;
 
 public class Account {
 
+	private int id;
     private Double balance;
 
     /**
@@ -20,5 +21,13 @@ public class Account {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 }

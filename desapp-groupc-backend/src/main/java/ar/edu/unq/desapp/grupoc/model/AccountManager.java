@@ -82,7 +82,7 @@ public class AccountManager {
 	 * 
 	 * @return The balance of the checking account.
 	 */
-	public Double getCheckingAccountBalance() {
+	public Double getCheckingBalance() {
 		return getAccountChecking().getBalance();
 	}
 

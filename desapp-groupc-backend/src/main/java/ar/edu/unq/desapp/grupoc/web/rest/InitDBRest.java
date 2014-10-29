@@ -7,6 +7,9 @@ import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Service;
 
+import ar.edu.unq.desapp.grupoc.model.AccountBank;
+import ar.edu.unq.desapp.grupoc.model.AccountCash;
+import ar.edu.unq.desapp.grupoc.model.AccountChecking;
 import ar.edu.unq.desapp.grupoc.model.AccountManager;
 import ar.edu.unq.desapp.grupoc.model.BankOperation;
 import ar.edu.unq.desapp.grupoc.model.BankOperationCredit;
@@ -104,7 +107,18 @@ public class InitDBRest {
 		getTransactionService().save(transaction3);
 		
 		// ACCOUNT MANAGER
-		AccountManager accountManager = new AccountManager(null, null, null);
+		AccountCash accountCash = new AccountCash();
+		accountCash.setBalance(new Double(0));
+		
+		AccountChecking accountChecking = new AccountChecking();
+		accountChecking.setBalance(new Double(0));
+		
+		AccountBank accountBank = new AccountBank();
+		accountBank.setBalance(new Double(0));
+		accountBank.setAccrued(new Double(0));
+		accountBank.setAvailable(new Double(0));
+		
+		AccountManager accountManager = new AccountManager(accountCash,accountChecking,accountBank);
 		getAccountManagerService().save(accountManager);
 	}
 

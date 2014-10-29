@@ -76,7 +76,7 @@ public class TestAccountManager extends TestCase {
         AccountManager mockAccountManager = BuilderAccountManager.getInstance()
                 .withAccountChecking(mockChecking).build();
 
-        mockAccountManager.getCheckingAccountBalance();
+        mockAccountManager.getCheckingBalance();
 
         verify(mockChecking, times(1)).getBalance();
     }

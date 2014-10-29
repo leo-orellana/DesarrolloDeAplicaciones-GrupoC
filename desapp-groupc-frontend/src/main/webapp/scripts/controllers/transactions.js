@@ -5,4 +5,10 @@ function TransactionControllerList($scope, $http) {
 			}).error(function() {
 				console.log("error");
 			});
+	$http.get("http://localhost:8081/backend/rest/accountManagerService/accountManager")
+	.success(function(response) {
+		$scope.accountManager = response;
+	}).error(function() {
+		console.log("error");
+	});
 }

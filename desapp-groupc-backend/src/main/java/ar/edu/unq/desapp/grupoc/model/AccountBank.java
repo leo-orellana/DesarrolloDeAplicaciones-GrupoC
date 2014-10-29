@@ -2,6 +2,8 @@ package ar.edu.unq.desapp.grupoc.model;
 
 public class AccountBank extends Account {
 
+	public AccountBank(){}
+	
     private Double available;
     private Double accrued;
 

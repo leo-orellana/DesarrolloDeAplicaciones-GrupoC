@@ -11,4 +11,9 @@ public class TestEgress extends TestCase {
         assertEquals(new Double(10),
                 egress.processAmount(new Double(12), new Double(2)));
     }
+    
+    public void testIsIngressAndReturnFalse(){
+    	Egress egress = new Egress();
+    	assertFalse(egress.isIngress());
+    }
 }

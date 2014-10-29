@@ -9,4 +9,9 @@ public class Egress extends Movement {
         return total - amount;
     }
 
+	@Override
+	public boolean isIngress() {
+		return false;
+	}
+
 }

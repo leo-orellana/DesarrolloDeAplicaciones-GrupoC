@@ -28,4 +28,5 @@ public abstract class Movement {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	public abstract boolean isIngress();
 }

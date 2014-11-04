@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
+import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
 
 public class SubCategoryDAO extends HibernateGenericDAO<Subcategory> implements
@@ -23,5 +24,12 @@ public class SubCategoryDAO extends HibernateGenericDAO<Subcategory> implements
 				.add(Restrictions.ilike("name", name, MatchMode.ANYWHERE)).list();
 		
 		return c;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Subcategory> filterByCategory(Category category){
+		List<Subcategory> l = this.getSession().createCriteria(Subcategory.class)
+				.add(Restrictions.eq("category", category)).list();
+		return l;
 	}
 }

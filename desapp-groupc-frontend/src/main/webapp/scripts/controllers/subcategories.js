@@ -1,5 +1,8 @@
+
+$rest = "http://localhost:8081/backend/rest/";
+
 function SubcategoryControllerList($scope, $http) {
-	$http.get("http://localhost:8081/backend/rest/subcategoryService/subcategories")
+	$http.get($rest + "subcategoryService/subcategories")
 			.success(function(response) {
 				$scope.subcategories = response;
 			}).error(function() {
@@ -8,7 +11,7 @@ function SubcategoryControllerList($scope, $http) {
 }
 
 function SubcategoryControllerNew($scope, $http, $location, alert){
-	$http.get("http://localhost:8081/backend/rest/categoryService/categories")
+	$http.get($rest + "categoryService/categories")
 			.success(function(response) {
 				$scope.categories = response;
 			})
@@ -17,7 +20,7 @@ function SubcategoryControllerNew($scope, $http, $location, alert){
 			});	
 	$scope.title = 'New Sub - Category';
 	$scope.submit = function(form){
-		$http.get("http://localhost:8081/backend/rest/subcategoryService/save/"+$scope.nameSubcategory+"/"+$scope.idCategory)
+		$http.get($rest + "subcategoryService/save/"+$scope.nameSubcategory+"/"+$scope.idCategory)
 			.success(function(response){
 				alert("The Subcategory <" + response.name + "> was created successfully")
 				.then(function(){
@@ -31,7 +34,7 @@ function SubcategoryControllerNew($scope, $http, $location, alert){
 }
 
 function SubcategoryControllerDelete($scope, $http, $routeParams, $location, alert) {
-	$http.get("http://localhost:8081/backend/rest/subcategoryService/delete/"+$routeParams.subcategoryId)
+	$http.get($rest + "subcategoryService/delete/"+$routeParams.subcategoryId)
 	.success(function(response){
 		alert("The sub category <" + response.name + "> was deleted successfully")
 		.then(function(){
@@ -43,14 +46,14 @@ function SubcategoryControllerDelete($scope, $http, $routeParams, $location, ale
 }
 
 function SubcategoryControllerEdit($scope, $http, $routeParams, $location, alert){
-	$http.get("http://localhost:8081/backend/rest/categoryService/categories")
+	$http.get($rest + "categoryService/categories")
 			.success(function(response) {
 				$scope.categories = response;
 			})
 			.error(function() {
 				console.log("error");
 			});	
-	$http.get("http://localhost:8081/backend/rest/subcategoryService/subcategory/"+$routeParams.subcategoryId)
+	$http.get($rest + "subcategoryService/subcategory/"+$routeParams.subcategoryId)
 	.success(function(response) {
 		$scope.idCategory = response.category.id;
 		$scope.nameSubcategory = response.name;
@@ -60,7 +63,7 @@ function SubcategoryControllerEdit($scope, $http, $routeParams, $location, alert
 	});	
 	$scope.title = 'Edit Sub - Category';
 	$scope.submit = function(form){
-		$http.get("http://localhost:8081/backend/rest/subcategoryService/update/"+$routeParams.subcategoryId+"/"+$scope.nameSubcategory+"/"+$scope.idCategory)
+		$http.get($rest + "subcategoryService/update/"+$routeParams.subcategoryId+"/"+$scope.nameSubcategory+"/"+$scope.idCategory)
 			.success(function(response){
 				alert("The Subcategory <" + response.name + "> was updated successfully")
 				.then(function(){

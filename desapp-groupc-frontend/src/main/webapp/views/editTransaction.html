@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<h2>{{title}}</h2>
+
+		<form role="form" name="newTransactionForm">
+			
+			<div class="form-group">
+				<label for="transactionName">Category</label>
+				<div class="row">
+					<div class="col-md-4">
+						<select required class="form-control" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories">
+							<option value="">-- select category --</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+
+			<button data-ng-click="submit(newTransactionForm)" class="btn btn-primary">Submit</button>
+			<a href="#/transactions" class="btn btn-danger">Cancel</a>
+		</form>
+	</div>
+</div>

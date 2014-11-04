@@ -54,7 +54,10 @@ var app = angular.module(
 		templateUrl : 'views/transactions.html',
 		controller : 'TransactionControllerList'
 	})
-	
+	.when('/newTransaction', {
+		templateUrl : 'views/editTransaction.html',
+		controller : 'TransactionControllerNew'
+	})
 	.otherwise({
 		redirectTo : '/'
 	});

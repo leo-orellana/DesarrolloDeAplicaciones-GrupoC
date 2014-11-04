@@ -1,5 +1,8 @@
+
+$rest = "http://localhost:8081/backend/rest/";
+
 function CategoryControllerList($scope, $http) {
-	$http.get("http://localhost:8081/backend/rest/categoryService/categories")
+	$http.get($rest + "categoryService/categories")
 			.success(function(response) {
 				$scope.categories = response;
 			}).error(function() {
@@ -8,7 +11,7 @@ function CategoryControllerList($scope, $http) {
 }
 
 function CategoryControllerNew($scope, $http, $location, alert){
-	$http.get("http://localhost:8081/backend/rest/movementService/movements")
+	$http.get($rest + "movementService/movements")
 			.success(function(response) {
 				$scope.movements = response;
 			})
@@ -17,7 +20,7 @@ function CategoryControllerNew($scope, $http, $location, alert){
 			});	
 	$scope.title = 'New category';
 	$scope.submit = function(form){
-		$http.get("http://localhost:8081/backend/rest/categoryService/save/"+$scope.nameCategory+"/"+$scope.idMovement)
+		$http.get($rest + "categoryService/save/"+$scope.nameCategory+"/"+$scope.idMovement)
 			.success(function(response){
 				alert("The category <" + response.name + "> was created successfully")
 				.then(function(){
@@ -31,7 +34,7 @@ function CategoryControllerNew($scope, $http, $location, alert){
 }
 
 function CategoryControllerEdit($scope, $http, $routeParams, $location, alert){
-	$http.get("http://localhost:8081/backend/rest/movementService/movements")
+	$http.get($rest + "movementService/movements")
 	.success(function(response) {
 		$scope.movements = response;
 	})
@@ -39,7 +42,7 @@ function CategoryControllerEdit($scope, $http, $routeParams, $location, alert){
 		console.log("error");
 	});	
 	$scope.title = 'Edit category';
-	$http.get("http://localhost:8081/backend/rest/categoryService/category/" + $routeParams.categoryId)
+	$http.get($rest + "categoryService/category/" + $routeParams.categoryId)
 	.success(function(response) {
 		$scope.category = response;
 		$scope.nameCategory =  $scope.category.name;
@@ -52,7 +55,7 @@ function CategoryControllerEdit($scope, $http, $routeParams, $location, alert){
 	
 		
 	$scope.submit = function(form){
-		$http.get("http://localhost:8081/backend/rest/categoryService/update/"+$routeParams.categoryId+'/'+$scope.nameCategory+"/"+$scope.idMovement)
+		$http.get($rest + "categoryService/update/"+$routeParams.categoryId+'/'+$scope.nameCategory+"/"+$scope.idMovement)
 			.success(function(response){
 				alert("The category <" + response.name + "> was updated successfully")
 					.then(function(){
@@ -66,7 +69,7 @@ function CategoryControllerEdit($scope, $http, $routeParams, $location, alert){
 }
 
 function CategoryControllerDelete($scope, $http, $routeParams, $location, alert) {
-			$http.get("http://localhost:8081/backend/rest/categoryService/delete/"+$routeParams.categoryId)
+			$http.get($rest + "categoryService/delete/"+$routeParams.categoryId)
 			.success(function(response){
 				alert("The category <" + response.name + "> was deleted successfully")
 				.then(function(){

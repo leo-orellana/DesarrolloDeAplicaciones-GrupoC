@@ -33,6 +33,16 @@ function TransactionControllerNew($scope, $http, $location, alert){
 		console.log("error");
 	});
 	
+	$scope.change = function() {
+		$http.get($rest + "subcategoryService/filterByCategory/" + $scope.idCategory)
+		.success(function(response) {
+			$scope.subcategories = response;
+		})
+		.error(function() {
+			console.log("error");
+		});
+      };
+	
 	$scope.title = 'New transaction';
 //	$scope.submit = function(form){
 //		$http.get($rest + "categoryService/save/"+$scope.nameCategory+"/"+$scope.idMovement)

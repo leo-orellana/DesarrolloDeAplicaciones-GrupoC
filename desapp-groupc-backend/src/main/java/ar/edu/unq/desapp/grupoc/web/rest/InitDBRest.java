@@ -11,9 +11,7 @@ import ar.edu.unq.desapp.grupoc.model.AccountBank;
 import ar.edu.unq.desapp.grupoc.model.AccountCash;
 import ar.edu.unq.desapp.grupoc.model.AccountChecking;
 import ar.edu.unq.desapp.grupoc.model.AccountManager;
-import ar.edu.unq.desapp.grupoc.model.BankOperation;
 import ar.edu.unq.desapp.grupoc.model.BankOperationCredit;
-import ar.edu.unq.desapp.grupoc.model.BankOperationDebit;
 import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
@@ -95,12 +93,6 @@ public class InitDBRest {
 		
 		getSubcategoryService().save(pagoSueldos);
 		getSubcategoryService().save(televisores);
-		
-		getCategoryService().save(pagos);
-		getCategoryService().save(ventas);
-		
-		getMovementService().save(ingress);
-		getMovementService().save(egress);
 		
 		getTransactionService().save(transaction);
 		

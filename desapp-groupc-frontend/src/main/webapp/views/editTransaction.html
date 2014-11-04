@@ -8,8 +8,13 @@
 				<label for="transactionName">Category</label>
 				<div class="row">
 					<div class="col-md-4">
-						<select required class="form-control" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories">
+						<select required class="form-control" ng-change="change()" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories">
 							<option value="">-- select category --</option>
+						</select>
+					</div>
+					<div class="col-md-4">
+						<select required class="form-control" ng-model="idSubcategory" ng-options="subcat.id as subcat.name for subcat in subcategories">
+							<option value="">-- select sub-category --</option>
 						</select>
 					</div>
 				</div>

@@ -79,6 +79,14 @@ public class SubCategoryRest {
 		return subcat;
 	}
 
+	@GET
+	@Path("/update/{categoryId}")
+	@Produces("application/json")
+	public List<Subcategory> filterByCategory(@PathParam("categoryId") final int categoryId) {
+		Category category = getCategoryService().getById(categoryId);
+		List subcats = getSubCategoryService().filterByCategory(category);
+		return subcats;
+	}
 	
 	public SubCategoryService getSubCategoryService() {
 		return subCategoryService;

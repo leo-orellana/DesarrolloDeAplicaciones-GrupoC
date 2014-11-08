@@ -2,7 +2,9 @@ package ar.edu.unq.desapp.grupoc.model;
 
 public class AccountBank extends Account {
 
-	public AccountBank(){}
+	public AccountBank(){
+		this.setName("Bank");
+	}
 	
     private Double available;
     private Double accrued;
@@ -11,6 +13,7 @@ public class AccountBank extends Account {
         super();
         this.setAvailable(available);
         this.setAccrued(accrued);
+        this.setName("Bank");
     }
 
     // ////////
@@ -41,6 +44,12 @@ public class AccountBank extends Account {
 			setAccrued(getAccrued() - amountAccrued);
 			accruedTransaction.setWasProcessed(new Boolean(true));
 		}
+	}
+
+	@Override
+	public Operation getNewOperation(double amount, Movement movement,
+			BankOperation bankOperation) {
+		return new OperationBankAccount(movement, amount, bankOperation);
 	}
 
 }

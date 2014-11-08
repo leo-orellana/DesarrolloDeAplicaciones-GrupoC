@@ -1,7 +1,8 @@
 package ar.edu.unq.desapp.grupoc.model;
 
-public class Account {
+public abstract class Account {
 
+	private String name;
 	private int id;
     private Double balance;
 
@@ -30,4 +31,13 @@ public class Account {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public abstract Operation getNewOperation(double amount, Movement movement, BankOperation bankOperation);
 }

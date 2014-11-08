@@ -19,7 +19,7 @@ public class BankOperationRest {
 	@GET
 	@Path("/operations")
 	@Produces("application/json")
-	public List<BankOperation> getCategories() {
+	public List<BankOperation> getOperations() {
 		return getBankOperationService().retriveAll();
 	}
 	public BankOperationService getBankOperationService() {

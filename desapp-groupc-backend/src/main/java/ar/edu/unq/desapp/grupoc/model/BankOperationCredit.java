@@ -4,6 +4,7 @@ public class BankOperationCredit extends BankOperation {
 
 	public BankOperationCredit() {
 		super();
+		this.setName("Credit");
 	}
 
 	/**

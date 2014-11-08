@@ -4,6 +4,7 @@ public class BankOperationDebit extends BankOperation {
 
 	public BankOperationDebit(){
 		super();
+		this.setName("Debit");
 	}
 	
     /**

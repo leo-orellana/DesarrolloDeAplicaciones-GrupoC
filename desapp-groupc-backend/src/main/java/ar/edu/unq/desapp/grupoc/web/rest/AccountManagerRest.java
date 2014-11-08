@@ -20,7 +20,7 @@ public class AccountManagerRest {
 	@GET
 	@Path("/accountManager")
 	@Produces("application/json")
-	public AccountManager getCategories() {
+	public AccountManager getAccount() {
 		List<AccountManager> accounts = getAccountManagerService().retriveAll();
 		return accounts.get(0);
 	}

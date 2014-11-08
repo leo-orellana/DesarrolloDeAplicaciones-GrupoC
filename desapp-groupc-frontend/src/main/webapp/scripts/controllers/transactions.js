@@ -33,7 +33,15 @@ function TransactionControllerNew($scope, $http, $location, alert){
 		console.log("error");
 	});
 	
-	$scope.change = function() {
+	$http.get($rest + "accountService/accounts")
+	.success(function(response) {
+		$scope.accounts = response;
+	})
+	.error(function() {
+		console.log("error");
+	});
+	
+	$scope.changeSubcategory = function() {
 		$http.get($rest + "subcategoryService/filterByCategory/" + $scope.idCategory)
 		.success(function(response) {
 			$scope.subcategories = response;
@@ -42,18 +50,40 @@ function TransactionControllerNew($scope, $http, $location, alert){
 			console.log("error");
 		});
       };
+    
+      $scope.changeBankOperation = function() {
+  		$http.get($rest + "bankOperationService/operations")
+  		.success(function(response) {
+  			if($scope.idAccount == 3){
+  				$scope.showBankOperation = true; 				
+  			}
+  			else{
+  				$scope.showBankOperation = false;
+  			}
+  			$scope.bankOperations = response;
+  		})
+  		.error(function() {
+  			console.log("error");
+  		});
+        };
 	
 	$scope.title = 'New transaction';
-//	$scope.submit = function(form){
-//		$http.get($rest + "categoryService/save/"+$scope.nameCategory+"/"+$scope.idMovement)
-//			.success(function(response){
-//				alert("The category <" + response.name + "> was created successfully")
-//				.then(function(){
-//						$location.path('/categories');
-//					});
-//			})
-//			.error(function() {
-//				console.log("error");
-//		});
-//	}
+	$scope.times = ["Morning", "Afternoon", "Night"] 
+		
+	$scope.submit = function(form){
+		$http.get(
+				$rest + "transactionService/save" + "/" + $scope.date + "/"
+						+ $scope.idSubcategory + "/" + $scope.concept + "/"
+						+ $scope.time + "/" + $scope.numOperation + "/"
+						+ $scope.idAccount + "/" + $scope.idBankOperation + "/" + $scope.amount)
+			.success(function(response){
+				alert("The transaction was created successfully")
+				.then(function(){
+						$location.path('/transactions');
+					});
+			})
+			.error(function() {
+				console.log("error");
+		});
+	}
 }

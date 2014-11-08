@@ -12,6 +12,7 @@ import ar.edu.unq.desapp.grupoc.model.AccountCash;
 import ar.edu.unq.desapp.grupoc.model.AccountChecking;
 import ar.edu.unq.desapp.grupoc.model.AccountManager;
 import ar.edu.unq.desapp.grupoc.model.BankOperationCredit;
+import ar.edu.unq.desapp.grupoc.model.BankOperationDebit;
 import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
@@ -22,6 +23,8 @@ import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.model.Time;
 import ar.edu.unq.desapp.grupoc.model.Transaction;
 import ar.edu.unq.desapp.grupoc.services.AccountManagerService;
+import ar.edu.unq.desapp.grupoc.services.AccountService;
+import ar.edu.unq.desapp.grupoc.services.BankOperationService;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
 import ar.edu.unq.desapp.grupoc.services.MovementService;
 import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
@@ -36,6 +39,8 @@ public class InitDBRest {
 	private MovementService movementService;
 	private TransactionService transactionService;
 	private AccountManagerService accountManagerService;
+	private AccountService accountService;
+	private BankOperationService bankOperationService;
 	
 	@GET
 	@Path("/init")
@@ -47,6 +52,9 @@ public class InitDBRest {
 
 		Egress egress = new Egress();
 		egress.setName("Egress");
+		
+		getMovementService().save(ingress);
+		getMovementService().save(egress);
 
 		
 		// CREATE CATEGORIES
@@ -58,13 +66,19 @@ public class InitDBRest {
 		ventas.setName("Ventas");
 		ventas.setMovement(ingress);
 		
+		getCategoryService().save(pagos);
+		getCategoryService().save(ventas);
+		
 		
 		// CREATE SUBCATEGORIES
 		Subcategory pagoSueldos = new Subcategory("Pago Sueldos", pagos);
 		Subcategory televisores = new Subcategory("Venta televisores", ventas);
 		
+		getSubcategoryService().save(pagoSueldos);
+		getSubcategoryService().save(televisores);
 		
-		// ACCOUNT MANAGER
+		
+		// CREATE ACCOUNTS
 		AccountCash accountCash = new AccountCash();
 		accountCash.setBalance(new Double(0));
 		
@@ -76,25 +90,20 @@ public class InitDBRest {
 		accountBank.setAccrued(new Double(0));
 		accountBank.setAvailable(new Double(0));
 		
+		getAccountService().save(accountCash);
+		getAccountService().save(accountChecking);
+		getAccountService().save(accountBank);
+		
+		// CREATE BANK OPERATIONS
+		BankOperationCredit bankOpCredit = new BankOperationCredit();
+		BankOperationDebit bankOpDebit = new BankOperationDebit();
+		
+		getBankOperationService().save(bankOpDebit);
+		getBankOperationService().save(bankOpCredit);
+		
+		// CREATE ACCOUN MANAGER
+		
 		AccountManager accountManager = new AccountManager(accountCash,accountChecking,accountBank);
-		
-		// CREATE TRANSACTIONS
-		Transaction transaction = new Transaction();
-		transaction.setConcept("transaction example");
-		transaction.setDate(new Date(2014, 10, 20));
-		transaction.setTime(Time.Morning);
-		transaction.setSubcategory(pagoSueldos);
-		transaction.setOperationBankAccount(new OperationBankAccount(egress, new Double(10), new BankOperationCredit()));
-		transaction.setOperationCashAccount(new OperationCashAccount(egress,new Double(15)));
-		transaction.setOperationCheckingAccount(new OperationCheckingAccount(egress,new Double(20)));
-
-		
-		accountManager.inputTransaction(transaction);
-		
-		getSubcategoryService().save(pagoSueldos);
-		getSubcategoryService().save(televisores);
-		
-		getTransactionService().save(transaction);
 		
 		getAccountManagerService().save(accountManager);
 		
@@ -137,5 +146,21 @@ public class InitDBRest {
 
 	public void setAccountManagerService(AccountManagerService accountManagerService) {
 		this.accountManagerService = accountManagerService;
+	}
+
+	public AccountService getAccountService() {
+		return accountService;
+	}
+
+	public void setAccountService(AccountService accountService) {
+		this.accountService = accountService;
+	}
+
+	public BankOperationService getBankOperationService() {
+		return bankOperationService;
+	}
+
+	public void setBankOperationService(BankOperationService bankOperationService) {
+		this.bankOperationService = bankOperationService;
 	}
 }

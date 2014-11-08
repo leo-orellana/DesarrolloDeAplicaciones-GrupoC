@@ -34,5 +34,9 @@
 	<bean id="services.accountManager" class="ar.edu.unq.desapp.grupoc.services.AccountManagerService">
 		<property name="dao" ref="persistence.accountmanagerdao" />
 	</bean>
+	
+	<bean id="services.account" class="ar.edu.unq.desapp.grupoc.services.AccountService">
+		<property name="dao" ref="persistence.accountdao" />
+	</bean>
 
 </beans>

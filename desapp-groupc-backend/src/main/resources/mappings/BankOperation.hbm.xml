@@ -9,6 +9,7 @@
 	        <generator class="native"/>
 	    </id>
 	    <discriminator column="bankoperation_type" type="string"/>
+	    <property name="name"></property>
 	    <subclass name="ar.edu.unq.desapp.grupoc.model.BankOperationCredit" discriminator-value="CRE">
 	    </subclass>
 	    <subclass name="ar.edu.unq.desapp.grupoc.model.BankOperationDebit" discriminator-value="DEB">

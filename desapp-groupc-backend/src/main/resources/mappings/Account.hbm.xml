@@ -10,6 +10,7 @@
 	    </id>
 	    <discriminator column="account_type" type="string"/>
 	    <property name="balance" type="double" column ="balance" /> 
+	    <property name="name"></property> 
 	    <subclass name="ar.edu.unq.desapp.grupoc.model.AccountCash" discriminator-value="CASH">
 	    </subclass>
 	    <subclass name="ar.edu.unq.desapp.grupoc.model.AccountBank" discriminator-value="BANK">

@@ -18,20 +18,17 @@ function TransactionControllerList($scope, $http) {
 }
 
 function TransactionControllerNew($scope, $http, $location, alert){
+	
+	$scope.title = 'New transaction';
+	$scope.times = ["Morning", "Afternoon", "Night"] 
+	
 	$http.get($rest + "categoryService/categories")
 			.success(function(response) {
 				$scope.categories = response;
 			})
 			.error(function() {
 				console.log("error");
-			});	
-	$http.get($rest + "categoryService/categories")
-	.success(function(response) {
-		$scope.categories = response;
-	})
-	.error(function() {
-		console.log("error");
-	});
+			});
 	
 	$http.get($rest + "accountService/accounts")
 	.success(function(response) {
@@ -66,15 +63,16 @@ function TransactionControllerNew($scope, $http, $location, alert){
   			console.log("error");
   		});
         };
-	
-	$scope.title = 'New transaction';
-	$scope.times = ["Morning", "Afternoon", "Night"] 
 		
 	$scope.submit = function(form){
+		if (typeof($scope.idBankOperation) == 'undefined'){
+			$scope.idBankOperation = 0;
+		}
+		
 		$http.get(
 				$rest + "transactionService/save" + "/" + $scope.date + "/"
 						+ $scope.idSubcategory + "/" + $scope.concept + "/"
-						+ $scope.time + "/" + $scope.numOperation + "/"
+						+ $scope.time + "/" + $scope.numberOperation + "/"
 						+ $scope.idAccount + "/" + $scope.idBankOperation + "/" + $scope.amount)
 			.success(function(response){
 				alert("The transaction was created successfully")

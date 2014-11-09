@@ -1,5 +1,8 @@
 package ar.edu.unq.desapp.grupoc.web.rest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -9,6 +12,7 @@ import javax.ws.rs.Produces;
 
 import org.springframework.stereotype.Service;
 
+import ar.edu.unq.desapp.grupoc.model.AccountManager;
 import ar.edu.unq.desapp.grupoc.model.BankOperationCredit;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
 import ar.edu.unq.desapp.grupoc.model.Operation;
@@ -18,6 +22,7 @@ import ar.edu.unq.desapp.grupoc.model.OperationCheckingAccount;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.model.Time;
 import ar.edu.unq.desapp.grupoc.model.Transaction;
+import ar.edu.unq.desapp.grupoc.services.AccountManagerService;
 import ar.edu.unq.desapp.grupoc.services.AccountService;
 import ar.edu.unq.desapp.grupoc.services.BankOperationService;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
@@ -33,6 +38,7 @@ public class TransactionRest {
 	private CategoryService categoryService;
 	private AccountService accountService;
 	private BankOperationService bankOperationService;
+	private AccountManagerService accountManagerService;
 
 	@GET
 	@Path("/transaction/{id}")
@@ -76,7 +82,7 @@ public class TransactionRest {
 			@PathParam("numOperation") final int numOperation,
 			@PathParam("idAccount") final int idAccount,
 			@PathParam("idBankOperation") final int idBankOperation,
-			@PathParam("amount") final int amount) {
+			@PathParam("amount") final int amount) throws ParseException {
 		Subcategory subcategory = getSubCategoryService()
 				.getById(idSubcategory);
 		Time t = Time.valueOf(time);
@@ -98,7 +104,15 @@ public class TransactionRest {
 				operationChecking = (OperationCheckingAccount) operation;
 			}
 		}
-		return null;
+		
+		Date javaDate=new SimpleDateFormat("yy-MM-dd").parse(date);
+		
+		Transaction trans = new Transaction(subcategory, t, concept, operationCash, operationChecking, operationBank, javaDate);
+		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
+		accMan.inputTransaction(trans);
+		getTransactionService().save(trans);
+		
+		return trans;
 	}
 
 	public TransactionService getTransactionService() {
@@ -140,6 +154,14 @@ public class TransactionRest {
 	public void setBankOperationService(
 			BankOperationService bankOperationService) {
 		this.bankOperationService = bankOperationService;
+	}
+
+	public AccountManagerService getAccountManagerService() {
+		return accountManagerService;
+	}
+
+	public void setAccountManagerService(AccountManagerService accountManagerService) {
+		this.accountManagerService = accountManagerService;
 	}
 
 }

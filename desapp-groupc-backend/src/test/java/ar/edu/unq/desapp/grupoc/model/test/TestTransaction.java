@@ -21,7 +21,8 @@ public class TestTransaction extends TestCase {
         OperationBankAccount mockOperationBankAccount = mock(OperationBankAccount.class);
         Date mockDate = mock(Date.class);
 
-        Transaction transaction = new Transaction(mockSubcategory,
+        //TODO Hacer un builder para Transaction
+        Transaction transaction = new Transaction(3,mockSubcategory,
                 Time.Afternoon, "concept", mockOperationCashAccount,
                 mockOperationCheckingAccount, mockOperationBankAccount,
                 mockDate);

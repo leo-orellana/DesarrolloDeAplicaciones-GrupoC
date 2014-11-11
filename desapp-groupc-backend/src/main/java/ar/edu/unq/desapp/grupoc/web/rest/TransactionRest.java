@@ -113,10 +113,14 @@ public class TransactionRest {
 
 		Date javaDate = new SimpleDateFormat("yy-MM-dd").parse(date);
 
-		Transaction trans = new Transaction(subcategory, t, concept,
-				operationCash, operationChecking, operationBank, javaDate);
 		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
+		Transaction trans = new Transaction(numOperation,subcategory, t, concept,
+				operationCash, operationChecking, operationBank, javaDate);
 		accMan.inputTransaction(trans);
+		trans.setAmountAccruedBank(accMan.getAccruedMoney());
+		trans.setAmountAvailableBank(accMan.getAvailableMoney());
+		trans.setAmountOfCashAccount(accMan.getCashBalance());
+		trans.setAmountOfCheckingAccount(accMan.getCheckingBalance());
 		getAccountManagerService().save(accMan);
 		getTransactionService().save(trans);
 

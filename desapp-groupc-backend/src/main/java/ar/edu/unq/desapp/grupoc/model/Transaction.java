@@ -6,95 +6,143 @@ public class Transaction {
 
 	public Integer id;
 	public Subcategory subcategory;
-    public Time time;
-    public String concept;
-    public OperationCashAccount operationCashAccount;
-    public OperationCheckingAccount operationCheckingAccount;
-    public OperationBankAccount operationBankAccount;
-    public Date date;
-    
-    public Transaction(){}
-    
-    public Transaction(Subcategory subcategory, Time time, String concept,
-            OperationCashAccount operationCashAccount,
-            OperationCheckingAccount operationCheckingAccount,
-            OperationBankAccount operationBankAccount, Date date) {
-        super();
-        this.setSubcategory(subcategory);
-        this.setTime(time);
-        this.setConcept(concept);
-        this.setOperationCashAccount(operationCashAccount);
-        this.setOperationBankAccount(operationBankAccount);
-        this.setOperationCheckingAccount(operationCheckingAccount);
-        this.setDate(date);
-    }
+	public Time time;
+	public String concept;
+	public OperationCashAccount operationCashAccount;
+	public OperationCheckingAccount operationCheckingAccount;
+	public OperationBankAccount operationBankAccount;
+	public Date date;
 
-    public Subcategory getSubcategory() {
-        return subcategory;
-    }
+	// this amounts are the values of the accounts in the input transaction's
+	// moment
+	public double amountOfCashAccount;
+	public double amountOfCheckingAccount;
+	public double amountAvailableBank;
+	public double amountAccruedBank;
 
-    // ////////
+	public Transaction() {
+	}
 
-    public void setSubcategory(Subcategory subcategory) {
-        this.subcategory = subcategory;
-    }
+	public Transaction(Subcategory subcategory, Time time,
+			String concept, OperationCashAccount operationCashAccount,
+			OperationCheckingAccount operationCheckingAccount,
+			OperationBankAccount operationBankAccount, Date date) {
+		super();
+		this.setAmountAccruedBank(amountAccruedBank);
+		this.setAmountAvailableBank(amountAvailableBank);
+		this.setAmountOfCashAccount(amountOfCashAccount);
+		this.setAmountOfCheckingAccount(amountOfCheckingAccount);
+		this.setSubcategory(subcategory);
+		this.setTime(time);
+		this.setConcept(concept);
+		this.setOperationCashAccount(operationCashAccount);
+		this.setOperationBankAccount(operationBankAccount);
+		this.setOperationCheckingAccount(operationCheckingAccount);
+		this.setDate(date);
+	}
 
-    public Time getTime() {
-        return time;
-    }
+	public Subcategory getSubcategory() {
+		return subcategory;
+	}
 
-    public void setTime(Time time) {
-        this.time = time;
-    }
+	// ////////
 
-    public String getConcept() {
-        return concept;
-    }
+	public void setSubcategory(Subcategory subcategory) {
+		this.subcategory = subcategory;
+	}
 
-    public void setConcept(String concept) {
-        this.concept = concept;
-    }
+	public Time getTime() {
+		return time;
+	}
 
-    public OperationCashAccount getOperationCashAccount() {
-        return operationCashAccount;
-    }
+	public void setTime(Time time) {
+		this.time = time;
+	}
 
-    public void setOperationCashAccount(
-            OperationCashAccount operationCashAccount) {
-        this.operationCashAccount = operationCashAccount;
-    }
+	public String getConcept() {
+		return concept;
+	}
 
-    public OperationCheckingAccount getOperationCheckingAccount() {
-        return operationCheckingAccount;
-    }
+	public void setConcept(String concept) {
+		this.concept = concept;
+	}
 
-    public void setOperationCheckingAccount(
-            OperationCheckingAccount operationCheckingAccount) {
-        this.operationCheckingAccount = operationCheckingAccount;
-    }
+	public OperationCashAccount getOperationCashAccount() {
+		return operationCashAccount;
+	}
 
-    public OperationBankAccount getOperationBankAccount() {
-        return operationBankAccount;
-    }
+	public void setOperationCashAccount(
+			OperationCashAccount operationCashAccount) {
+		this.operationCashAccount = operationCashAccount;
+	}
 
-    public void setOperationBankAccount(
-            OperationBankAccount operationBankAccount) {
-        this.operationBankAccount = operationBankAccount;
-    }
+	public OperationCheckingAccount getOperationCheckingAccount() {
+		return operationCheckingAccount;
+	}
 
-    public Date getDate() {
-        return date;
-    }
+	public void setOperationCheckingAccount(
+			OperationCheckingAccount operationCheckingAccount) {
+		this.operationCheckingAccount = operationCheckingAccount;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    
-    public Integer getId() {
+	public OperationBankAccount getOperationBankAccount() {
+		return operationBankAccount;
+	}
+
+	public void setOperationBankAccount(
+			OperationBankAccount operationBankAccount) {
+		this.operationBankAccount = operationBankAccount;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public double getAmountOfCashAccount() {
+		return amountOfCashAccount;
+	}
+
+	public void setAmountOfCashAccount(double amountOfCashAccount) {
+		this.amountOfCashAccount = amountOfCashAccount;
+	}
+
+	public double getAmountOfCheckingAccount() {
+		return amountOfCheckingAccount;
+	}
+
+	public void setAmountOfCheckingAccount(double amountOfCheckingAccount) {
+		this.amountOfCheckingAccount = amountOfCheckingAccount;
+	}
+
+	public double getAmountAvailableBank() {
+		return amountAvailableBank;
+	}
+
+	public void setAmountAvailableBank(double amountAvailableBank) {
+		this.amountAvailableBank = amountAvailableBank;
+	}
+
+	public double getAmountAccruedBank() {
+		return amountAccruedBank;
+	}
+
+	public void setAmountAccruedBank(double amountAccruedBank) {
+		this.amountAccruedBank = amountAccruedBank;
+	}
+
+	public double getAmountBankAccount() {
+		return getAmountAccruedBank() + getAmountAvailableBank();
 	}
 }

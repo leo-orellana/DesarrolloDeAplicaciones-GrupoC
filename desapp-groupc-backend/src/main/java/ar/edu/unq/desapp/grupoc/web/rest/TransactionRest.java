@@ -90,29 +90,35 @@ public class TransactionRest {
 				.getNewOperation(amount,
 						subcategory.getCategory().getMovement(),
 						getBankOperationService().getById(idBankOperation));
-		OperationCashAccount operationCash = new OperationCashAccount(new Ingress(), new Double(0));
-		OperationCheckingAccount operationChecking = new OperationCheckingAccount(new Ingress(), new Double(0));
-		OperationBankAccount operationBank = new OperationBankAccount(new Ingress(), new Double(0), new BankOperationCredit());
-		if(operation.getClass() == OperationBankAccount.class){
+		OperationCashAccount operationCash = new OperationCashAccount(
+				new Ingress(), new Double(0));
+		OperationCheckingAccount operationChecking = new OperationCheckingAccount(
+				new Ingress(), new Double(0));
+		OperationBankAccount operationBank = new OperationBankAccount(
+				new Ingress(), new Double(0), new BankOperationCredit());
+		if (operation.getClass() == OperationBankAccount.class) {
 			operationBank = (OperationBankAccount) operation;
-		}
-		else{
-			if(operation.getClass() == OperationCashAccount.class){
+		} else {
+			if (operation.getClass() == OperationCashAccount.class) {
 				operationCash = (OperationCashAccount) operation;
-			}
-			else{
+			} else {
 				operationChecking = (OperationCheckingAccount) operation;
 			}
 		}
-		
-		Date javaDate=new SimpleDateFormat("yy-MM-dd").parse(date);
-		
-		Transaction trans = new Transaction(subcategory, t, concept, operationCash, operationChecking, operationBank, javaDate);
+
+		Date javaDate = new SimpleDateFormat("yy-MM-dd").parse(date);
+
 		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
+		Transaction trans = new Transaction(subcategory, t, concept,
+				operationCash, operationChecking, operationBank, javaDate);
 		accMan.inputTransaction(trans);
+		trans.setAmountAccruedBank(accMan.getAccruedMoney());
+		trans.setAmountAvailableBank(accMan.getAvailableMoney());
+		trans.setAmountOfCashAccount(accMan.getCashBalance());
+		trans.setAmountOfCheckingAccount(accMan.getCheckingBalance());
 		getAccountManagerService().save(accMan);
 		getTransactionService().save(trans);
-		
+
 		return trans;
 	}
 
@@ -161,7 +167,8 @@ public class TransactionRest {
 		return accountManagerService;
 	}
 
-	public void setAccountManagerService(AccountManagerService accountManagerService) {
+	public void setAccountManagerService(
+			AccountManagerService accountManagerService) {
 		this.accountManagerService = accountManagerService;
 	}
 

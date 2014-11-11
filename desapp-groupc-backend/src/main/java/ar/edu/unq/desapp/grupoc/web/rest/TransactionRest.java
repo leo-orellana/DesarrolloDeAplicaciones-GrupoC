@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupoc.model.AccountManager;
-import ar.edu.unq.desapp.grupoc.model.BankOperationCredit;
+import ar.edu.unq.desapp.grupoc.model.BankOperation;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
 import ar.edu.unq.desapp.grupoc.model.Operation;
 import ar.edu.unq.desapp.grupoc.model.OperationBankAccount;
@@ -86,33 +86,40 @@ public class TransactionRest {
 		Subcategory subcategory = getSubCategoryService()
 				.getById(idSubcategory);
 		Time t = Time.valueOf(time);
+		BankOperation bankOperation = getBankOperationService().getById(
+				idBankOperation);
+		if (bankOperation == null){
+			bankOperation = getBankOperationService().getById(1);
+		}
 		Operation operation = getAccountService().getById(idAccount)
 				.getNewOperation(amount,
-						subcategory.getCategory().getMovement(),
-						getBankOperationService().getById(idBankOperation));
-		OperationCashAccount operationCash = new OperationCashAccount(new Ingress(), new Double(0));
-		OperationCheckingAccount operationChecking = new OperationCheckingAccount(new Ingress(), new Double(0));
-		OperationBankAccount operationBank = new OperationBankAccount(new Ingress(), new Double(0), new BankOperationCredit());
-		if(operation.getClass() == OperationBankAccount.class){
+						subcategory.getCategory().getMovement(), bankOperation);
+		OperationCashAccount operationCash = new OperationCashAccount(
+				new Ingress(), new Double(0));
+		OperationCheckingAccount operationChecking = new OperationCheckingAccount(
+				new Ingress(), new Double(0));
+		OperationBankAccount operationBank = new OperationBankAccount(
+				new Ingress(), new Double(0), bankOperation);
+		
+		if (operation.getClass() == OperationBankAccount.class) {
 			operationBank = (OperationBankAccount) operation;
-		}
-		else{
-			if(operation.getClass() == OperationCashAccount.class){
+		} else {
+			if (operation.getClass() == OperationCashAccount.class) {
 				operationCash = (OperationCashAccount) operation;
-			}
-			else{
+			} else {
 				operationChecking = (OperationCheckingAccount) operation;
 			}
 		}
-		
-		Date javaDate=new SimpleDateFormat("yy-MM-dd").parse(date);
-		
-		Transaction trans = new Transaction(subcategory, t, concept, operationCash, operationChecking, operationBank, javaDate);
+
+		Date javaDate = new SimpleDateFormat("yy-MM-dd").parse(date);
+
+		Transaction trans = new Transaction(subcategory, t, concept,
+				operationCash, operationChecking, operationBank, javaDate);
 		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
 		accMan.inputTransaction(trans);
 		getAccountManagerService().save(accMan);
 		getTransactionService().save(trans);
-		
+
 		return trans;
 	}
 
@@ -161,7 +168,8 @@ public class TransactionRest {
 		return accountManagerService;
 	}
 
-	public void setAccountManagerService(AccountManagerService accountManagerService) {
+	public void setAccountManagerService(
+			AccountManagerService accountManagerService) {
 		this.accountManagerService = accountManagerService;
 	}
 

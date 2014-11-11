@@ -109,7 +109,7 @@ public class TransactionRest {
 		Date javaDate = new SimpleDateFormat("yy-MM-dd").parse(date);
 
 		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
-		Transaction trans = new Transaction(subcategory, t, concept,
+		Transaction trans = new Transaction(numOperation,subcategory, t, concept,
 				operationCash, operationChecking, operationBank, javaDate);
 		accMan.inputTransaction(trans);
 		trans.setAmountAccruedBank(accMan.getAccruedMoney());

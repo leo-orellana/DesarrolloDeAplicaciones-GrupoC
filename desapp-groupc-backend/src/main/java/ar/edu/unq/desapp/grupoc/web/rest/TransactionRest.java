@@ -110,6 +110,7 @@ public class TransactionRest {
 		Transaction trans = new Transaction(subcategory, t, concept, operationCash, operationChecking, operationBank, javaDate);
 		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
 		accMan.inputTransaction(trans);
+		getAccountManagerService().save(accMan);
 		getTransactionService().save(trans);
 		
 		return trans;

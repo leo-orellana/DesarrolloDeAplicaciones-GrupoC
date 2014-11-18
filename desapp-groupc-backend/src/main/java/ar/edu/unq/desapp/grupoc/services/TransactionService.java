@@ -15,4 +15,10 @@ public class TransactionService extends GenericService<Transaction>{
 		List<Transaction> list = this.dao.filterByName(concept);
 		return list;
 	}
+
+	public void updateAll(List<Transaction> consolidateds) {
+		for (Transaction transaction : consolidateds) {
+			update(transaction);
+		}
+	}
 }

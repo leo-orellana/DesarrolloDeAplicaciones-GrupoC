@@ -27,4 +27,9 @@ public class OperationBankAccount extends Operation {
         this.bankOperation = typeOperationBank;
     }
 
+	@Override
+	public void setConsolidateProperties(Transaction transaction) {
+		getBankOperation().setConsolidateProperties(transaction);
+	}
+
 }

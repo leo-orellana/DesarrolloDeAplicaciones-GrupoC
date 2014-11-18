@@ -96,6 +96,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	
 	<bean id="accountManagerRest" class="ar.edu.unq.desapp.grupoc.web.rest.AccountManagerRest">
 		<property name="accountManagerService" ref="services.accountManager" />
+		<property name="transactionService" ref="services.transactions" />
 	</bean>
 	
 	<bean id="accountRest" class="ar.edu.unq.desapp.grupoc.web.rest.AccountRest">

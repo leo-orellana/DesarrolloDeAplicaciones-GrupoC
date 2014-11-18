@@ -31,4 +31,10 @@ public class BankOperationCredit extends BankOperation {
 		return new Boolean(true);
 	}
 
+	@Override
+	public void setConsolidateProperties(Transaction transaction) {
+		transaction.setWasConsolidated(false);
+		transaction.setShouldBeConsolidated(isCredit());
+	}
+
 }

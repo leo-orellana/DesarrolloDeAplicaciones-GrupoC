@@ -10,4 +10,9 @@ public class OperationCheckingAccount extends Operation {
     	super();
     }
 
+    @Override
+	public void setConsolidateProperties(Transaction transaction) {
+		transaction.setWasConsolidated(true);
+		transaction.setShouldBeConsolidated(false);
+	}
 }

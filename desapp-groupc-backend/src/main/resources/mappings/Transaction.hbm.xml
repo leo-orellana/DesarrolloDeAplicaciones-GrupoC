@@ -33,7 +33,8 @@
 		<many-to-one name="operationBankAccount" class="ar.edu.unq.desapp.grupoc.model.OperationBankAccount">
 			<column name="operationBankAccount"></column>
 		</many-to-one>
-		
+		<property name="shouldBeConsolidated"></property>
+		<property name="wasConsolidated"></property>
 	</class>
 	
 </hibernate-mapping>

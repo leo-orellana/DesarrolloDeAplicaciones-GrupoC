@@ -62,6 +62,17 @@ var app = angular.module(
 		templateUrl : 'views/editTransaction.html',
 		controller : 'TransactionControllerNew'
 	})
+	.when('/deleteTransaction/:transactionId',{
+		templateUrl : 'views/transactions.html',
+		controller : 'TransactionControllerDelete'
+	})
+	
+	// ACCOUNTMANAGER
+	.when('/consolidate', {
+		templateUrl : 'views/transactions.html',
+		controller : 'AccountManagerControllerConsolidate'
+	})
+	
 	.otherwise({
 		redirectTo : '/'
 	});

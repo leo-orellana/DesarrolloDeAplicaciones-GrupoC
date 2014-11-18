@@ -3,6 +3,8 @@ package ar.edu.unq.desapp.grupoc.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 public class AccountManager {
 
 	private int id;
@@ -18,33 +20,27 @@ public class AccountManager {
 		this.setAccountbank(accountBank);
 	}
 
-	public AccountManager() {}
+	public AccountManager() {
+	}
 
+	
 	/**
-	 * The consolidation of the account at the moment. This method check the
-	 * money accrued and your date and it is equal to today - 15 days, transform
-	 * this amount in available.
+	 * Consolidate Account v2.0
 	 */
-	public void accountConsolidationAndDeleteTransactionProcessed(List<AccruedTransaction> transactions) {
-		consolidateAccrued(transactions);
-		deleteConsolidateTransactions(ServiceDataBase.getInstance(),
-				transactions,new ArrayList<AccruedTransaction>());
-	}
 
-	public void consolidateAccrued(List<AccruedTransaction> transactions) {
-		for (AccruedTransaction transaction : transactions) {
-			getAccountbank().consolidateTransaction(transaction);
-		}
-	}
-
-	public void deleteConsolidateTransactions(ServiceDataBase serviceDataBase,
-			List<AccruedTransaction> transactions, List<AccruedTransaction> newTransactions) {
-		for (AccruedTransaction transaction : transactions) {
-			if (!transaction.wasProcessed()) {
-				newTransactions.add(transaction);
+	public List<Transaction> consolidateAccount(List<Transaction> transactions) {
+		DateTime today = new DateTime();
+		List<Transaction> consolidateds = new ArrayList<Transaction>();
+		for (Transaction transaction : transactions) {
+			if (!transaction.getWasConsolidated()
+					&& transaction.getShouldBeConsolidated()
+					&& today.isAfter(new DateTime(transaction.getDate())
+							.plusDays(15))) {
+				Transaction t = getAccountbank().consolidateTransaction(transaction);
+				consolidateds.add(t);
 			}
 		}
-		serviceDataBase.setAccruedTransactions(newTransactions);
+		return consolidateds;
 	}
 
 	/**

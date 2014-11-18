@@ -13,6 +13,8 @@ public class Transaction {
 	public OperationBankAccount operationBankAccount;
 	public Date date;
 	public int numOperation;
+	public Boolean shouldBeConsolidated;
+	public Boolean wasConsolidated;
 
 	// this amounts are the values of the accounts in the input transaction's
 	// moment
@@ -155,5 +157,20 @@ public class Transaction {
 	public void setNumOperation(int numOperation) {
 		this.numOperation = numOperation;
 	}
-	
+
+	public Boolean getShouldBeConsolidated() {
+		return shouldBeConsolidated;
+	}
+
+	public void setShouldBeConsolidated(Boolean shouldBeConsolidated) {
+		this.shouldBeConsolidated = shouldBeConsolidated;
+	}
+
+	public Boolean getWasConsolidated() {
+		return wasConsolidated;
+	}
+
+	public void setWasConsolidated(Boolean wasConsolidated) {
+		this.wasConsolidated = wasConsolidated;
+	}
 }

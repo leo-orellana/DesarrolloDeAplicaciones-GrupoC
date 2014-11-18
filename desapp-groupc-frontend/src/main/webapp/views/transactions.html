@@ -61,7 +61,7 @@
                     <a href="#/editTransaction/{{transaction.id}}" class="btn btn-link"><i class="fa fa-pencil fa-fw"></i></a>
                     <a href="#/deleteTransaction/{{transaction.id}}" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></a>
                 </td>
-                <td>{{transaction.date}}</td>
+                <td>{{transaction.date | date:'MMMM d, y'}}</td>
                 <td>{{transaction.subcategory.category.name}}</td>
                 <td>{{transaction.subcategory.name}}</td>
                 <td>{{transaction.concept}}</td>
@@ -90,4 +90,10 @@
         <li><a href="#">5</a></li>
         <li><a href="#">&raquo;</a></li>
     </ul>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<a href="#/consolidate" class="btn btn-primary pull-right">Consolidate Account</a>
+    	</div>
+    </div>
 </div>

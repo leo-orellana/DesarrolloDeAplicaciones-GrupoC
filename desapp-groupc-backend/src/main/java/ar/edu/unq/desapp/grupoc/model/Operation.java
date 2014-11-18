@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoc.model;
 
-public class Operation {
+public abstract class Operation {
 
 	private int id;
     private Movement movement;
@@ -28,6 +28,8 @@ public class Operation {
                 aAccount.getBalance(), this.amount));
     }
 
+    public abstract void setConsolidateProperties(Transaction transaction);
+    
     // ////////
 
     public Double getAmount() {

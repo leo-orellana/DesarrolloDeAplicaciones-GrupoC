@@ -116,6 +116,7 @@ public class TransactionRest {
 		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
 		Transaction trans = new Transaction(numOperation,subcategory, t, concept,
 				operationCash, operationChecking, operationBank, javaDate);
+		operation.setConsolidateProperties(trans);
 		accMan.inputTransaction(trans);
 		trans.setAmountAccruedBank(accMan.getAccruedMoney());
 		trans.setAmountAvailableBank(accMan.getAvailableMoney());

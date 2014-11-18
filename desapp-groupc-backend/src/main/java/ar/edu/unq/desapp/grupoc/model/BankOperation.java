@@ -28,4 +28,6 @@ public abstract class BankOperation {
 		this.name = name;
 	}
 
+	public abstract void setConsolidateProperties(Transaction transaction);
+
 }

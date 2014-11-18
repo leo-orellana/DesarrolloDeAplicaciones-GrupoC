@@ -10,7 +10,18 @@ function TransactionControllerList($scope, $http) {
 				console.log("error");
 			});
 	$http.get($rest + "accountManagerService/accountManager")
-	.success(function(response) {
+	.success(function(response) {function SubcategoryControllerDelete($scope, $http, $routeParams, $location, alert) {
+		$http.get($rest + "subcategoryService/delete/"+$routeParams.subcategoryId)
+		.success(function(response){
+			alert("The sub category <" + response.name + "> was deleted successfully")
+			.then(function(){
+				$location.path('/subcategories');
+			});
+		}).error(function(){
+			console.log("error");
+		});
+	}
+
 		$scope.accountManager = response;
 	}).error(function() {
 		console.log("error");
@@ -75,7 +86,7 @@ function TransactionControllerNew($scope, $http, $location, alert){
 						+ $scope.time + "/" + $scope.numberOperation + "/"
 						+ $scope.idAccount + "/" + $scope.idBankOperation + "/" + $scope.amount)
 			.success(function(response){
-				alert("The transaction was created successfully")
+				alert("The transaction <" + response.concept + "> was created successfully")
 				.then(function(){
 						$location.path('/transactions');
 					});
@@ -84,4 +95,16 @@ function TransactionControllerNew($scope, $http, $location, alert){
 				console.log("error");
 		});
 	}
+}
+
+function TransactionControllerDelete($scope, $http, $routeParams, $location, alert) {
+	$http.get($rest + "transactionService/delete/"+$routeParams.transactionId)
+	.success(function(response){
+		alert("The transaction <" + response.concept + "> was deleted successfully")
+		.then(function(){
+			$location.path('/transactions');
+		});
+	}).error(function(){
+		console.log("error");
+	});
 }

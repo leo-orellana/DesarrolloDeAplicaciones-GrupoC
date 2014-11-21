@@ -39,4 +39,7 @@
 		<property name="dao" ref="persistence.accountdao" />
 	</bean>
 
+	<bean id="services.supplier" class="ar.edu.unq.desapp.grupoc.services.SupplierService">
+		<property name="dao" ref="persistence.supplierdao" />
+	</bean>
 </beans>

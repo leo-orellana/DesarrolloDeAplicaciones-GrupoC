@@ -128,5 +128,7 @@
 	<bean id="persistence.accountdao" class="ar.edu.unq.desapp.grupoc.dao.AccountDAO" >
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
-
+	<bean id="persistence.supplierdao" class="ar.edu.unq.desapp.grupoc.dao.SupplierDAO" >
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
 </beans>

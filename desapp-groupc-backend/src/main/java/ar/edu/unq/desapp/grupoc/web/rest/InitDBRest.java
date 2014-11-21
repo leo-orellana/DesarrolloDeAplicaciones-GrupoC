@@ -1,7 +1,5 @@
 package ar.edu.unq.desapp.grupoc.web.rest;
 
-import java.util.Date;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
@@ -16,18 +14,15 @@ import ar.edu.unq.desapp.grupoc.model.BankOperationDebit;
 import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
-import ar.edu.unq.desapp.grupoc.model.OperationBankAccount;
-import ar.edu.unq.desapp.grupoc.model.OperationCashAccount;
-import ar.edu.unq.desapp.grupoc.model.OperationCheckingAccount;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
-import ar.edu.unq.desapp.grupoc.model.Time;
-import ar.edu.unq.desapp.grupoc.model.Transaction;
+import ar.edu.unq.desapp.grupoc.model.Supplier;
 import ar.edu.unq.desapp.grupoc.services.AccountManagerService;
 import ar.edu.unq.desapp.grupoc.services.AccountService;
 import ar.edu.unq.desapp.grupoc.services.BankOperationService;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
 import ar.edu.unq.desapp.grupoc.services.MovementService;
 import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
+import ar.edu.unq.desapp.grupoc.services.SupplierService;
 import ar.edu.unq.desapp.grupoc.services.TransactionService;
 
 @Service
@@ -41,6 +36,7 @@ public class InitDBRest {
 	private AccountManagerService accountManagerService;
 	private AccountService accountService;
 	private BankOperationService bankOperationService;
+	private SupplierService supplierService;
 	
 	@GET
 	@Path("/init")
@@ -107,6 +103,17 @@ public class InitDBRest {
 		
 		getAccountManagerService().save(accountManager);
 		
+		// CREATE SUPPLIERS
+		
+		Supplier cocaCola = new Supplier("Coca cola", "20-31345675-3");
+		Supplier fargo = new Supplier("Fargo", "30-34562453-1");
+		Supplier philips = new Supplier("Philips", "23-33512345-3");
+		Supplier samsung = new Supplier("Samsung", "23-45697645-5");
+		
+		getSupplierService().save(cocaCola);
+		getSupplierService().save(fargo);
+		getSupplierService().save(philips);
+		getSupplierService().save(samsung);
 	}
 
 	public CategoryService getCategoryService() {
@@ -158,6 +165,14 @@ public class InitDBRest {
 
 	public BankOperationService getBankOperationService() {
 		return bankOperationService;
+	}
+
+	public SupplierService getSupplierService() {
+		return supplierService;
+	}
+
+	public void setSupplierService(SupplierService supplierService) {
+		this.supplierService = supplierService;
 	}
 
 	public void setBankOperationService(BankOperationService bankOperationService) {

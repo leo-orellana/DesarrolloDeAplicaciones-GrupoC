@@ -39,6 +39,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 			<ref bean="subcategoryRest" />
 			<ref bean="accountRest"/>
 			<ref bean="DBRest"/>
+			<ref bean="supplierRest"/>
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
@@ -80,6 +81,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<property name="accountManagerService" ref="services.accountManager"></property>
 		<property name="accountService" ref="services.account"></property>
 		<property name="bankOperationService" ref="services.bankOperations"></property>
+		<property name="supplierService" ref="services.supplier"></property>
 	</bean>
 	
 	<bean id="transactionRest" class="ar.edu.unq.desapp.grupoc.web.rest.TransactionRest">
@@ -101,6 +103,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	
 	<bean id="accountRest" class="ar.edu.unq.desapp.grupoc.web.rest.AccountRest">
 		<property name="accountService" ref="services.account" />
+	</bean>
+	
+	<bean id="supplierRest" class="ar.edu.unq.desapp.grupoc.web.rest.SupplierRest">
+		<property name="supplierService" ref="services.supplier" />
 	</bean>
 	
 </beans>

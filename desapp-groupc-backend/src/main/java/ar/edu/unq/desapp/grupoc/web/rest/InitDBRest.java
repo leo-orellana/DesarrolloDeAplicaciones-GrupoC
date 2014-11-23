@@ -16,6 +16,10 @@ import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.model.Supplier;
+import ar.edu.unq.desapp.grupoc.model.TypeA;
+import ar.edu.unq.desapp.grupoc.model.TypeB;
+import ar.edu.unq.desapp.grupoc.model.TypeC;
+import ar.edu.unq.desapp.grupoc.model.TypeX;
 import ar.edu.unq.desapp.grupoc.services.AccountManagerService;
 import ar.edu.unq.desapp.grupoc.services.AccountService;
 import ar.edu.unq.desapp.grupoc.services.BankOperationService;
@@ -24,6 +28,7 @@ import ar.edu.unq.desapp.grupoc.services.MovementService;
 import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
 import ar.edu.unq.desapp.grupoc.services.SupplierService;
 import ar.edu.unq.desapp.grupoc.services.TransactionService;
+import ar.edu.unq.desapp.grupoc.services.TypeReceiptService;
 
 @Service
 @Path("/db")
@@ -37,6 +42,7 @@ public class InitDBRest {
 	private AccountService accountService;
 	private BankOperationService bankOperationService;
 	private SupplierService supplierService;
+	private TypeReceiptService typeReceiptService;
 	
 	@GET
 	@Path("/init")
@@ -97,7 +103,7 @@ public class InitDBRest {
 		getBankOperationService().save(bankOpDebit);
 		getBankOperationService().save(bankOpCredit);
 		
-		// CREATE ACCOUN MANAGER
+		// CREATE ACCOUNT MANAGER
 		
 		AccountManager accountManager = new AccountManager(accountCash,accountChecking,accountBank);
 		
@@ -114,6 +120,18 @@ public class InitDBRest {
 		getSupplierService().save(fargo);
 		getSupplierService().save(philips);
 		getSupplierService().save(samsung);
+		
+		// CREATE TYPE_RECEIPTS
+		
+		TypeA typeA = new TypeA();
+		TypeB typeB = new TypeB();
+		TypeC typeC = new TypeC();
+		TypeX typeX = new TypeX();
+		
+		getTypeReceiptService().save(typeA);
+		getTypeReceiptService().save(typeB);
+		getTypeReceiptService().save(typeC);
+		getTypeReceiptService().save(typeX);
 	}
 
 	public CategoryService getCategoryService() {
@@ -177,5 +195,13 @@ public class InitDBRest {
 
 	public void setBankOperationService(BankOperationService bankOperationService) {
 		this.bankOperationService = bankOperationService;
+	}
+
+	public TypeReceiptService getTypeReceiptService() {
+		return typeReceiptService;
+	}
+
+	public void setTypeReceiptService(TypeReceiptService typeReceiptService) {
+		this.typeReceiptService = typeReceiptService;
 	}
 }

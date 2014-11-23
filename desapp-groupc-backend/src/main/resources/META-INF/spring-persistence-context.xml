@@ -131,4 +131,7 @@
 	<bean id="persistence.supplierdao" class="ar.edu.unq.desapp.grupoc.dao.SupplierDAO" >
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
+	<bean id="persistence.typereceiptdao" class="ar.edu.unq.desapp.grupoc.dao.TypeReceiptDAO" >
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
 </beans>

@@ -3,8 +3,13 @@ package ar.edu.unq.desapp.grupoc.model;
 public class TypeA extends TypeReceipt {
 
     private Double ivaPercentage = 0.21;
+    
+    public TypeA() {
+		super();
+		this.setName("A");
+	}
 
-    public void calculateDetail(Receipt receipt) {
+	public void calculateDetail(Receipt receipt) {
         Double taxed = receipt.getTaxed();
         Double iva = 0.0;
 

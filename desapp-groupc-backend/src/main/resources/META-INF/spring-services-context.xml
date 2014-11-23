@@ -42,4 +42,8 @@
 	<bean id="services.supplier" class="ar.edu.unq.desapp.grupoc.services.SupplierService">
 		<property name="dao" ref="persistence.supplierdao" />
 	</bean>
+	
+	<bean id="services.typeReceipt" class="ar.edu.unq.desapp.grupoc.services.TypeReceiptService">
+		<property name="dao" ref="persistence.typereceiptdao" />
+	</bean>
 </beans>

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Receipt {
 
+	private int id;
     private Date date;
     private TypeReceipt typeReceipt;
     private String businessName;
@@ -29,7 +30,15 @@ public class Receipt {
         this.setIva(iva);
     }
 
-    public Date getDate() {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
         return date;
     }
 

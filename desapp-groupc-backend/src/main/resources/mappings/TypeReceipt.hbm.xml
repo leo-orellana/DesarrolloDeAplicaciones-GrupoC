@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" default-access="field"
+	default-cascade="save-update">
+	<class name="ar.edu.unq.desapp.grupoc.model.TypeReceipt" table="typesreceipts">
+	    <id name="id" type="int" column="id">
+	        <generator class="native"/>
+	    </id>
+	    <discriminator column="receipt_type" type="string"/>
+	    <property name="name"></property>
+	    <subclass name="ar.edu.unq.desapp.grupoc.model.TypeA" discriminator-value="TypeA">
+	    	<property name="ivaPercentage" type="double"></property>
+	    </subclass>
+	    <subclass name="ar.edu.unq.desapp.grupoc.model.TypeB" discriminator-value="TypeB">
+	    </subclass>
+	    <subclass name="ar.edu.unq.desapp.grupoc.model.TypeC" discriminator-value="TypeC">
+	    </subclass>
+	    <subclass name="ar.edu.unq.desapp.grupoc.model.TypeX" discriminator-value="TypeX">
+	    </subclass>
+	</class>
+</hibernate-mapping>

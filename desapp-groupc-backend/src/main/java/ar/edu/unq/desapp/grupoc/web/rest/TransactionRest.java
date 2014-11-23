@@ -88,7 +88,7 @@ public class TransactionRest {
 		Time t = Time.valueOf(time);
 		BankOperation bankOperation = getBankOperationService().getById(
 				idBankOperation);
-		if (bankOperation == null){
+		if (bankOperation == null) {
 			bankOperation = getBankOperationService().getById(1);
 		}
 		Operation operation = getAccountService().getById(idAccount)
@@ -100,7 +100,7 @@ public class TransactionRest {
 				new Ingress(), new Double(0));
 		OperationBankAccount operationBank = new OperationBankAccount(
 				new Ingress(), new Double(0), bankOperation);
-		
+
 		if (operation.getClass() == OperationBankAccount.class) {
 			operationBank = (OperationBankAccount) operation;
 		} else {
@@ -114,8 +114,9 @@ public class TransactionRest {
 		Date javaDate = new SimpleDateFormat("yy-MM-dd").parse(date);
 
 		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
-		Transaction trans = new Transaction(numOperation,subcategory, t, concept,
-				operationCash, operationChecking, operationBank, javaDate);
+		Transaction trans = new Transaction(numOperation, subcategory, t,
+				concept, operationCash, operationChecking, operationBank,
+				javaDate);
 		operation.setConsolidateProperties(trans);
 		accMan.inputTransaction(trans);
 		trans.setAmountAccruedBank(accMan.getAccruedMoney());

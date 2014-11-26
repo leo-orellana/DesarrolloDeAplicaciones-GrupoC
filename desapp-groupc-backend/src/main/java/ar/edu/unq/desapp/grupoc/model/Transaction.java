@@ -15,6 +15,8 @@ public class Transaction {
 	public int numOperation;
 	public Boolean shouldBeConsolidated;
 	public Boolean wasConsolidated;
+	public Receipt receipt;
+	public boolean hasReceipt;
 
 	// this amounts are the values of the accounts in the input transaction's
 	// moment
@@ -43,6 +45,7 @@ public class Transaction {
 		this.setOperationBankAccount(operationBankAccount);
 		this.setOperationCheckingAccount(operationCheckingAccount);
 		this.setDate(date);
+		this.setHasReceipt(false);
 	}
 
 	public Subcategory getSubcategory() {
@@ -172,5 +175,22 @@ public class Transaction {
 
 	public void setWasConsolidated(Boolean wasConsolidated) {
 		this.wasConsolidated = wasConsolidated;
+	}
+
+	public Receipt getReceipt() {
+		return receipt;
+	}
+
+	public void setReceipt(Receipt receipt) {
+		this.receipt = receipt;
+		this.setHasReceipt(true);
+	}
+
+	public boolean isHasReceipt() {
+		return hasReceipt;
+	}
+
+	public void setHasReceipt(boolean hasReceipt) {
+		this.hasReceipt = hasReceipt;
 	}
 }

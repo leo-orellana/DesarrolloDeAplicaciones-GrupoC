@@ -9,17 +9,18 @@ public class TypeA extends TypeReceipt {
 		this.setName("A");
 	}
 
-	public void calculateDetail(Receipt receipt) {
+	public Double calculateDetail(Receipt receipt) {
         Double taxed = receipt.getTaxed();
         Double iva = 0.0;
 
         if (taxed == 0.0) {
-            taxed = receipt.getTotalBill() / 1.21;
-            receipt.setTaxed(taxed);
+            taxed = ( receipt.getTotalBill() - receipt.getUntaxed() ) / 1.21;
         }
         iva = taxed * this.getIvaPercentage();
         receipt.setUntaxed(receipt.getTotalBill() - taxed - iva);
         receipt.setIva(iva);
+        
+        return taxed;
     }
 
     public Double getIvaPercentage() {

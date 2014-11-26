@@ -40,7 +40,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 			<ref bean="accountRest"/>
 			<ref bean="DBRest"/>
 			<ref bean="supplierRest"/>
-			<ref bean="typeReceiptRest"/>			
+			<ref bean="typeReceiptRest"/>
+			<ref bean="receiptRest"/>			
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
@@ -79,19 +80,20 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<property name="movementService" ref="services.movements" />
 		<property name="subcategoryService" ref="services.subcategories" />
 		<property name="transactionService" ref="services.transactions" />
-		<property name="accountManagerService" ref="services.accountManager"></property>
-		<property name="accountService" ref="services.account"></property>
-		<property name="bankOperationService" ref="services.bankOperations"></property>
-		<property name="supplierService" ref="services.supplier"></property>
-		<property name="typeReceiptService" ref="services.typeReceipt"></property>
+		<property name="accountManagerService" ref="services.accountManager" />
+		<property name="accountService" ref="services.account" />
+		<property name="bankOperationService" ref="services.bankOperations" />
+		<property name="supplierService" ref="services.supplier" />
+		<property name="typeReceiptService" ref="services.typeReceipt" />
+		<property name="receiptService" ref="services.receipts" />
 	</bean>
 	
 	<bean id="transactionRest" class="ar.edu.unq.desapp.grupoc.web.rest.TransactionRest">
 		<property name="transactionService" ref="services.transactions" />
 		<property name="subCategoryService" ref="services.subcategories" />
-		<property name="accountService" ref="services.account"></property>
-		<property name="bankOperationService" ref="services.bankOperations"></property>
-		<property name="accountManagerService" ref="services.accountManager"></property>
+		<property name="accountService" ref="services.account" />
+		<property name="bankOperationService" ref="services.bankOperations" />
+		<property name="accountManagerService" ref="services.accountManager" />
 	</bean>
 	
 	<bean id="bankOperationRest" class="ar.edu.unq.desapp.grupoc.web.rest.BankOperationRest">
@@ -113,6 +115,15 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	
 	<bean id="typeReceiptRest" class="ar.edu.unq.desapp.grupoc.web.rest.TypeReceiptRest">
 		<property name="typeReceiptService" ref="services.typeReceipt" />
+	</bean>
+	
+	<bean id="receiptRest" class="ar.edu.unq.desapp.grupoc.web.rest.ReceiptRest">
+		<property name="transactionService" ref="services.transactions" />
+		<property name="subCategoryService" ref="services.subcategories" />
+		<property name="accountService" ref="services.account" />
+		<property name="bankOperationService" ref="services.bankOperations" />
+		<property name="accountManagerService" ref="services.accountManager" />
+		<property name="receiptService" ref="services.receipts" />
 	</bean>
 	
 </beans>

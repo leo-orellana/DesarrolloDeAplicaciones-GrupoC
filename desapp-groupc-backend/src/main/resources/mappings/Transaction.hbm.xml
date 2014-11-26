@@ -35,6 +35,10 @@
 		</many-to-one>
 		<property name="shouldBeConsolidated"></property>
 		<property name="wasConsolidated"></property>
+		<many-to-one name="receipt" class="ar.edu.unq.desapp.grupoc.model.Receipt">
+			<column name="receipt"></column>
+		</many-to-one>
+		<property name="hasReceipt" type="boolean"></property>
 	</class>
 	
 </hibernate-mapping>

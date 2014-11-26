@@ -14,11 +14,11 @@ public class TestReceiptA extends TestCase {
         when(mockReceipt.getTaxed()).thenReturn(0.0);
         when(mockReceipt.getTotalBill()).thenReturn(1210.0);
         
-        typeA.calculateDetail(mockReceipt);
-        
-        verify(mockReceipt, times(1)).setTaxed(1000.0);
+        Double taxed = typeA.calculateDetail(mockReceipt);
+       
         verify(mockReceipt, times(1)).setUntaxed(0.0);
         verify(mockReceipt, times(1)).setIva(210.0);
+        assertEquals(1000.0, taxed);
     }
     
     public void testCalculateDetailWithTotalBillAndTaxedValue(){
@@ -28,10 +28,11 @@ public class TestReceiptA extends TestCase {
         when(mockReceipt.getTaxed()).thenReturn(800.0);
         when(mockReceipt.getTotalBill()).thenReturn(968.0);
         
-        typeA.calculateDetail(mockReceipt);
+        Double taxed = typeA.calculateDetail(mockReceipt);
         
         verify(mockReceipt, times(1)).setUntaxed(0.0);
         verify(mockReceipt, times(1)).setIva(168.0);
+        assertEquals(800.0, taxed);
     }
     
     public void testCalculateDetailWithTotalBillAndTaxedValueAndUntaxedValue(){
@@ -41,9 +42,10 @@ public class TestReceiptA extends TestCase {
         when(mockReceipt.getTaxed()).thenReturn(600.0);
         when(mockReceipt.getTotalBill()).thenReturn(800.0);
         
-        typeA.calculateDetail(mockReceipt);
+        Double taxed = typeA.calculateDetail(mockReceipt);
         
         verify(mockReceipt, times(1)).setUntaxed(74.0);
         verify(mockReceipt, times(1)).setIva(126.0);
+        assertEquals(600.0, taxed);
     }
 }

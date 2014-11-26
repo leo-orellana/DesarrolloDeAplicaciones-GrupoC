@@ -16,6 +16,7 @@ public class TransactionService extends GenericService<Transaction>{
 		return list;
 	}
 
+	@Transactional
 	public void updateAll(List<Transaction> consolidateds) {
 		for (Transaction transaction : consolidateds) {
 			update(transaction);

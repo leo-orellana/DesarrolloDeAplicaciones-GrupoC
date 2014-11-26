@@ -102,6 +102,7 @@ public class TestAccountManager extends TestCase {
 		verify(mockBank, times(1)).getAccrued();
 	}
 
+	@SuppressWarnings("deprecation")
 	public void testConsolidateAccountMockTransaction2Valid_MockTransaction1Invalid(){
     	Transaction mockTransaction1 = mock(Transaction.class);
     	Transaction mockTransaction2 = mock(Transaction.class);

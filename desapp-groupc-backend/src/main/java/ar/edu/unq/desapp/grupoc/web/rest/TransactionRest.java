@@ -119,10 +119,6 @@ public class TransactionRest {
 				javaDate);
 		operation.setConsolidateProperties(trans);
 		accMan.inputTransaction(trans);
-		trans.setAmountAccruedBank(accMan.getAccruedMoney());
-		trans.setAmountAvailableBank(accMan.getAvailableMoney());
-		trans.setAmountOfCashAccount(accMan.getCashBalance());
-		trans.setAmountOfCheckingAccount(accMan.getCheckingBalance());
 		getAccountManagerService().save(accMan);
 		getTransactionService().save(trans);
 

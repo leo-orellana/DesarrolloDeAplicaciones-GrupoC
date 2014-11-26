@@ -18,9 +18,9 @@ public class TestReceipt extends TestCase {
         String cuit = "30-12345678-3";
         String concept = "concept";
         Double totalBill = 1210.0;
-        Double taxed = 1000.0;
+        Double taxed = 0.0;
         Double untaxed = 0.0;
-        Double iva = 210.0;
+        Double iva = 0.0;
 
         Receipt receipt = BuilderReceipt.getInstance()
                 .withBusinessName(businessName).withConcept(concept)
@@ -34,7 +34,7 @@ public class TestReceipt extends TestCase {
         assertSame(cuit, receipt.getCuit());
         assertSame(concept, receipt.getConcept());
         assertSame(totalBill, receipt.getTotalBill());
-        assertSame(taxed, receipt.getTaxed());
+        assertEquals(taxed, receipt.getTaxed());
         assertSame(iva, receipt.getIva());
         assertSame(untaxed, receipt.getUntaxed());
 

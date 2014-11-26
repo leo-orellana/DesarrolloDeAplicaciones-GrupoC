@@ -10,7 +10,7 @@
 var app = angular.module(
 		'app',
 		[ 'ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize',
-				'ngTouch', 'ngGrid' ]).config(function($routeProvider) {
+				'ngTouch', 'ngGrid', 'ui.bootstrap' ]).config(function($routeProvider) {
 	$routeProvider
 	
 	/*** CATEGORIES ***/
@@ -71,6 +71,12 @@ var app = angular.module(
 	.when('/consolidate', {
 		templateUrl : 'views/transactions.html',
 		controller : 'AccountManagerControllerConsolidate'
+	})
+	
+	// RECEIPTS
+	.when('/receipts', {
+		templateUrl : 'views/receipts.html',
+		controller : 'ReceiptControllerList'
 	})
 	
 	.otherwise({

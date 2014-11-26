@@ -15,6 +15,8 @@ public class Receipt {
     private Double untaxed;
     private Double iva;
 
+    public Receipt(){}
+    
     public Receipt(Date date, TypeReceipt typeReceipt, String businessName,
             String cuit, String concept, Double totalBill, Double taxed,
             Double untaxed, Double iva) {
@@ -24,13 +26,18 @@ public class Receipt {
         this.setBusinessName(businessName);
         this.setCuit(cuit);
         this.setConcept(concept);
-        this.setTotalBill(totalBill);
-        this.setTaxed(taxed);
         this.setUntaxed(untaxed);
         this.setIva(iva);
+        this.calculateDetails(totalBill, taxed);
     }
 
-    public int getId() {
+    private void calculateDetails(Double totalBill, Double taxed) {
+    	this.taxed = taxed;
+    	this.totalBill = totalBill;
+    	this.taxed = this.typeReceipt.calculateDetail(this);
+	}
+
+	public int getId() {
 		return id;
 	}
 
@@ -84,7 +91,7 @@ public class Receipt {
 
     public void setTotalBill(Double totalBill) {
         this.totalBill = totalBill;
-        this.typeReceipt.calculateDetail(this);
+        this.taxed = this.getTypeReceipt().calculateDetail(this);
     }
 
     public Double getTaxed() {
@@ -92,11 +99,11 @@ public class Receipt {
     }
 
     public void setTaxed(Double taxed) {
-        this.taxed = taxed;
-        this.typeReceipt.calculateDetail(this);
+    	this.taxed = taxed;
+        this.taxed = this.getTypeReceipt().calculateDetail(this);
     }
 
-    public Double getUntaxed() {
+	public Double getUntaxed() {
         return untaxed;
     }
 
@@ -111,5 +118,4 @@ public class Receipt {
     public void setIva(Double iva) {
         this.iva = iva;
     }
-
 }

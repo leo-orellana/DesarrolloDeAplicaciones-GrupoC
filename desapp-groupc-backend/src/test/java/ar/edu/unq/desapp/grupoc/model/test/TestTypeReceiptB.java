@@ -11,10 +11,10 @@ public class TestTypeReceiptB extends TestCase {
         Receipt mockReceipt = mock(Receipt.class);
         TypeB typeB = new TypeB();
         
-        typeB.calculateDetail(mockReceipt);
-        
-        verify(mockReceipt, times(1)).setTaxed(0.0);
+        Double taxed = typeB.calculateDetail(mockReceipt);
+
         verify(mockReceipt, times(1)).setUntaxed(0.0);
         verify(mockReceipt, times(1)).setIva(0.0);
+        assertEquals(0.0, taxed);
     }
 }

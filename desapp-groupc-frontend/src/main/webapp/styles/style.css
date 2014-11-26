@@ -29,11 +29,15 @@ body { padding-top: 70px; }
 }
 
 .load{
-   text-align: center;   
+   	text-align: center;   
 }
 
 .actions{
-   text-align: center;   
+   	text-align: center;
+}
+
+td.actions{
+	width: 160px !important;
 }
 
 .egress{

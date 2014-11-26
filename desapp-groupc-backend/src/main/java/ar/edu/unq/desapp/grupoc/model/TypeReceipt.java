@@ -5,10 +5,10 @@ public abstract class TypeReceipt {
 	private int id;
 	private String name;
 	
-    public void calculateDetail(Receipt receipt){
-        receipt.setTaxed(0.0);
+    public Double calculateDetail(Receipt receipt){
         receipt.setUntaxed(0.0);
         receipt.setIva(0.0);
+    	return 0.0;
     }
 
 	public int getId() {

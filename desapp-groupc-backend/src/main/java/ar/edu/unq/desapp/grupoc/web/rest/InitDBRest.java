@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupoc.web.rest;
 
+import java.util.Date;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
@@ -14,8 +16,14 @@ import ar.edu.unq.desapp.grupoc.model.BankOperationDebit;
 import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.model.Egress;
 import ar.edu.unq.desapp.grupoc.model.Ingress;
+import ar.edu.unq.desapp.grupoc.model.OperationBankAccount;
+import ar.edu.unq.desapp.grupoc.model.OperationCashAccount;
+import ar.edu.unq.desapp.grupoc.model.OperationCheckingAccount;
+import ar.edu.unq.desapp.grupoc.model.Receipt;
 import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.model.Supplier;
+import ar.edu.unq.desapp.grupoc.model.Time;
+import ar.edu.unq.desapp.grupoc.model.Transaction;
 import ar.edu.unq.desapp.grupoc.model.TypeA;
 import ar.edu.unq.desapp.grupoc.model.TypeB;
 import ar.edu.unq.desapp.grupoc.model.TypeC;
@@ -25,6 +33,7 @@ import ar.edu.unq.desapp.grupoc.services.AccountService;
 import ar.edu.unq.desapp.grupoc.services.BankOperationService;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
 import ar.edu.unq.desapp.grupoc.services.MovementService;
+import ar.edu.unq.desapp.grupoc.services.ReceiptService;
 import ar.edu.unq.desapp.grupoc.services.SubCategoryService;
 import ar.edu.unq.desapp.grupoc.services.SupplierService;
 import ar.edu.unq.desapp.grupoc.services.TransactionService;
@@ -43,6 +52,7 @@ public class InitDBRest {
 	private BankOperationService bankOperationService;
 	private SupplierService supplierService;
 	private TypeReceiptService typeReceiptService;
+	private ReceiptService receiptService;
 	
 	@GET
 	@Path("/init")
@@ -68,16 +78,23 @@ public class InitDBRest {
 		ventas.setName("Ventas");
 		ventas.setMovement(ingress);
 		
+		Category compras = new Category();
+		compras.setName("Compras");
+		compras.setMovement(egress);
+
 		getCategoryService().save(pagos);
 		getCategoryService().save(ventas);
+		getCategoryService().save(compras);
 		
 		
 		// CREATE SUBCATEGORIES
 		Subcategory pagoSueldos = new Subcategory("Pago Sueldos", pagos);
 		Subcategory televisores = new Subcategory("Venta televisores", ventas);
+		Subcategory compraDeSoftware = new Subcategory("Compra de software", compras);
 		
 		getSubcategoryService().save(pagoSueldos);
 		getSubcategoryService().save(televisores);
+		getSubcategoryService().save(compraDeSoftware);
 		
 		
 		// CREATE ACCOUNTS
@@ -132,6 +149,43 @@ public class InitDBRest {
 		getTypeReceiptService().save(typeB);
 		getTypeReceiptService().save(typeC);
 		getTypeReceiptService().save(typeX);
+		
+		//CREATE TRANSACTIONS AND RECEIPT
+		
+		OperationCashAccount operationCashAccount = new OperationCashAccount(ingress, 4000.0);
+		OperationCheckingAccount operationCheckingAccount = new OperationCheckingAccount(ingress, 0.0);
+		OperationBankAccount operationBankAccount = new OperationBankAccount(ingress, 0.0, bankOpDebit);
+		Transaction transaction1 = new Transaction(1, televisores, Time.Afternoon, "Venta TV Philips", operationCashAccount, operationCheckingAccount, operationBankAccount, new Date());
+		
+		operationCashAccount.setConsolidateProperties(transaction1);
+		accountManager.inputTransaction(transaction1);
+		
+		OperationCashAccount operationCashAccount2 = new OperationCashAccount(ingress, 5000.0);
+		OperationCheckingAccount operationCheckingAccount2 = new OperationCheckingAccount(ingress, 0.0);
+		OperationBankAccount operationBankAccount2 = new OperationBankAccount(ingress, 0.0, bankOpDebit);
+		Transaction transaction2 = new Transaction(2, televisores, Time.Afternoon, "Venta TV Samsung", operationCashAccount2, operationCheckingAccount2, operationBankAccount2, new Date());
+		
+		operationCashAccount2.setConsolidateProperties(transaction2);
+		accountManager.inputTransaction(transaction2);
+		
+		OperationCashAccount operationCashAccount3 = new OperationCashAccount(egress, 1410.0);
+		OperationCheckingAccount operationCheckingAccount3 = new OperationCheckingAccount(egress, 0.0);
+		OperationBankAccount operationBankAccount3 = new OperationBankAccount(egress, 0.0, bankOpDebit);
+		Transaction transaction3 = new Transaction(3, compraDeSoftware, Time.Afternoon, "Software de facturación", operationCashAccount3, operationCheckingAccount3, operationBankAccount3, new Date());
+	
+		operationCashAccount3.setConsolidateProperties(transaction3);
+		accountManager.inputTransaction(transaction3);
+		
+		Receipt receipt = new Receipt(new Date(), typeA, "Morellato S.A", "20-36987655-3", "Software de facturación", 1410.0, 0.0, 200.0, 0.0);
+		
+		transaction3.setReceipt(receipt);
+		
+		getTransactionService().save(transaction1);
+		getTransactionService().save(transaction2);
+		getTransactionService().save(transaction3);
+		
+		getAccountManagerService().save(accountManager);
+
 	}
 
 	public CategoryService getCategoryService() {
@@ -203,5 +257,13 @@ public class InitDBRest {
 
 	public void setTypeReceiptService(TypeReceiptService typeReceiptService) {
 		this.typeReceiptService = typeReceiptService;
+	}
+
+	public ReceiptService getReceiptService() {
+		return receiptService;
+	}
+
+	public void setReceiptService(ReceiptService receiptService) {
+		this.receiptService = receiptService;
 	}
 }

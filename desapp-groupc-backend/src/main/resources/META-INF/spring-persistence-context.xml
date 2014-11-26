@@ -134,4 +134,7 @@
 	<bean id="persistence.typereceiptdao" class="ar.edu.unq.desapp.grupoc.dao.TypeReceiptDAO" >
 		<property name="sessionFactory" ref="persistence.sessionFactory" />
 	</bean>
+	<bean id="persistence.receiptdao" class="ar.edu.unq.desapp.grupoc.dao.ReceiptDAO" >
+		<property name="sessionFactory" ref="persistence.sessionFactory" />
+	</bean>
 </beans>

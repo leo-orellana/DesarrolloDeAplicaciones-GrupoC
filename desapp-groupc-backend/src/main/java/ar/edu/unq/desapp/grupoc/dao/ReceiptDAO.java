@@ -19,10 +19,10 @@ public class ReceiptDAO extends HibernateGenericDAO<Receipt> implements
 
 	@SuppressWarnings("unchecked")
 	public List<Receipt> filterByConcept(String concept) {
-		List<Receipt> t = this.getSession().createCriteria(Receipt.class)
+		List<Receipt> r = this.getSession().createCriteria(Receipt.class)
 				.add(Restrictions.ilike("concept", concept, MatchMode.ANYWHERE)).list();
 		
-		return t;
+		return r;
 	}
 
 	@Override

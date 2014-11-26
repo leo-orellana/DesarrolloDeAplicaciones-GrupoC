@@ -55,6 +55,11 @@ public class AccountManager {
 				aTransaction.getOperationCashAccount());
 		this.getAccountChecking().processOperation(
 				aTransaction.getOperationCheckingAccount());
+		
+		aTransaction.setAmountAccruedBank(this.getAccruedMoney());
+		aTransaction.setAmountAvailableBank(this.getAvailableMoney());
+		aTransaction.setAmountOfCashAccount(this.getCashBalance());
+		aTransaction.setAmountOfCheckingAccount(this.getCheckingBalance());
 	}
 
 	/**

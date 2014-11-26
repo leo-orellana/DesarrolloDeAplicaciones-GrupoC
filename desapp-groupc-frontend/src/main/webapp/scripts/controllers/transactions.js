@@ -2,7 +2,7 @@
 $rest = "http://localhost:8081/backend/rest/";
 
 
-function TransactionControllerList($scope, $http) {
+function TransactionControllerList($scope, $http, $modal) {
 	$http.get($rest + "transactionService/transactions")
 			.success(function(response) {
 				$scope.transactions = response;
@@ -26,6 +26,17 @@ function TransactionControllerList($scope, $http) {
 	}).error(function() {
 		console.log("error");
 	});
+	
+	$scope.viewReceipt = function (receiptId) {
+		$scope.receiptId = receiptId;
+        $modal.open({
+            templateUrl: 'views/receipt.html',
+            backdrop: true,
+            scope: $scope,
+            id: 3,
+            controller: 'ReceiptController'
+        });
+    }
 }
 
 function TransactionControllerNew($scope, $http, $location, alert){
@@ -107,4 +118,8 @@ function TransactionControllerDelete($scope, $http, $routeParams, $location, ale
 	}).error(function(){
 		console.log("error");
 	});
+}
+
+function ReceiptController($scope) {
+	$scope.title="Hola!";
 }

@@ -69,3 +69,16 @@ td.actions{
 	top: 40%;
 	bottom: 40%;
 }
+
+.receipt {
+   text-align: center;  
+}
+
+.receipt-container{
+	margin:10px;
+	font-family:"Verdana";
+}
+
+.receipt-concept{
+	vertical-align:middle;
+}

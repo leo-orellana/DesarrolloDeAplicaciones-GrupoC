@@ -65,7 +65,7 @@
                 <td class="actions">
                     <a href="#/editTransaction/{{transaction.id}}" class="btn btn-link btn-action"><i class="fa fa-pencil fa-fw"></i></a>
                     <a href="#/deleteTransaction/{{transaction.id}}" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></a>
-                	<button class="btn btn-link" ng-show="{{transaction.hasReceipt}}" ng-click="viewReceipt({{transaction.receipt.id}})"><i class="fa fa-file-text-o fa-fw"></i></button>
+                	<button class="btn btn-link" ng-show="{{transaction.hasReceipt}}" ng-click="viewReceipt({{transaction.receipt}})"><i class="fa fa-file-text-o fa-fw"></i></button>
                 </td>
                 <td>{{transaction.date | date:'MMMM d, y'}}</td>
                 <td>{{transaction.subcategory.category.name}}</td>

@@ -91,10 +91,12 @@ public class InitDBRest {
 		Subcategory pagoSueldos = new Subcategory("Pago Sueldos", pagos);
 		Subcategory televisores = new Subcategory("Venta televisores", ventas);
 		Subcategory compraDeSoftware = new Subcategory("Compra de software", compras);
+		Subcategory compraDeAutos = new Subcategory("Compra de autos", compras);
 		
 		getSubcategoryService().save(pagoSueldos);
 		getSubcategoryService().save(televisores);
 		getSubcategoryService().save(compraDeSoftware);
+		getSubcategoryService().save(compraDeAutos);
 		
 		
 		// CREATE ACCOUNTS
@@ -180,9 +182,22 @@ public class InitDBRest {
 		
 		transaction3.setReceipt(receipt);
 		
+		OperationCashAccount operationCashAccount4 = new OperationCashAccount(egress, 70000.0);
+		OperationCheckingAccount operationCheckingAccount4 = new OperationCheckingAccount(egress, 0.0);
+		OperationBankAccount operationBankAccount4 = new OperationBankAccount(egress, 0.0, bankOpDebit);
+		Transaction transaction4 = new Transaction(4, compraDeAutos, Time.Afternoon, "Compra Chevrolet Corsa", operationCashAccount4, operationCheckingAccount4, operationBankAccount4, new Date());
+		
+		operationCashAccount4.setConsolidateProperties(transaction4);
+		accountManager.inputTransaction(transaction4);
+		
+		Receipt receipt2 = new Receipt(new Date(), typeC, "Gonzalía Asociados", "20-32543678-7", "Compra Chevrolet Corsa", 70000.0, 0.0, 0.0, 0.0);
+		
+		transaction4.setReceipt(receipt2);
+		
 		getTransactionService().save(transaction1);
 		getTransactionService().save(transaction2);
 		getTransactionService().save(transaction3);
+		getTransactionService().save(transaction4);
 		
 		getAccountManagerService().save(accountManager);
 

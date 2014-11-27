@@ -27,13 +27,13 @@ function TransactionControllerList($scope, $http, $modal) {
 		console.log("error");
 	});
 	
-	$scope.viewReceipt = function (receiptId) {
-		$scope.receiptId = receiptId;
+	$scope.viewReceipt = function (receipt) {
+		$scope.receipt = receipt;
+		
         $modal.open({
             templateUrl: 'views/receipt.html',
             backdrop: true,
             scope: $scope,
-            id: 3,
             controller: 'ReceiptController'
         });
     }
@@ -121,5 +121,15 @@ function TransactionControllerDelete($scope, $http, $routeParams, $location, ale
 }
 
 function ReceiptController($scope) {
-	$scope.title="Hola!";
+	var types = ["B", "C", "X"];
+	
+	$scope.isTypeA = function(){
+		return !isInArray(types, $scope.receipt.typeReceipt.name);
+	}
+}
+
+function isInArray(array, search)
+{
+	console.log(array.indexOf(search) >= 0);
+    return array.indexOf(search) >= 0;
 }

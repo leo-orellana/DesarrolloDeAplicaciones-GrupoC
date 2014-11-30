@@ -42,7 +42,8 @@ function TransactionControllerList($scope, $http, $modal) {
 function TransactionControllerNew($scope, $http, $location, alert){
 	
 	$scope.title = 'New transaction';
-	$scope.times = ["Morning", "Afternoon", "Night"] 
+	$scope.times = ["Morning", "Afternoon", "Night"];
+	$scope.editMode = false;
 	
 	$http.get($rest + "categoryService/categories")
 			.success(function(response) {
@@ -106,6 +107,115 @@ function TransactionControllerNew($scope, $http, $location, alert){
 				console.log("error");
 		});
 	}
+}
+
+function TransactionControllerEdit($scope, $http, $routeParams, $location, alert) {
+	$scope.title = 'Edit transaction';
+	$scope.times = ["Morning", "Afternoon", "Night"];
+	$scope.editMode = true;
+	
+	$http.get($rest + "categoryService/categories")
+	.success(function(response) {
+		$scope.categories = response;
+	})
+	.error(function() {
+		console.log("error");
+	});
+
+	$http.get($rest + "accountService/accounts")
+	.success(function(response) {
+	$scope.accounts = response;
+	})
+	.error(function() {
+	console.log("error");
+	});
+	
+	$scope.changeSubcategory = function() {
+		$http.get($rest + "subcategoryService/filterByCategory/" + $scope.idCategory)
+		.success(function(response) {
+			$scope.subcategories = response;
+		})
+		.error(function() {
+			console.log("error");
+		});
+   };
+	
+	$scope.setBankProperties = function(transaction) {
+		if(transaction.operationCashAccount.amount > 0) {
+			$http.get($rest + "accountService/filterByName/Cash")
+			.success(function(response){
+				$scope.idAccount = response[0].id;
+				$scope.amount = transaction.operationCashAccount.amount;
+			})
+			.error(function() {
+	  			console.log("error");
+	  		});
+		};
+		if(transaction.operationCheckingAccount.amount > 0) {
+			$http.get($rest + "accountService/filterByName/Checking")
+			.success(function(response){
+				$scope.idAccount = response[0].id;
+				$scope.amount = transaction.operationCheckingAccount.amount;
+			})
+			.error(function() {
+	  			console.log("error");
+	  		});
+		};
+		if(transaction.operationBankAccount.amount > 0) {
+			$http.get($rest + "accountService/filterByName/Bank")
+			.success(function(response){
+				$scope.idAccount = response[0].id;
+				$scope.amount = transaction.operationBankAccount.amount;
+			})
+			.error(function() {
+	  			console.log("error");
+	  		});
+		};
+		
+  		$http.get($rest + "bankOperationService/operations")
+  		.success(function(response) {
+  			if($scope.idAccount == 3){
+  				$scope.showBankOperation = true; 				
+  			}
+  			else{
+  				$scope.showBankOperation = false;
+  			}
+  			$scope.bankOperations = response;
+  			$scope.idBankOperation = transaction.operationBankAccount.bankOperation.id;
+  		})
+  		.error(function() {
+  			console.log("error");
+  		});
+	};
+  		
+	
+	$http.get($rest + "transactionService/transaction/"+$routeParams.transactionId)
+	.success(function(response) {
+		$scope.date = response.date;
+		$scope.idCategory = response.subcategory.category.id;
+		$scope.changeSubcategory();
+		$scope.idSubcategory = response.subcategory.id;
+		$scope.concept = response.concept;
+		$scope.time = response.time;
+		$scope.numberOperation = response.numOperation;
+		$scope.setBankProperties(response);
+	})
+	.error(function() {
+		console.log("error");
+	});	
+		
+	$scope.submit = function(form){
+		$http.get($rest + "transactionService/update/" + $routeParams.transactionId + '/' + $scope.concept + "/" + $scope.time + '/' + $scope.numberOperation)
+			.success(function(response){
+				alert("The transaction <" + response.concept + "> was updated successfully")
+					.then(function(){
+						$location.path('/transactions');
+					});
+			})
+			.error(function() {
+				console.log("error");
+		});
+	}		
 }
 
 function TransactionControllerDelete($scope, $http, $routeParams, $location, alert) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +22,13 @@ public class AccountRest {
 	@Produces("application/json")
 	public List<Account> getAccounts() {
 		return getAccountService().retriveAll();
+	}
+	
+	@GET
+	@Path("/filterByName/{name}")
+	@Produces("application/json")
+	public List<Account> filterByName(@PathParam("name") final String name) {
+		return getAccountService().filterByName(name);
 	}
 	
 	public AccountService getAccountService() {

@@ -125,6 +125,25 @@ public class TransactionRest {
 		return trans;
 	}
 
+	@GET
+	@Path("/update/{idTransaction}/{concept}/{time}/{numOperation}")
+	@Produces("application/json")
+	public Transaction updateTransaction(
+			@PathParam("idTransaction") final int idTransaction,
+			@PathParam("concept") final String concept,
+			@PathParam("time") final String time,
+			@PathParam("numOperation") final int numOperation) throws ParseException {
+		
+		Transaction trans = getTransactionService().getById(idTransaction);
+		trans.setConcept(concept);
+		Time t = Time.valueOf(time);
+		trans.setTime(t);
+		trans.setNumOperation(numOperation);
+		getTransactionService().update(trans);
+		
+		return trans;
+	}
+	
 	public TransactionService getTransactionService() {
 		return transactionService;
 	}

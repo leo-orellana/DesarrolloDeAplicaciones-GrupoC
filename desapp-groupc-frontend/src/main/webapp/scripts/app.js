@@ -62,6 +62,10 @@ var app = angular.module(
 		templateUrl : 'views/editTransaction.html',
 		controller : 'TransactionControllerNew'
 	})
+	.when('/editTransaction/:transactionId',{
+		templateUrl : 'views/editTransaction.html',
+		controller : 'TransactionControllerEdit'
+	})
 	.when('/deleteTransaction/:transactionId',{
 		templateUrl : 'views/transactions.html',
 		controller : 'TransactionControllerDelete'

@@ -124,6 +124,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<property name="bankOperationService" ref="services.bankOperations" />
 		<property name="accountManagerService" ref="services.accountManager" />
 		<property name="receiptService" ref="services.receipts" />
+		<property name="typeReceiptService" ref="services.typeReceipt"/>
+		<property name="supplierService" ref="services.supplier" />
+		<property name="transactionRest" ref="transactionRest" />
 	</bean>
 	
 </beans>

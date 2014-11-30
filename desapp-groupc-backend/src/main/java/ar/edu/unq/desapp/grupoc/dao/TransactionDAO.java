@@ -26,6 +26,14 @@ public class TransactionDAO extends HibernateGenericDAO<Transaction> implements
 		return t;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Transaction getByReceiptId(int receiptId){
+		List<Transaction> t = this.getSession().createCriteria(Transaction.class)
+				.add(Restrictions.eq("receipt.id", receiptId)).list();
+		
+		return t.get(0);
+	}
+	
 	@Override
 	protected Class<Transaction> getDomainClass() {
 		return Transaction.class;

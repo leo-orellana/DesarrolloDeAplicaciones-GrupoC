@@ -82,7 +82,7 @@ public class TransactionRest {
 			@PathParam("numOperation") final int numOperation,
 			@PathParam("idAccount") final int idAccount,
 			@PathParam("idBankOperation") final int idBankOperation,
-			@PathParam("amount") final int amount) throws ParseException {
+			@PathParam("amount") final Double amount) throws ParseException {
 		Subcategory subcategory = getSubCategoryService()
 				.getById(idSubcategory);
 		Time t = Time.valueOf(time);
@@ -139,9 +139,19 @@ public class TransactionRest {
 		Time t = Time.valueOf(time);
 		trans.setTime(t);
 		trans.setNumOperation(numOperation);
+		if(trans.isHasReceipt()){
+			trans.getReceipt().setConcept(concept);
+		}
 		getTransactionService().update(trans);
 		
 		return trans;
+	}
+	
+	@GET
+	@Path("/getByReceiptId/{idReceipt}")
+	@Produces("application/json")
+	public Transaction getByReceiptId(@PathParam("idReceipt") final int idReceipt){
+		return getTransactionService().getByReceiptId(idReceipt);
 	}
 	
 	public TransactionService getTransactionService() {

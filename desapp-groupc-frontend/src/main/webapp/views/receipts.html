@@ -45,7 +45,6 @@
                     <th>CUIT</th>
                     <th>Concept</th>
                     <th>Taxed</th>
-                    <!--<th>IIBB</th>-->
                     <th>IVA</th>
                     <th>Untaxed</th>
                     <th>Total bill</th>
@@ -55,14 +54,13 @@
                 <tr ng-repeat="receipt in receipts | filter:{concept:query}">
                     <td class="actions">
                         <a href="#/editReceipt/{{receipt.id}}" class="btn btn-link btn-action"><i class="fa fa-pencil fa-fw"></i></a>
-                    	<a href="#/deleteReceipt/{{receipt.id}}" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></a>
+                    	<!-- <a href="#/deleteReceipt/{{receipt.id}}" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></a> -->
                     <td>{{receipt.date | date:'MMMM d, y'}}</td>
                     <td>{{receipt.id}}</td>
                     <td>{{receipt.typeReceipt.name}}</td>
-                    <td>{{receipt.businessName}}</td>
-                    <td>{{receipt.cuit}}</td>
+                    <td>{{receipt.supplier.companyName}}</td>
+                    <td>{{receipt.supplier.cuit}}</td>
                     <td>{{receipt.concept}}</td>
-                    <!--<td>45</td>-->
                     <td>{{receipt.taxed}}</td>
                     <td>{{receipt.iva}}</td>
                     <td>{{receipt.untaxed}}</td>

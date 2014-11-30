@@ -6,6 +6,7 @@ import java.util.Date;
 
 import ar.edu.unq.desapp.grupoc.builders.test.BuilderReceipt;
 import ar.edu.unq.desapp.grupoc.model.Receipt;
+import ar.edu.unq.desapp.grupoc.model.Supplier;
 import ar.edu.unq.desapp.grupoc.model.TypeReceipt;
 import junit.framework.TestCase;
 
@@ -14,8 +15,7 @@ public class TestReceipt extends TestCase {
     public void testConstructor() {
         TypeReceipt mockTypeReceipt = mock(TypeReceipt.class);
         Date mockDate = mock(Date.class);
-        String businessName = "name";
-        String cuit = "30-12345678-3";
+        Supplier sup = new Supplier("name", "30-12345678-3");
         String concept = "concept";
         Double totalBill = 1210.0;
         Double taxed = 0.0;
@@ -23,15 +23,14 @@ public class TestReceipt extends TestCase {
         Double iva = 0.0;
 
         Receipt receipt = BuilderReceipt.getInstance()
-                .withBusinessName(businessName).withConcept(concept)
-                .withCuit(cuit).withDate(mockDate).withIva(iva)
+                .withSupplier(sup).withConcept(concept).withDate(mockDate).withIva(iva)
                 .withTaxed(taxed).withTotalBill(totalBill)
                 .withTypeReceipt(mockTypeReceipt).withUntaxed(untaxed).build();
         
         assertSame(mockTypeReceipt, receipt.getTypeReceipt());
         assertSame(mockDate, receipt.getDate());
-        assertSame(businessName, receipt.getBusinessName());
-        assertSame(cuit, receipt.getCuit());
+        assertSame(sup.getCompanyName(), receipt.getSupplier().getCompanyName());
+        assertSame(sup.getCuit(), receipt.getSupplier().getCuit());
         assertSame(concept, receipt.getConcept());
         assertSame(totalBill, receipt.getTotalBill());
         assertEquals(taxed, receipt.getTaxed());

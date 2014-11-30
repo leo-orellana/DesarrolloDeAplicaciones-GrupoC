@@ -134,11 +134,15 @@ public class InitDBRest {
 		Supplier fargo = new Supplier("Fargo", "30-34562453-1");
 		Supplier philips = new Supplier("Philips", "23-33512345-3");
 		Supplier samsung = new Supplier("Samsung", "23-45697645-5");
+		Supplier morellato = new Supplier("Morellato S.A", "20-36435467-5");
+		Supplier gonzalia = new Supplier("Gonzalía S.R.L", "20-32453456-7");
 		
 		getSupplierService().save(cocaCola);
 		getSupplierService().save(fargo);
 		getSupplierService().save(philips);
 		getSupplierService().save(samsung);
+		getSupplierService().save(morellato);
+		getSupplierService().save(gonzalia);
 		
 		// CREATE TYPE_RECEIPTS
 		
@@ -178,7 +182,7 @@ public class InitDBRest {
 		operationCashAccount3.setConsolidateProperties(transaction3);
 		accountManager.inputTransaction(transaction3);
 		
-		Receipt receipt = new Receipt(new Date(), typeA, "Morellato S.A", "20-36987655-3", "Software de facturación", 1410.0, 0.0, 200.0, 0.0);
+		Receipt receipt = new Receipt(new Date(), typeA, morellato, "Software de facturación", 1410.0, 0.0, 200.0, 0.0);
 		
 		transaction3.setReceipt(receipt);
 		
@@ -190,7 +194,7 @@ public class InitDBRest {
 		operationCashAccount4.setConsolidateProperties(transaction4);
 		accountManager.inputTransaction(transaction4);
 		
-		Receipt receipt2 = new Receipt(new Date(), typeC, "Gonzalía Asociados", "20-32543678-7", "Compra Chevrolet Corsa", 70000.0, 0.0, 0.0, 0.0);
+		Receipt receipt2 = new Receipt(new Date(), typeC, gonzalia, "Compra Chevrolet Corsa", 70000.0, 0.0, 0.0, 0.0);
 		
 		transaction4.setReceipt(receipt2);
 		

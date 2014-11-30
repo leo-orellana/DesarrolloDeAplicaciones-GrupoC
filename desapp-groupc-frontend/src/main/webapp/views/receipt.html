@@ -7,12 +7,12 @@
 	
 	<div class="row">
 		<div class="col-md-6 receipt">
-			<h2>{{receipt.businessName}}</h2>
+			<h2>{{receipt.supplier.companyName}}</h2>
 		</div>
 		<div class="col-md-5 col-md-offset-1 receipt-properties">
 			<h5>N°: {{receipt.id}}</h5>
 			<h5>Fecha: {{receipt.date}}</h5>
-			<h5>CUIT: {{receipt.cuit}}</h5>
+			<h5>CUIT: {{receipt.supplier.cuit}}</h5>
 		</div>
 	</div>
 	

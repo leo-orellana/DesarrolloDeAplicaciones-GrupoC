@@ -1,0 +1,140 @@
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-6">
+			    <h2>{{title}}</h2>
+			</div>
+			<br/>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-6">
+			    <h3>Receipt Data</h3>
+			</div>
+		</div>
+		
+		<div class="row">
+            <div class="col-md-5">
+                <form role="form">
+                    <div class="form-group" ng-show='false'>
+                        <label for="exampleInputDate">Date</label>
+                        <input type="datetime" class="form-control" id="exampleInputDate" placeholder="01/01/2014">
+                    </div>
+                    <div class="form-group">
+                    	<label for="exampleInputDate">Date</label>
+				        <p class="input-group">
+				        	<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+				        	<span class="input-group-btn">
+				           	<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				           	</span>
+			            </p>
+				    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select class="form-control">
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>X</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputProviderNumber">Provider Number</label>
+                        <input type="number" class="form-control" id="exampleInputProviderNumber" placeholder="Enter provider number">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputBusinessName">Provider Name</label>
+                        <input type="text" class="form-control" id="exampleInputBusinessName" placeholder="Enter business name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputCUIT">CUIT</label>
+                        <input type="text" class="form-control" id="exampleInputCUIT" placeholder="Enter cuit">
+                    </div>
+            </div>
+            <div class="col-md-5 col-md-offset-2">
+            		<div class="form-group">
+                        <label for="exampleInputConcept">Concept</label>
+                        <input type="text" class="form-control" id="exampleInputConcept" placeholder="Enter concept">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleAmount">Total amount</label>
+                        <input type="number" class="form-control" id="exampleAmount" placeholder="Enter total amount">
+                    </div>
+                    
+                    <div ng-show="isTypeA()">
+	                    <h4 class="amount-detail">Amount detail</h4>
+	                    
+	                    <div class="form-group">
+	                        <label for="exampleTaxed">Taxed</label>
+	                        <input type="number" class="form-control" id="exampleTaxed" placeholder="Enter taxed">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="exampleIVA">IVA</label>
+	                        <input type="number" class="form-control" id="exampleIVA" placeholder="Enter IVA">
+	                    </div>
+	                    <div class="form-group">
+	                        <label for="exampleUntaxed">Untaxed</label>
+	                        <input type="number" class="form-control" id="exampleUntaxed" placeholder="Enter untaxed">
+	                    </div>
+	               </div>
+            </div>
+        </div>
+        <br/>
+
+       	<div class="row">
+			<div class="col-md-6">
+			    <h3>Transaction Data</h3>
+			</div>
+		</div>
+			
+        <div class="row">
+            <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="categorieName">Category</label>
+						<select required class="form-control" ng-change="changeSubcategory()" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories" ng-disabled="{{editMode}}">
+							<option value="">-- select category --</option>
+						</select>
+                    </div>
+                    <div class="form-group">
+                        <label for="subcategorieName">Sub-categorie</label>
+						<select required class="form-control" ng-model="idSubcategory" ng-options="subcat.id as subcat.name for subcat in subcategories" ng-disabled="{{editMode}}">
+							<option value="">-- select sub-category --</option>
+						</select>
+                    </div>
+                    <div class="form-group">
+                        <label for="shift">Shift</label>
+						<select required class="form-control" ng-model="time" ng-options="time for time in times">
+							<option value="">-- select shift --</option>
+						</select>
+                    </div>
+            </div>
+            <div class="col-md-5 col-md-offset-2">
+                    <div class="form-group">
+                        <label>Operation</label>
+                        <input type="number" class="form-control" placeholder="Enter number operation" ng-model="numberOperation">
+                    </div>
+                    <div class="form-group">
+						<label>Select the account</label>
+						<select required class="form-control" ng-change="changeBankOperation()" ng-model="idAccount" ng-options="acc.id as acc.name for acc in accounts" ng-disabled="{{editMode}}">
+							<option value="">-- select account --</option>
+						</select>
+					</div>
+					<div class="form-group" ng-hide" ng-show="showBankOperation">
+						<label>Select the bank operation</label>
+						<select required class="form-control" ng-model="idBankOperation" ng-options="op.id as op.name for op in bankOperations" ng-disabled="{{editMode}}">
+							<option value="">-- select bank operation --</option>
+						</select>
+					</div>
+                </form>
+            </div>
+        </div>
+        <br/>
+		
+		<div class="row">
+			<div class="col-md-2 col-md-offset-10">
+				<a href="#/transactions" class="btn btn-danger">Cancel</a>
+				<button data-ng-click="submit(newReceiptForm)" class="btn btn-primary">Submit</button>
+			</div>
+		</div>
+	</div>
+ 

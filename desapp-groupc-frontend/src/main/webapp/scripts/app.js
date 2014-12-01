@@ -82,7 +82,10 @@ var app = angular.module(
 		templateUrl : 'views/receipts.html',
 		controller : 'ReceiptControllerList'
 	})
-	
+	.when('/newReceipt', {
+		templateUrl : 'views/editReceipt.html',
+		controller : 'ReceiptControllerNew'
+	})
 	.otherwise({
 		redirectTo : '/'
 	});

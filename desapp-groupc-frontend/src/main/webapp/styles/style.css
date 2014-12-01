@@ -33,11 +33,12 @@ body { padding-top: 70px; }
 }
 
 .actions{
-   	text-align: center;
+   	text-align: left !important;
 }
 
 td.actions{
 	width: 160px !important;
+   	padding-left: 50px !important;
 }
 
 .egress{

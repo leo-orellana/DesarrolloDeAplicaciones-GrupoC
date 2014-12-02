@@ -79,3 +79,16 @@ td.actions{
 	margin:10px;
 	font-family:"Verdana";
 }
+
+.angucomplete-dropdown {
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+.newSupplier{
+	padding-top:6px !important;
+}
+
+.newSupplier-container{
+	margin:10px;
+}

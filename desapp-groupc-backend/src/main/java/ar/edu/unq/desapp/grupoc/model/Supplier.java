@@ -4,15 +4,17 @@ public class Supplier {
 
 	public Integer id;
 	public String companyName;
+	public String code;
 	public String cuit;
 
 	public Supplier() {
 	};
 
-	public Supplier(String companyName,
+	public Supplier(String companyName, String code,
 			String cuit) {
 		super();
 		this.companyName = companyName;
+		this.code = code;
 		this.cuit = cuit;
 	}
 
@@ -38,5 +40,13 @@ public class Supplier {
 
 	public void setCuit(String cuit) {
 		this.cuit = cuit;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

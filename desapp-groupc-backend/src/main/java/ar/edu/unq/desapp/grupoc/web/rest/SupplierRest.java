@@ -50,11 +50,13 @@ public class SupplierRest {
 	}
 
 	@GET
-	@Path("/save/{name}/{cuit}")
+	@Path("/save/{code}/{name}/{cuit}")
 	@Produces("application/json")
-	public Supplier saveSupplier(@PathParam("name") final String name,
+	public Supplier saveSupplier(@PathParam("code") final String code,
+			@PathParam("name") final String name,
 			@PathParam("cuit") final String cuit) {
 		Supplier sup = new Supplier();
+		sup.setCode(code);
 		sup.setCompanyName(name);
 		sup.setCuit(cuit);
 		getSupplierService().save(sup);
@@ -62,12 +64,14 @@ public class SupplierRest {
 	}
 
 	@GET
-	@Path("/update/{id}/{name}/{cuit}")
+	@Path("/update/{id}/{code}/{name}/{cuit}")
 	@Produces("application/json")
 	public Supplier updateSupplier(@PathParam("id") final int id,
+			@PathParam("code") final String code,
 			@PathParam("name") final String name,
 			@PathParam("cuit") final String cuit) {
 		Supplier sup = getSupplierService().getById(id);
+		sup.setCode(code);
 		sup.setCompanyName(name);
 		sup.setCuit(cuit);
 		getSupplierService().update(sup);

@@ -130,12 +130,12 @@ public class InitDBRest {
 		
 		// CREATE SUPPLIERS
 		
-		Supplier cocaCola = new Supplier("Coca cola", "20-31345675-3");
-		Supplier fargo = new Supplier("Fargo", "30-34562453-1");
-		Supplier philips = new Supplier("Philips", "23-33512345-3");
-		Supplier samsung = new Supplier("Samsung", "23-45697645-5");
-		Supplier morellato = new Supplier("Morellato S.A", "20-36435467-5");
-		Supplier gonzalia = new Supplier("Gonzalía S.R.L", "20-32453456-7");
+		Supplier cocaCola = new Supplier("Coca cola", "COKE1012", "20-31345675-3");
+		Supplier fargo = new Supplier("Fargo", "FAR456", "30-34562453-1");
+		Supplier philips = new Supplier("Philips","PHIL56", "23-33512345-3");
+		Supplier samsung = new Supplier("Samsung", "SAMSU20", "23-45697645-5");
+		Supplier morellato = new Supplier("Morellato S.A", "SEBA332", "20-36435467-5");
+		Supplier gonzalia = new Supplier("Gonzalía S.R.L", "GONZO54", "20-32453456-7");
 		
 		getSupplierService().save(cocaCola);
 		getSupplierService().save(fargo);

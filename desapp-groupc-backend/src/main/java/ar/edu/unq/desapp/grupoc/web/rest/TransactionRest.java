@@ -111,7 +111,7 @@ public class TransactionRest {
 			}
 		}
 
-		Date javaDate = new SimpleDateFormat("yy-MM-dd").parse(date);
+		Date javaDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 
 		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
 		Transaction trans = new Transaction(numOperation, subcategory, t,

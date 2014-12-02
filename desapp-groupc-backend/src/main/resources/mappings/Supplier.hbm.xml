@@ -8,6 +8,7 @@
 	        <generator class="native"/>
 	    </id>
 		<property name="companyName" type="string"></property>
+		<property name="code" type="string"></property>
 		<property name="cuit" type="string"></property>
 	</class>
 </hibernate-mapping>

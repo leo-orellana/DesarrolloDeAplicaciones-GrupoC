@@ -15,7 +15,7 @@ public class TestReceipt extends TestCase {
     public void testConstructor() {
         TypeReceipt mockTypeReceipt = mock(TypeReceipt.class);
         Date mockDate = mock(Date.class);
-        Supplier sup = new Supplier("name", "30-12345678-3");
+        Supplier sup = new Supplier("name", "code", "30-12345678-3");
         String concept = "concept";
         Double totalBill = 1210.0;
         Double taxed = 0.0;
@@ -30,6 +30,7 @@ public class TestReceipt extends TestCase {
         assertSame(mockTypeReceipt, receipt.getTypeReceipt());
         assertSame(mockDate, receipt.getDate());
         assertSame(sup.getCompanyName(), receipt.getSupplier().getCompanyName());
+        assertSame(sup.getCode(), receipt.getSupplier().getCode());
         assertSame(sup.getCuit(), receipt.getSupplier().getCuit());
         assertSame(concept, receipt.getConcept());
         assertSame(totalBill, receipt.getTotalBill());

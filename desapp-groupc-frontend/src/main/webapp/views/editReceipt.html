@@ -16,14 +16,10 @@
 		<div class="row">
             <div class="col-md-5">
                 <form role="form">
-                    <div class="form-group" ng-show='false'>
-                        <label for="exampleInputDate">Date</label>
-                        <input type="datetime" class="form-control" id="exampleInputDate" placeholder="01/01/2014">
-                    </div>
                     <div class="form-group">
                     	<label for="exampleInputDate">Date</label>
 				        <p class="input-group">
-				        	<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+				        	<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="date" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
 				        	<span class="input-group-btn">
 				           	<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 				           	</span>
@@ -31,52 +27,66 @@
 				    </div>
                     <div class="form-group">
                         <label for="type">Type</label>
-                        <select class="form-control">
-                            <option>A</option>
-                            <option>B</option>
-                            <option>C</option>
-                            <option>X</option>
-                        </select>
+                        <select required class="form-control" ng-change="changeTypeReceipt()" ng-model="typeReceipt" ng-options="type as type.name for type in typeReceipts" ng-disabled="{{editMode}}">
+							<option value="">-- select type receipt --</option>
+						</select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputProviderNumber">Provider Number</label>
-                        <input type="number" class="form-control" id="exampleInputProviderNumber" placeholder="Enter provider number">
+                    	<div class="row">
+                    		<br/>
+	                    	<div class="col-md-6">
+	                    		<label for="exampleInputProviderNumber" class="newSupplier">Supplier Code</label>
+	                    	</div>
+	                    	<div class="col-md-6">
+	                    		<button class="btn btn-primary btn-xs pull-right" ng-click="addNewSupplier()">Load New Supplier &nbsp<i class="fa fa-plus"></i></button>
+                    		</div>
+                    	</div>
+                        
+                        <div angucomplete-alt id="ex2"
+				        	placeholder="Search supplier by provider code"
+				        	pause="100"
+				           	selected-object="supplierSelectedCode"
+				           	local-data="suppliers"
+				          	search-fields="code"
+				           	title-field="code"
+				           	minlength="1"
+				           	input-class="form-control form-control-small">
+			        	</div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputBusinessName">Provider Name</label>
-                        <input type="text" class="form-control" id="exampleInputBusinessName" placeholder="Enter business name">
+                        <label for="exampleInputBusinessName">Supplier Name</label>
+                        <input ng-disabled="true" type="text" class="form-control" id="exampleInputProviderName" ng-model="supplier.companyName" placeholder="Enter provider name">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputCUIT">CUIT</label>
-                        <input type="text" class="form-control" id="exampleInputCUIT" placeholder="Enter cuit">
+                        <input ng-disabled="true" type="text" class="form-control" id="exampleInputCUIT" ng-model="supplier.cuit" placeholder="Enter cuit">
                     </div>
             </div>
             <div class="col-md-5 col-md-offset-2">
             		<div class="form-group">
                         <label for="exampleInputConcept">Concept</label>
-                        <input type="text" class="form-control" id="exampleInputConcept" placeholder="Enter concept">
+                        <input type="text" class="form-control" ng-model="concept" placeholder="Enter concept">
                     </div>
-                    <div class="form-group">
-                        <label for="exampleAmount">Total amount</label>
-                        <input type="number" class="form-control" id="exampleAmount" placeholder="Enter total amount">
-                    </div>
-                    
-                    <div ng-show="isTypeA()">
+                    <div ng-show="isTypeA">
 	                    <h4 class="amount-detail">Amount detail</h4>
 	                    
 	                    <div class="form-group">
 	                        <label for="exampleTaxed">Taxed</label>
-	                        <input type="number" class="form-control" id="exampleTaxed" placeholder="Enter taxed">
+	                        <input type="number" class="form-control" ng-model="taxed" placeholder="Enter taxed">
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="exampleIVA">IVA</label>
-	                        <input type="number" class="form-control" id="exampleIVA" placeholder="Enter IVA">
+	                        <input type="number" class="form-control" ng-model="iva" placeholder="Enter IVA">
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="exampleUntaxed">Untaxed</label>
-	                        <input type="number" class="form-control" id="exampleUntaxed" placeholder="Enter untaxed">
+	                        <input type="number" class="form-control" ng-model="untaxed" placeholder="Enter untaxed">
 	                    </div>
 	               </div>
+                    <div class="form-group">
+                        <label for="exampleAmount">Total amount</label>
+                        <input type="number" class="form-control" ng-model="totalBill" placeholder="Enter total amount">
+                    </div>
             </div>
         </div>
         <br/>

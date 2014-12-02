@@ -10,7 +10,7 @@
 var app = angular.module(
 		'app',
 		[ 'ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize',
-				'ngTouch', 'ngGrid', 'ui.bootstrap' ]).config(function($routeProvider) {
+				'ngTouch', 'ngGrid', 'ui.bootstrap', 'angucomplete-alt' ]).config(function($routeProvider) {
 	$routeProvider
 	
 	/*** CATEGORIES ***/

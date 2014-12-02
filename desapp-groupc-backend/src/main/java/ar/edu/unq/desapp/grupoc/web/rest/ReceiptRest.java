@@ -93,7 +93,7 @@ public class ReceiptRest {
 
 		TypeReceipt typeReceipt = getTypeReceiptService().getById(idTypeReceipt);
 		Supplier supplier = getSupplierService().getById(idSupplier);
-		Date javaDate = new SimpleDateFormat("yy-MM-dd").parse(date);
+		Date javaDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 		
 		Receipt receipt = new Receipt(javaDate, typeReceipt, supplier, concept, totalBill, taxed, untaxed, iva);
 

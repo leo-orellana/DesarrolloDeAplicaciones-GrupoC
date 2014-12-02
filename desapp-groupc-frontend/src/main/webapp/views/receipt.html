@@ -1,17 +1,18 @@
 <div class="receipt-container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3 receipt">	
-			<h3>Comprobante {{receipt.typeReceipt.name}}</h3>
+			<h3>Receipt {{receipt.typeReceipt.name}}</h3>
 		</div>
 	</div>
 	
 	<div class="row">
 		<div class="col-md-6 receipt">
 			<h2>{{receipt.supplier.companyName}}</h2>
+			<h5>Supplier code: {{receipt.supplier.code}}</h5>
 		</div>
 		<div class="col-md-5 col-md-offset-1 receipt-properties">
 			<h5>N°: {{receipt.id}}</h5>
-			<h5>Fecha: {{receipt.date}}</h5>
+			<h5>Date: {{receipt.date}}</h5>
 			<h5>CUIT: {{receipt.supplier.cuit}}</h5>
 		</div>
 	</div>
@@ -23,8 +24,8 @@
 			<table class="table">
 		        <thead>
 		        	<tr>
-		                <th>Concepto</th>
-		                <th>Importe</th>
+		                <th>Concept</th>
+		                <th>Import</th>
 		            </tr>
 		        </thead>
 		        <tbody>
@@ -42,8 +43,8 @@
 			<table class="table">
 		        <thead>
 		        	<tr>
-		                <th>Concepto</th>
-		                <th colspan="2">Importe</th>
+		                <th>Concept</th>
+		                <th colspan="2">Import</th>
 		            </tr>
 		        </thead>
 		        <tbody>
@@ -51,11 +52,11 @@
 		                <td rowspan="4">{{receipt.concept}}</td>
 		            </tr>
 		            <tr>
-		                <td>Gravado</td>
+		                <td>Taxed</td>
 		                <td>{{receipt.taxed}}</td>
 		            </tr>
 		            <tr>
-		                <td>No gravado</td>
+		                <td>Untaxed</td>
 		                <td>{{receipt.untaxed}}</td>
 		            </tr>
 		            <tr>

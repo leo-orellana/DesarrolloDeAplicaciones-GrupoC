@@ -18,17 +18,17 @@
                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <br/>
             <a class="btn btn-success pull-right" href="#">
             <i class="fa fa-file-excel-o fa-lg"></i> Export to Excel</a>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <br/>
             <ol class="breadcrumb pull-right">
-                <li class="active">50</li>
-                <li><a href="#">100</a></li>
-                <li><a href="#">200</a></li>
+                <li class="active"><button class="btn btn-link btn-xs" ng-click="changeItemsPerPage(2)">2</button></li>
+                <li><button class="btn btn-link btn-xs" ng-click="changeItemsPerPage(4)">4</button></li>
+                <li><button class="btn btn-link btn-xs" ng-click="changeItemsPerPage(8)">8</button></li>
             </ol>
         </div>
     </div>
@@ -61,7 +61,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="transaction in transactions | filter:{concept:query}">
+            <tr ng-repeat="transaction in filteredTransactions | filter:{concept:query}">
                 <td class="actions">
                     <a href="#/editTransaction/{{transaction.id}}" class="btn btn-link btn-action"><i class="fa fa-pencil fa-fw"></i></a>
                     <!-- <a href="#/deleteTransaction/{{transaction.id}}" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></a> -->
@@ -85,18 +85,13 @@
         </tbody>
     </table>
     
+     <!-- <div data-pagination="" data-num-pages="numPages()" 
+      data-current-page="currentPage" data-max-size="maxSize"  
+      data-boundary-links="true">
+    </div> -->
     
+    <pagination total-items="totalItems()" items-per-page="itemsPerPage" ng-model="currentPage" max-size="numPages()" class="pagination-sm pull-right" boundary-links="true"></pagination>
 
-    <ul class="pagination pull-right">
-        <li><a href="#">&laquo;</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
-    </ul>
-    
     <div class="row">
     	<div class="col-md-12">
     		<a href="#/consolidate" class="btn btn-primary pull-right">Consolidate Account</a>

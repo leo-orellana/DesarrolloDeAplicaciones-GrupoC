@@ -2,29 +2,13 @@
 $rest = "http://localhost:8081/backend/rest/";
 
 
-function TransactionControllerList($scope, $http, $modal) {
+function TransactionControllerList($scope, $http, $modal, $route, $timeout) {
+	
 	$http.get($rest + "transactionService/transactions")
-			.success(function(response) {
-				$scope.transactions = response;
-			}).error(function() {
-				console.log("error");
-			});
-	$http.get($rest + "accountManagerService/accountManager")
-	.success(function(response) {function SubcategoryControllerDelete($scope, $http, $routeParams, $location, alert) {
-		$http.get($rest + "subcategoryService/delete/"+$routeParams.subcategoryId)
-		.success(function(response){
-			alert("The sub category <" + response.name + "> was deleted successfully")
-			.then(function(){
-				$location.path('/subcategories');
-			});
-		}).error(function(){
+		.success(function(response) {
+			$scope.transactions = response;
+		}).error(function() {
 			console.log("error");
-		});
-	}
-
-		$scope.accountManager = response;
-	}).error(function() {
-		console.log("error");
 	});
 	
 	$scope.viewReceipt = function (receipt) {
@@ -37,6 +21,31 @@ function TransactionControllerList($scope, $http, $modal) {
             controller: 'ReceiptController'
         });
     }
+	
+	
+	/*PAGINATION*/
+	$timeout(function () {
+	    $scope.filteredTransactions = [];
+	    $scope.currentPage = 1;
+	    $scope.itemsPerPage = 4;
+	    $scope.changeItemsPerPage = function(value){
+	    	$scope.itemsPerPage = value;
+	    }
+	    
+	    $scope.totalItems = function(){
+	    	return $scope.transactions.length;
+	    }
+	    
+	    $scope.numPages = function () {
+	        return Math.ceil($scope.transactions.length / $scope.itemsPerPage);
+	    };
+	    
+	    $scope.$watch('currentPage + itemsPerPage', function() {
+	        var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
+	        var end = begin + $scope.itemsPerPage; 
+	        $scope.filteredTransactions = $scope.transactions.slice(begin, end);
+	    });
+	}, 1000);
 }
 
 function TransactionControllerNew($scope, $http, $location, alert){

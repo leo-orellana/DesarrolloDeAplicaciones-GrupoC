@@ -6,6 +6,46 @@ function TransactionControllerList($scope, $http, $modal) {
 	$http.get($rest + "transactionService/transactions")
 			.success(function(response) {
 				$scope.transactions = response;
+				listDict = 			[{
+									a: 'Date',
+									b: 'Category',
+									c: 'Subcategory',
+									d: 'Concept',
+									e: 'Num_operation',
+									f: 'Time',
+									g: 'Cash_account_amount',
+									h: 'Checking_account_amount',
+									i: 'Bank_account_amount',
+									j: 'total_cash',
+									k: 'total_checking',
+									l: 'available_bank',
+									m: 'accrued_bank',
+									n: 'Should_be_consolidated',
+									o: 'Was_consolidated',
+								}];
+				for (var i = 0; i < response.length; i++) {
+					t = response[i];
+					dict = 
+							{
+							a: t.date,
+							b: t.subcategory.category.name,
+							c: t.subcategory.name,
+							d: t.concept,
+							e: t.numOperation,
+							f: t.time,
+							g: t.operationCashAccount.amount,
+							h: t.operationCheckingAccount.amount,
+							i: t.operationBankAccount.amount,
+							j: t.amountOfCashAccount,
+							k: t.amountOfCheckingAccount,
+							l: t.amountAvailableBank,
+							m: t.amountAccruedBank,
+							n: t.shouldBeConsolidated,
+							o: t.wasConsolidated,
+							};
+					listDict.push(dict);
+				}
+				$scope.getArray = listDict;
 			}).error(function() {
 				console.log("error");
 			});

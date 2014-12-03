@@ -161,7 +161,7 @@ public class InitDBRest {
 		OperationCashAccount operationCashAccount = new OperationCashAccount(ingress, 4000.0);
 		OperationCheckingAccount operationCheckingAccount = new OperationCheckingAccount(ingress, 0.0);
 		OperationBankAccount operationBankAccount = new OperationBankAccount(ingress, 0.0, bankOpDebit);
-		Transaction transaction1 = new Transaction(1, televisores, Time.Afternoon, "Venta TV Philips", operationCashAccount, operationCheckingAccount, operationBankAccount, new Date());
+		Transaction transaction1 = new Transaction(televisores, Time.Afternoon, "Venta TV Philips", operationCashAccount, operationCheckingAccount, operationBankAccount, new Date());
 		
 		operationCashAccount.setConsolidateProperties(transaction1);
 		accountManager.inputTransaction(transaction1);
@@ -169,7 +169,7 @@ public class InitDBRest {
 		OperationCashAccount operationCashAccount2 = new OperationCashAccount(ingress, 5000.0);
 		OperationCheckingAccount operationCheckingAccount2 = new OperationCheckingAccount(ingress, 0.0);
 		OperationBankAccount operationBankAccount2 = new OperationBankAccount(ingress, 0.0, bankOpDebit);
-		Transaction transaction2 = new Transaction(2, televisores, Time.Afternoon, "Venta TV Samsung", operationCashAccount2, operationCheckingAccount2, operationBankAccount2, new Date());
+		Transaction transaction2 = new Transaction(televisores, Time.Afternoon, "Venta TV Samsung", operationCashAccount2, operationCheckingAccount2, operationBankAccount2, new Date());
 		
 		operationCashAccount2.setConsolidateProperties(transaction2);
 		accountManager.inputTransaction(transaction2);
@@ -177,7 +177,7 @@ public class InitDBRest {
 		OperationCashAccount operationCashAccount3 = new OperationCashAccount(egress, 1410.0);
 		OperationCheckingAccount operationCheckingAccount3 = new OperationCheckingAccount(egress, 0.0);
 		OperationBankAccount operationBankAccount3 = new OperationBankAccount(egress, 0.0, bankOpDebit);
-		Transaction transaction3 = new Transaction(3, compraDeSoftware, Time.Afternoon, "Software de facturación", operationCashAccount3, operationCheckingAccount3, operationBankAccount3, new Date());
+		Transaction transaction3 = new Transaction(compraDeSoftware, Time.Afternoon, "Software de facturación", operationCashAccount3, operationCheckingAccount3, operationBankAccount3, new Date());
 	
 		operationCashAccount3.setConsolidateProperties(transaction3);
 		accountManager.inputTransaction(transaction3);
@@ -189,7 +189,7 @@ public class InitDBRest {
 		OperationCashAccount operationCashAccount4 = new OperationCashAccount(egress, 70000.0);
 		OperationCheckingAccount operationCheckingAccount4 = new OperationCheckingAccount(egress, 0.0);
 		OperationBankAccount operationBankAccount4 = new OperationBankAccount(egress, 0.0, bankOpDebit);
-		Transaction transaction4 = new Transaction(4, compraDeAutos, Time.Afternoon, "Compra Chevrolet Corsa", operationCashAccount4, operationCheckingAccount4, operationBankAccount4, new Date());
+		Transaction transaction4 = new Transaction(compraDeAutos, Time.Afternoon, "Compra Chevrolet Corsa", operationCashAccount4, operationCheckingAccount4, operationBankAccount4, new Date());
 		
 		operationCashAccount4.setConsolidateProperties(transaction4);
 		accountManager.inputTransaction(transaction4);

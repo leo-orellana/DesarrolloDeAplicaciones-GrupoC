@@ -12,7 +12,6 @@ public class Transaction {
 	public OperationCheckingAccount operationCheckingAccount;
 	public OperationBankAccount operationBankAccount;
 	public Date date;
-	public int numOperation;
 	public Boolean shouldBeConsolidated;
 	public Boolean wasConsolidated;
 	public Receipt receipt;
@@ -28,12 +27,11 @@ public class Transaction {
 	public Transaction() {
 	}
 
-	public Transaction(int numOperation, Subcategory subcategory, Time time,
+	public Transaction(Subcategory subcategory, Time time,
 			String concept, OperationCashAccount operationCashAccount,
 			OperationCheckingAccount operationCheckingAccount,
 			OperationBankAccount operationBankAccount, Date date) {
 		super();
-		this.setNumOperation(numOperation);
 		this.setAmountAccruedBank(amountAccruedBank);
 		this.setAmountAvailableBank(amountAvailableBank);
 		this.setAmountOfCashAccount(amountOfCashAccount);
@@ -151,14 +149,6 @@ public class Transaction {
 
 	public double getAmountBankAccount() {
 		return getAmountAccruedBank() + getAmountAvailableBank();
-	}
-
-	public int getNumOperation() {
-		return numOperation;
-	}
-
-	public void setNumOperation(int numOperation) {
-		this.numOperation = numOperation;
 	}
 
 	public Boolean getShouldBeConsolidated() {

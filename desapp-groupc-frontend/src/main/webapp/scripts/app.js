@@ -58,7 +58,7 @@ var app = angular.module(
 		templateUrl : 'views/editTransaction.html',
 		controller : 'TransactionControllerNew'
 	})
-	.when('/save/:date/:subcategoryId/:concept/:time/:numOperation/:accountId/:bankOperationId/:amount', {
+	.when('/save/:date/:subcategoryId/:concept/:time/:accountId/:bankOperationId/:amount', {
 		templateUrl : 'views/editTransaction.html',
 		controller : 'TransactionControllerNew'
 	})

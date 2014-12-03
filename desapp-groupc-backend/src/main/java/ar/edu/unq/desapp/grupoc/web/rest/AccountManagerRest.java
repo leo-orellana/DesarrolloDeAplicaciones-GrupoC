@@ -37,7 +37,7 @@ public class AccountManagerRest {
 		AccountManager accountManager = getAccount();
 		List<Transaction> consolidateds = accountManager.consolidateAccount(transactions);
 		
-		Transaction transaction = new Transaction(1000, null, null, "Consolidation", null, null, null, new Date());
+		Transaction transaction = new Transaction(null, null, "Consolidation", null, null, null, new Date());
 		transaction.setAmountAccruedBank(accountManager.getAccruedMoney());
 		transaction.setAmountAvailableBank(accountManager.getAvailableMoney());
 		transaction.setAmountOfCashAccount(accountManager.getCashBalance());

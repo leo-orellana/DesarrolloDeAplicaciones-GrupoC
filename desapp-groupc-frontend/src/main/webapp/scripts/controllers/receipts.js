@@ -1,14 +1,16 @@
 $rest = "http://localhost:8081/backend/rest/";
 
 
-function ReceiptControllerList($scope, $http, $timeout) {
-	$http.get($rest + "receiptService/receipts")
-			.success(function(response) {
-				$scope.receipts = response;
-			}).error(function() {
-				console.log("error");
-			});
+function ReceiptControllerList($scope, $http, $timeout, $q) {
+
+		$http.get($rest + "receiptService/receipts")
+				.success(function(response) {
+					$scope.receipts = response;
+				}).error(function() {
+					console.log("error");
+				});
 	
+
 	/*PAGINATION*/
 	$timeout(function () {
 	    $scope.filteredReceipts = [];
@@ -166,20 +168,12 @@ function ReceiptControllerNew($scope, $http, $modal, alert, $location){
 		if (typeof($scope.idBankOperation) == 'undefined'){
 			$scope.idBankOperation = 0;
 		}
-		console.log($rest + "receiptService/save/" + dateString + "/"
-				+ $scope.typeReceipt.id + "/" + $scope.supplier.id + "/"
-				+ $scope.concept + "/" + $scope.totalBill + "/"
-				+ $scope.taxed + "/" + $scope.untaxed + "/" + $scope.iva + "/"
-				+ $scope.idSubcategory + "/" + $scope.time + "/"
-				+ $scope.numberOperation + "/" + $scope.idAccount + "/"
-				+ $scope.idBankOperation);
 		$http.get(
 				$rest + "receiptService/save/" + dateString + "/"
 						+ $scope.typeReceipt.id + "/" + $scope.supplier.id + "/"
 						+ $scope.concept + "/" + $scope.totalBill + "/"
 						+ $scope.taxed + "/" + $scope.untaxed + "/" + $scope.iva + "/"
-						+ $scope.idSubcategory + "/" + $scope.time + "/"
-						+ $scope.numberOperation + "/" + $scope.idAccount + "/"
+						+ $scope.idSubcategory + "/" + $scope.time  + "/" + $scope.idAccount + "/"
 						+ $scope.idBankOperation)
 			.success(function(response){
 				alert("The receipt <" + response.concept + "> was created successfully")

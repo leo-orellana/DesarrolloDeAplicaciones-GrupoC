@@ -73,13 +73,12 @@ public class TransactionRest {
 	}
 
 	@GET
-	@Path("/save/{date}/{idSubcategory}/{concept}/{time}/{numOperation}/{idAccount}/{idBankOperation}/{amount}")
+	@Path("/save/{date}/{idSubcategory}/{concept}/{time}/{idAccount}/{idBankOperation}/{amount}")
 	@Produces("application/json")
 	public Transaction saveTransaction(@PathParam("date") final String date,
 			@PathParam("idSubcategory") final int idSubcategory,
 			@PathParam("concept") final String concept,
 			@PathParam("time") final String time,
-			@PathParam("numOperation") final int numOperation,
 			@PathParam("idAccount") final int idAccount,
 			@PathParam("idBankOperation") final int idBankOperation,
 			@PathParam("amount") final Double amount) throws ParseException {
@@ -114,7 +113,7 @@ public class TransactionRest {
 		Date javaDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 
 		AccountManager accMan = getAccountManagerService().retriveAll().get(0);
-		Transaction trans = new Transaction(numOperation, subcategory, t,
+		Transaction trans = new Transaction(subcategory, t,
 				concept, operationCash, operationChecking, operationBank,
 				javaDate);
 		operation.setConsolidateProperties(trans);
@@ -131,14 +130,12 @@ public class TransactionRest {
 	public Transaction updateTransaction(
 			@PathParam("idTransaction") final int idTransaction,
 			@PathParam("concept") final String concept,
-			@PathParam("time") final String time,
-			@PathParam("numOperation") final int numOperation) throws ParseException {
+			@PathParam("time") final String time) throws ParseException {
 		
 		Transaction trans = getTransactionService().getById(idTransaction);
 		trans.setConcept(concept);
 		Time t = Time.valueOf(time);
 		trans.setTime(t);
-		trans.setNumOperation(numOperation);
 		if(trans.isHasReceipt()){
 			trans.getReceipt().setConcept(concept);
 		}

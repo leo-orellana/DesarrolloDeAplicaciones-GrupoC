@@ -86,6 +86,13 @@ var app = angular.module(
 		templateUrl : 'views/editReceipt.html',
 		controller : 'ReceiptControllerNew'
 	})
+	
+	// statistics
+	.when('/statistics', {
+		templateUrl : 'views/statistics.html',
+		controller : 'StatisticsController'
+	})
+	
 	.otherwise({
 		redirectTo : '/'
 	});

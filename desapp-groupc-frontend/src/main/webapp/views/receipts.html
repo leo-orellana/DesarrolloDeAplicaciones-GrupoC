@@ -25,10 +25,10 @@
             <div class="col-md-2">
                 <br/>
                 <ol class="breadcrumb pull-right">
-                    <li class="active">50</li>
-                    <li><a href="#">100</a></li>
-                    <li><a href="#">200</a></li>
-                </ol>
+	                <li class="active"><button class="btn btn-link btn-xs" ng-click="changeItemsPerPage(2)">2</button></li>
+	                <li><button class="btn btn-link btn-xs" ng-click="changeItemsPerPage(4)">4</button></li>
+	                <li><button class="btn btn-link btn-xs" ng-click="changeItemsPerPage(8)">8</button></li>
+	            </ol>
             </div>
         </div>
         
@@ -51,7 +51,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="receipt in receipts | filter:{concept:query}">
+                <tr ng-repeat="receipt in filteredReceipts | filter:{concept:query}">
                     <td class="actions">
                         <a href="#/editReceipt/{{receipt.id}}" class="btn btn-link btn-action"><i class="fa fa-pencil fa-fw"></i></a>
                     	<!-- <a href="#/deleteReceipt/{{receipt.id}}" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></a> -->
@@ -68,13 +68,6 @@
                 </tr>
             </tbody>
         </table>
-        <ul class="pagination pull-right">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-        </ul>
+        
+        <pagination total-items="totalItems()" items-per-page="itemsPerPage" ng-model="currentPage" max-size="numPages()" class="pagination-sm pull-right" boundary-links="true"></pagination>
 </div>

@@ -1,17 +1,42 @@
 $rest = "http://localhost:8081/backend/rest/";
 
 
-function ReceiptControllerList($scope, $http) {
+function ReceiptControllerList($scope, $http, $timeout) {
 	$http.get($rest + "receiptService/receipts")
 			.success(function(response) {
 				$scope.receipts = response;
 			}).error(function() {
 				console.log("error");
 			});
+	
+	/*PAGINATION*/
+	$timeout(function () {
+	    $scope.filteredReceipts = [];
+	    $scope.currentPage = 1;
+	    $scope.itemsPerPage = 4;
+	    $scope.changeItemsPerPage = function(value){
+	    	$scope.itemsPerPage = value;
+	    }
+	    
+	    $scope.totalItems = function(){
+	    	return $scope.receipts.length;
+	    }
+	    
+	    $scope.numPages = function () {
+	        return Math.ceil($scope.receipts.length / $scope.itemsPerPage);
+	    };
+	    
+	    $scope.$watch('currentPage + itemsPerPage', function() {
+	        var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
+	        var end = begin + $scope.itemsPerPage; 
+	        $scope.filteredReceipts = $scope.receipts.slice(begin, end);
+	    });
+	}, 1000);
 }
 
 function ReceiptControllerNew($scope, $http, $modal, alert, $location){
 	$scope.title = 'New Receipt';
+	$scope.editMode = false;
 	
 	$http.get($rest + "supplierService/suppliers")
 	.success(function(response) {
@@ -87,7 +112,6 @@ function ReceiptControllerNew($scope, $http, $modal, alert, $location){
 	};
 	
 	$scope.times = ["Morning", "Afternoon", "Night"];
-	$scope.editMode = false;
 	
 	$http.get($rest + "categoryService/categories")
 			.success(function(response) {

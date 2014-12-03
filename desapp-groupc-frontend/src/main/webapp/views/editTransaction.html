@@ -39,10 +39,6 @@
 						</select>
                     </div>
                     <div class="form-group">
-                        <label>Operation</label>
-                        <input type="number" class="form-control" placeholder="Enter number operation" ng-model="numberOperation">
-                    </div>
-                    <div class="form-group">
 						<label>Select the account</label>
 						<select required class="form-control" ng-change="changeBankOperation()" ng-model="idAccount" ng-options="acc.id as acc.name for acc in accounts" ng-disabled="{{editMode}}">
 							<option value="">-- select account --</option>

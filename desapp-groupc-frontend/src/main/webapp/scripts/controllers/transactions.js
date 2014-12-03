@@ -7,60 +7,50 @@ function TransactionControllerList($scope, $http, $modal, $route, $timeout) {
 	$http.get($rest + "transactionService/transactions")
 			.success(function(response) {
 				$scope.transactions = response;
-				listDict = 			[{
-									a: 'Date',
-									b: 'Category',
-									c: 'Subcategory',
-									d: 'Concept',
-									e: 'Num_operation',
-									f: 'Time',
-									g: 'Cash_account_amount',
-									h: 'Checking_account_amount',
-									i: 'Bank_account_amount',
-									j: 'total_cash',
-									k: 'total_checking',
-									l: 'available_bank',
-									m: 'accrued_bank',
-									n: 'Should_be_consolidated',
-									o: 'Was_consolidated',
-								}];
-				for (var i = 0; i < response.length; i++) {
-					t = response[i];
-					dict = 
-							{
-							a: t.date,
-							b: t.subcategory.category.name,
-							c: t.subcategory.name,
-							d: t.concept,
-							e: t.numOperation,
-							f: t.time,
-							g: t.operationCashAccount.amount,
-							h: t.operationCheckingAccount.amount,
-							i: t.operationBankAccount.amount,
-							j: t.amountOfCashAccount,
-							k: t.amountOfCheckingAccount,
-							l: t.amountAvailableBank,
-							m: t.amountAccruedBank,
-							n: t.shouldBeConsolidated,
-							o: t.wasConsolidated,
-							};
-					listDict.push(dict);
-				}
-				$scope.getArray = listDict;
 			}).error(function() {
 				console.log("error");
 			});
-	$http.get($rest + "accountManagerService/accountManager")
-	.success(function(response) {function SubcategoryControllerDelete($scope, $http, $routeParams, $location, alert) {
-		$http.get($rest + "subcategoryService/delete/"+$routeParams.subcategoryId)
-		.success(function(response){
-			alert("The sub category <" + response.name + "> was deleted successfully")
-			.then(function(){
-				$location.path('/subcategories');
-			});
-		}).error(function(){
-			console.log("error");
-	});
+	
+	$scope.getArray = function(){
+			listDict = 			[{
+				a: 'Date',
+				b: 'Category',
+				c: 'Subcategory',
+				d: 'Concept',
+				e: 'Was_consolidated',
+				f: 'Time',
+				g: 'Cash_account_amount',
+				h: 'Checking_account_amount',
+				i: 'Bank_account_amount',
+				j: 'total_cash',
+				k: 'total_checking',
+				l: 'available_bank',
+				m: 'accrued_bank',
+				n: 'Should_be_consolidated'
+			}];
+			for (var i = 0; i < $scope.transactions.length; i++) {
+			t = $scope.transactions[i];
+			dict = 
+				{
+				a: t.date,
+				b: t.subcategory.category.name,
+				c: t.subcategory.name,
+				d: t.concept,
+				e: t.wasConsolidated,
+				f: t.time,
+				g: t.operationCashAccount.amount,
+				h: t.operationCheckingAccount.amount,
+				i: t.operationBankAccount.amount,
+				j: t.amountOfCashAccount,
+				k: t.amountOfCheckingAccount,
+				l: t.amountAvailableBank,
+				m: t.amountAccruedBank,
+				n: t.shouldBeConsolidated
+				};
+			listDict.push(dict);
+			}
+			return listDict;
+	}
 	
 	$scope.viewReceipt = function (receipt) {
 		$scope.receipt = receipt;
@@ -155,7 +145,7 @@ function TransactionControllerNew($scope, $http, $location, alert){
 		$http.get(
 				$rest + "transactionService/save" + "/" + $scope.date + "/"
 						+ $scope.idSubcategory + "/" + $scope.concept + "/"
-						+ $scope.time + "/" + $scope.numberOperation + "/"
+						+ $scope.time + "/"
 						+ $scope.idAccount + "/" + $scope.idBankOperation + "/" + $scope.amount)
 			.success(function(response){
 				alert("The transaction <" + response.concept + "> was created successfully")
@@ -257,7 +247,6 @@ function TransactionControllerEdit($scope, $http, $routeParams, $location, alert
 		$scope.idSubcategory = response.subcategory.id;
 		$scope.concept = response.concept;
 		$scope.time = response.time;
-		$scope.numberOperation = response.numOperation;
 		$scope.setBankProperties(response);
 	})
 	.error(function() {
@@ -265,7 +254,7 @@ function TransactionControllerEdit($scope, $http, $routeParams, $location, alert
 	});	
 		
 	$scope.submit = function(form){
-		$http.get($rest + "transactionService/update/" + $routeParams.transactionId + '/' + $scope.concept + "/" + $scope.time + '/' + $scope.numberOperation)
+		$http.get($rest + "transactionService/update/" + $routeParams.transactionId + '/' + $scope.concept + "/" + $scope.time)
 			.success(function(response){
 				alert("The transaction <" + response.concept + "> was updated successfully")
 					.then(function(){

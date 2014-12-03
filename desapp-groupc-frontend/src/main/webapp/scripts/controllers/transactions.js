@@ -7,6 +7,7 @@ function TransactionControllerList($scope, $http, $modal, $route, $timeout) {
 	$http.get($rest + "transactionService/transactions")
 			.success(function(response) {
 				$scope.transactions = response;
+				console.log($scope.transactions);
 			}).error(function() {
 				console.log("error");
 			});

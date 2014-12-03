@@ -2,14 +2,9 @@
 $rest = "http://localhost:8081/backend/rest/";
 
 
-function TransactionControllerList($scope, $http, $modal, $route, $timeout) {
+function TransactionControllerList($scope, $http, $modal, $route, transactions) {
 	
-	$http.get($rest + "transactionService/transactions")
-			.success(function(response) {
-				$scope.transactions = response;
-			}).error(function() {
-				console.log("error");
-			});
+	$scope.transactions = transactions.data;
 	
 	$scope.getArray = function(){
 			listDict = 			[{
@@ -65,28 +60,26 @@ function TransactionControllerList($scope, $http, $modal, $route, $timeout) {
 	
 	
 	/*PAGINATION*/
-	$timeout(function () {
-	    $scope.filteredTransactions = [];
-	    $scope.currentPage = 1;
-	    $scope.itemsPerPage = 4;
-	    $scope.changeItemsPerPage = function(value){
-	    	$scope.itemsPerPage = value;
-	    }
-	    
-	    $scope.totalItems = function(){
-	    	return $scope.transactions.length;
-	    }
-	    
-	    $scope.numPages = function () {
-	        return Math.ceil($scope.transactions.length / $scope.itemsPerPage);
-	    };
-	    
-	    $scope.$watch('currentPage + itemsPerPage', function() {
-	        var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
-	        var end = begin + $scope.itemsPerPage; 
-	        $scope.filteredTransactions = $scope.transactions.slice(begin, end);
-	    });
-	}, 1000);
+    $scope.filteredTransactions = [];
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = 4;
+    $scope.changeItemsPerPage = function(value){
+    	$scope.itemsPerPage = value;
+    }
+    
+    $scope.totalItems = function(){
+    	return $scope.transactions.length;
+    }
+    
+    $scope.numPages = function () {
+        return Math.ceil($scope.transactions.length / $scope.itemsPerPage);
+    };
+    
+    $scope.$watch('currentPage + itemsPerPage', function() {
+        var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
+        var end = begin + $scope.itemsPerPage; 
+        $scope.filteredTransactions = $scope.transactions.slice(begin, end);
+    });
 }
 
 function TransactionControllerNew($scope, $http, $location, alert){

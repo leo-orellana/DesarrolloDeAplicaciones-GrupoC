@@ -74,7 +74,7 @@ public class ReceiptRest {
 	}
 
 	@GET
-	@Path("/save/{date}/{idTypeReceipt}/{idSupplier}/{concept}/{totalBill}/{taxed}/{untaxed}/{iva}/{idSubcategory}/{time}/{numOperation}/{idAccount}/{idBankOperation}")
+	@Path("/save/{date}/{idTypeReceipt}/{idSupplier}/{concept}/{totalBill}/{taxed}/{untaxed}/{iva}/{idSubcategory}/{time}/{idAccount}/{idBankOperation}")
 	@Produces("application/json")
 	public Receipt saveReceipt(
 			@PathParam("date") final String date,
@@ -87,7 +87,6 @@ public class ReceiptRest {
 			@PathParam("iva") final Double iva,
 			@PathParam("idSubcategory") final int idSubcategory,
 			@PathParam("time") final String time,
-			@PathParam("numOperation") final int numOperation,
 			@PathParam("idAccount") final int idAccount,
 			@PathParam("idBankOperation") final int idBankOperation) throws ParseException {
 
@@ -98,7 +97,7 @@ public class ReceiptRest {
 		Receipt receipt = new Receipt(javaDate, typeReceipt, supplier, concept, totalBill, taxed, untaxed, iva);
 
 		Transaction trans = getTransactionRest().saveTransaction(date,
-				idSubcategory, concept, time, numOperation, idAccount,
+				idSubcategory, concept, time, idAccount,
 				idBankOperation, totalBill);
 
 		trans.setReceipt(receipt);
@@ -109,14 +108,13 @@ public class ReceiptRest {
 	}
 
 	@GET
-	@Path("/update/{idReceipt}/{idSupplier}/{concept}/{time}/{numOperation}")
+	@Path("/update/{idReceipt}/{idSupplier}/{concept}/{time}")
 	@Produces("application/json")
 	public Receipt updateReceipt(
 			@PathParam("idReceipt") final int idReceipt,
 			@PathParam("idSupplier") final int idSupplier,
 			@PathParam("concept") final String concept,
-			@PathParam("time") final String time,
-			@PathParam("numOperation") final int numOperation) throws ParseException {
+			@PathParam("time") final String time) throws ParseException {
 
 		Supplier supplier = getSupplierService().getById(idSupplier);
 		
@@ -126,7 +124,7 @@ public class ReceiptRest {
 
 		Transaction trans = getTransactionService().getByReceiptId(idReceipt);
 		
-		getTransactionRest().updateTransaction(trans.getId(), concept, time, numOperation);
+		getTransactionRest().updateTransaction(trans.getId(), concept, time);
 		getReceiptService().update(receipt);
 		
 		return receipt;

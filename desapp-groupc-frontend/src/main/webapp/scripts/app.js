@@ -52,13 +52,18 @@ var app = angular.module(
 	// TRANSACTIONS
 	.when('/transactions', {
 		templateUrl : 'views/transactions.html',
-		controller : 'TransactionControllerList'
+		controller : 'TransactionControllerList',
+		resolve: {
+			transactions: function(sifeagService) {
+				return sifeagService.getTransactions();
+			}
+		}
 	})
 	.when('/newTransaction', {
 		templateUrl : 'views/editTransaction.html',
 		controller : 'TransactionControllerNew'
 	})
-	.when('/save/:date/:subcategoryId/:concept/:time/:numOperation/:accountId/:bankOperationId/:amount', {
+	.when('/save/:date/:subcategoryId/:concept/:time/:accountId/:bankOperationId/:amount', {
 		templateUrl : 'views/editTransaction.html',
 		controller : 'TransactionControllerNew'
 	})
@@ -80,7 +85,12 @@ var app = angular.module(
 	// RECEIPTS
 	.when('/receipts', {
 		templateUrl : 'views/receipts.html',
-		controller : 'ReceiptControllerList'
+		controller : 'ReceiptControllerList',
+		resolve: {
+			receipts: function(sifeagService) {
+				return sifeagService.getReceipts();
+			}
+		}
 	})
 	.when('/newReceipt', {
 		templateUrl : 'views/editReceipt.html',
@@ -119,3 +129,24 @@ app.factory(
 		 
 		}
 		);
+
+app.factory('sifeagService', ['$http', function($http) {
+	var rest = "http://localhost:8081/backend/rest/";
+	
+	var result = {
+		getReceipts: function() {
+			var promise = $http({ method: 'GET', url: rest + 'receiptService/receipts' }).success(function(data, status, headers, config) {
+				return data;
+			});
+			return promise;
+		},
+	
+		getTransactions: function() {
+			var promise = $http({ method: 'GET', url: rest + 'transactionService/transactions' }).success(function(data, status, headers, config) {
+				return data;
+			});
+			return promise;
+		}
+	}
+	return result;
+}]);

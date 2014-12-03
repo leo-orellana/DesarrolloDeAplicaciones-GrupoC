@@ -22,7 +22,7 @@ public class TestTransaction extends TestCase {
         Date mockDate = mock(Date.class);
 
         //TODO Hacer un builder para Transaction
-        Transaction transaction = new Transaction(3,mockSubcategory,
+        Transaction transaction = new Transaction(mockSubcategory,
                 Time.Afternoon, "concept", mockOperationCashAccount,
                 mockOperationCheckingAccount, mockOperationBankAccount,
                 mockDate);

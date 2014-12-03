@@ -11,7 +11,6 @@
     	<property name="amountOfCheckingAccount" type="double"></property>
     	<property name="amountAvailableBank" type="double"></property>
     	<property name="amountAccruedBank" type="double"></property>
-    	<property name="numOperation" type="int"></property>
 	    <property name="concept"></property>
 		<many-to-one name="subcategory" class="ar.edu.unq.desapp.grupoc.model.Subcategory">
 			<column name="subcategoryID"></column>

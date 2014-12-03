@@ -1,37 +1,31 @@
 $rest = "http://localhost:8081/backend/rest/";
 
 
-function ReceiptControllerList($scope, $http, $timeout) {
-	$http.get($rest + "receiptService/receipts")
-			.success(function(response) {
-				$scope.receipts = response;
-			}).error(function() {
-				console.log("error");
-			});
-	
+function ReceiptControllerList($scope, $http, $timeout, receipts) {
+
+	$scope.receipts = receipts.data;
+
 	/*PAGINATION*/
-	$timeout(function () {
-	    $scope.filteredReceipts = [];
-	    $scope.currentPage = 1;
-	    $scope.itemsPerPage = 4;
-	    $scope.changeItemsPerPage = function(value){
-	    	$scope.itemsPerPage = value;
-	    }
-	    
-	    $scope.totalItems = function(){
-	    	return $scope.receipts.length;
-	    }
-	    
-	    $scope.numPages = function () {
-	        return Math.ceil($scope.receipts.length / $scope.itemsPerPage);
-	    };
-	    
-	    $scope.$watch('currentPage + itemsPerPage', function() {
-	        var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
-	        var end = begin + $scope.itemsPerPage; 
-	        $scope.filteredReceipts = $scope.receipts.slice(begin, end);
-	    });
-	}, 1000);
+    $scope.filteredReceipts = [];
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = 4;
+    $scope.changeItemsPerPage = function(value){
+    	$scope.itemsPerPage = value;
+    }
+    
+    $scope.totalItems = function(){
+    	return $scope.receipts.length;
+    }
+    
+    $scope.numPages = function () {
+        return Math.ceil($scope.receipts.length / $scope.itemsPerPage);
+    };
+    
+    $scope.$watch('currentPage + itemsPerPage', function() {
+        var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
+        var end = begin + $scope.itemsPerPage; 
+        $scope.filteredReceipts = $scope.receipts.slice(begin, end);
+    });
 }
 
 function ReceiptControllerNew($scope, $http, $modal, alert, $location){
@@ -166,20 +160,12 @@ function ReceiptControllerNew($scope, $http, $modal, alert, $location){
 		if (typeof($scope.idBankOperation) == 'undefined'){
 			$scope.idBankOperation = 0;
 		}
-		console.log($rest + "receiptService/save/" + dateString + "/"
-				+ $scope.typeReceipt.id + "/" + $scope.supplier.id + "/"
-				+ $scope.concept + "/" + $scope.totalBill + "/"
-				+ $scope.taxed + "/" + $scope.untaxed + "/" + $scope.iva + "/"
-				+ $scope.idSubcategory + "/" + $scope.time + "/"
-				+ $scope.numberOperation + "/" + $scope.idAccount + "/"
-				+ $scope.idBankOperation);
 		$http.get(
 				$rest + "receiptService/save/" + dateString + "/"
 						+ $scope.typeReceipt.id + "/" + $scope.supplier.id + "/"
 						+ $scope.concept + "/" + $scope.totalBill + "/"
 						+ $scope.taxed + "/" + $scope.untaxed + "/" + $scope.iva + "/"
-						+ $scope.idSubcategory + "/" + $scope.time + "/"
-						+ $scope.numberOperation + "/" + $scope.idAccount + "/"
+						+ $scope.idSubcategory + "/" + $scope.time  + "/" + $scope.idAccount + "/"
 						+ $scope.idBankOperation)
 			.success(function(response){
 				alert("The receipt <" + response.concept + "> was created successfully")

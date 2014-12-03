@@ -9,7 +9,7 @@
  */
 var app = angular.module(
 		'app',
-		[ 'ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize',
+		[ 'ngCsv', 'ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize',
 				'ngTouch', 'ngGrid', 'ui.bootstrap', 'angucomplete-alt' ]).config(function($routeProvider) {
 	$routeProvider
 	

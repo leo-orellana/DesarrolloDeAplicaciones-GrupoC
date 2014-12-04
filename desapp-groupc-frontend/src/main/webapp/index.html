@@ -21,6 +21,11 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="bower_components/angular/node_modules/ng-grid/ng-grid.css" /> 
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+ // Load the Visualization API and the piechart package.
+ google.load('visualization', '1.0', {'packages':['corechart']});
+</script>
 </head>
 
 <body>
@@ -95,6 +100,7 @@
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
 	<script src="scripts/controllers/categories.js"></script>
+	<script src="scripts/controllers/statistics.js"></script>
 	<script src="scripts/controllers/subcategories.js"></script>
 	<script src="scripts/controllers/transactions.js"></script>
 	<script src="scripts/controllers/accountmanager.js"></script>

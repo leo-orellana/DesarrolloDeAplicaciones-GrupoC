@@ -1,4 +1,4 @@
-	<div class="container">
+	<div receipt-edit="{{editMode}}" is="receiptDiv" class="container" ng-controller="ReceiptControllerNew">
 
 		<div class="row">
 			<div class="col-md-6">
@@ -19,15 +19,15 @@
                     <div class="form-group">
                     	<label for="exampleInputDate">Date</label>
 				        <p class="input-group">
-				        	<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="date" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-disabled="{{editMode}}"/>
+				        	<input id="datePicker" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-disabled="{{editMode}}" tabindex="1"/>
 				        	<span class="input-group-btn">
-				           	<button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="{{editMode}}"><i class="glyphicon glyphicon-calendar"></i></button>
+				           	<button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="{{editMode}}" tabindex="1"><i class="glyphicon glyphicon-calendar"></i></button>
 				           	</span>
 			            </p>
 				    </div>
                     <div class="form-group">
                         <label for="type">Type</label>
-                        <select required class="form-control" ng-change="changeTypeReceipt()" ng-model="typeReceipt" ng-options="type as type.name for type in typeReceipts" ng-disabled="{{editMode}}">
+                        <select required class="form-control" ng-change="changeTypeReceipt()" ng-model="typeReceipt" ng-options="type as type.name for type in typeReceipts" ng-disabled="{{editMode}}" tabindex="2">
 							<option value="">-- select type receipt --</option>
 						</select>
                     </div>
@@ -38,7 +38,7 @@
 	                    		<label for="exampleInputProviderNumber" class="newSupplier">Supplier Code</label>
 	                    	</div>
 	                    	<div class="col-md-6">
-	                    		<button class="btn btn-primary btn-xs pull-right" ng-click="addNewSupplier()">Load New Supplier &nbsp<i class="fa fa-plus"></i></button>
+	                    		<button class="btn btn-primary btn-xs pull-right" ng-click="addNewSupplier()" tabindex="3">Load New Supplier &nbsp<i class="fa fa-plus" id="supplierButton"></i></button>
                     		</div>
                     	</div>
                         
@@ -55,37 +55,37 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputBusinessName">Supplier Name</label>
-                        <input ng-disabled="true" type="text" class="form-control" id="exampleInputProviderName" ng-model="supplier.companyName" placeholder="Enter provider name">
+                        <input ng-disabled="true" type="text" class="form-control" id="exampleInputProviderName" ng-model="supplier.companyName" placeholder="Enter provider name" tabindex="5">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputCUIT">CUIT</label>
-                        <input ng-disabled="true" type="text" class="form-control" id="exampleInputCUIT" ng-model="supplier.cuit" placeholder="Enter cuit">
+                        <input ng-disabled="true" type="text" class="form-control" id="exampleInputCUIT" ng-model="supplier.cuit" placeholder="Enter cuit" tabindex="6">
                     </div>
             </div>
             <div class="col-md-5 col-md-offset-2">
             		<div class="form-group">
                         <label for="exampleInputConcept">Concept</label>
-                        <input type="text" class="form-control" ng-model="concept" placeholder="Enter concept">
+                        <input id="concept" type="text" class="form-control" ng-model="concept" placeholder="Enter concept" tabindex="7">
                     </div>
                     <div ng-show="isTypeA">
 	                    <h4 class="amount-detail">Amount detail</h4>
 	                    
 	                    <div class="form-group">
 	                        <label for="exampleTaxed">Taxed</label>
-	                        <input type="number" class="form-control" ng-model="taxed" placeholder="Enter taxed" ng-disabled="{{editMode}}">
+	                        <input type="number" class="form-control" ng-model="taxed" placeholder="Enter taxed" ng-disabled="{{editMode}}" tabindex="8">
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="exampleIVA">IVA</label>
-	                        <input type="number" class="form-control" ng-model="iva" placeholder="Enter IVA" ng-disabled="{{editMode}}">
+	                        <input type="number" class="form-control" ng-model="iva" placeholder="Enter IVA" ng-disabled="{{editMode}}" tabindex="9">
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="exampleUntaxed">Untaxed</label>
-	                        <input type="number" class="form-control" ng-model="untaxed" placeholder="Enter untaxed" ng-disabled="{{editMode}}">
+	                        <input type="number" class="form-control" ng-model="untaxed" placeholder="Enter untaxed" ng-disabled="{{editMode}}" tabindex="10">
 	                    </div>
 	               </div>
                     <div class="form-group">
                         <label for="exampleAmount">Total amount</label>
-                        <input type="number" class="form-control" ng-model="totalBill" placeholder="Enter total amount" ng-disabled="{{editMode}}">
+                        <input type="number" class="form-control" ng-model="totalBill" placeholder="Enter total amount" ng-disabled="{{editMode}}" tabindex="11">
                     </div>
             </div>
         </div>
@@ -100,34 +100,34 @@
         <div class="row">
             <div class="col-md-5">
                     <div class="form-group">
+                        <label for="shift">Shift</label>
+						<select id="shift" required class="form-control" ng-model="time" ng-options="time for time in times" tabindex="12">
+							<option value="">-- select shift --</option>
+						</select>
+                    </div>
+                    <div class="form-group">
                         <label for="categorieName">Category</label>
-						<select required class="form-control" ng-change="changeSubcategory()" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories" ng-disabled="{{editMode}}">
+						<select required class="form-control" ng-change="changeSubcategory()" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories" ng-disabled="{{editMode}}" tabindex="13>
 							<option value="">-- select category --</option>
 						</select>
                     </div>
                     <div class="form-group">
                         <label for="subcategorieName">Sub-categorie</label>
-						<select required class="form-control" ng-model="idSubcategory" ng-options="subcat.id as subcat.name for subcat in subcategories" ng-disabled="{{editMode}}">
+						<select required class="form-control" ng-model="idSubcategory" ng-options="subcat.id as subcat.name for subcat in subcategories" ng-disabled="{{editMode}}" tabindex="14">
 							<option value="">-- select sub-category --</option>
-						</select>
-                    </div>
-                    <div class="form-group">
-                        <label for="shift">Shift</label>
-						<select required class="form-control" ng-model="time" ng-options="time for time in times">
-							<option value="">-- select shift --</option>
 						</select>
                     </div>
             </div>
             <div class="col-md-5 col-md-offset-2">
                     <div class="form-group">
 						<label>Select the account</label>
-						<select required class="form-control" ng-change="changeBankOperation()" ng-model="idAccount" ng-options="acc.id as acc.name for acc in accounts" ng-disabled="{{editMode}}">
+						<select required class="form-control" ng-change="changeBankOperation()" ng-model="idAccount" ng-options="acc.id as acc.name for acc in accounts" ng-disabled="{{editMode}}" tabindex="15">
 							<option value="">-- select account --</option>
 						</select>
 					</div>
 					<div class="form-group" ng-hide" ng-show="showBankOperation">
 						<label>Select the bank operation</label>
-						<select required class="form-control" ng-model="idBankOperation" ng-options="op.id as op.name for op in bankOperations" ng-disabled="{{editMode}}">
+						<select required class="form-control" ng-model="idBankOperation" ng-options="op.id as op.name for op in bankOperations" ng-disabled="{{editMode}}" id="inputBankOperation" tabindex="16">
 							<option value="">-- select bank operation --</option>
 						</select>
 					</div>
@@ -139,8 +139,23 @@
 		<div class="row">
 			<div class="col-md-2 col-md-offset-10">
 				<a href="#/transactions" class="btn btn-danger">Cancel</a>
-				<button data-ng-click="submit(newReceiptForm)" class="btn btn-primary">Submit</button>
+				<button data-ng-click="submit(newReceiptForm)" class="btn btn-primary" tabindex="17">Submit</button>
 			</div>
 		</div>
 	</div>
- 
+
+	
+	<!--<script type="text/javascript-lazy">
+		$( "#shift" ).focus(function() {
+			$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+		});
+		
+		$( "#datePicker" ).focus(function() {
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+		});
+		$( window ).load(function() {
+			console.log("que verga");
+			document.getElementById("ex2_value").tabIndex = "4";
+		});
+	</script>
+	-->

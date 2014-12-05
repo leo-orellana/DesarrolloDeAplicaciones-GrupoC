@@ -5,7 +5,7 @@ body { padding-top: 70px; }
 }
 
 .table tr {
-   text-align: center;   
+   text-align: left;   
 }
 
 .statistics a {
@@ -32,14 +32,17 @@ body { padding-top: 70px; }
    	text-align: center;   
 }
 
-.actions{
-   	text-align: left !important;
+.money{
+   	text-align: right !important;
+}
+
+.negative{
+	color: red;
 }
 
 td.actions{
-	width: 160px !important;
-   	padding-left: 50px !important;
-}
+	width: auto;
+} 
 
 .egress{
     color: red !important;
@@ -92,3 +95,8 @@ td.actions{
 .newSupplier-container{
 	margin:10px;
 }
+
+input[type=number] {-moz-appearance: textfield;}
+
+::-webkit-inner-spin-button { -webkit-appearance: none;}
+::-webkit-outer-spin-button { -webkit-appearance: none;}

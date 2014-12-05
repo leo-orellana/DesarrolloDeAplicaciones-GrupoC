@@ -54,6 +54,10 @@ public class ReceiptRest {
 	@Produces("application/json")
 	public Receipt deleteReceipt(@PathParam("id") final int id) {
 		Receipt rec = this.getReceipt(id);
+		Transaction transaction = getTransactionService().getByReceiptId(id);
+		transaction.setReceipt(null);
+		transaction.setHasReceipt(false);
+		getTransactionService().update(transaction);
 		getReceiptService().delete(rec);
 		return rec;
 	}

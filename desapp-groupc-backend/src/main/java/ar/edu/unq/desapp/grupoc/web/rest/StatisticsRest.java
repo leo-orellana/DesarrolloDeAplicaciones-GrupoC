@@ -8,29 +8,29 @@ import javax.ws.rs.Produces;
 
 import org.springframework.stereotype.Service;
 
-import ar.edu.unq.desapp.grupoc.services.CategoryService;
+import ar.edu.unq.desapp.grupoc.services.StatisticService;
 import ar.edu.unq.desapp.grupoc.services.TransactionService;
 
 @Service
 @Path("/statistics")
 public class StatisticsRest {
 
-	public CategoryService categoryService;
+	public StatisticService statisticService;
 	public TransactionService transactionService;
 	
 	@GET
 	@Path("/expensesByCategory")
 	@Produces("application/json")
 	public HashMap<String, Double> getExpensesByCategory() {
-		return getCategoryService().getExpensesByCategory(getTransactionService().retriveAll());
+		return getStatisticService().getExpensesByCategory(getTransactionService().retriveAll());
 	}
 
-	public CategoryService getCategoryService() {
-		return categoryService;
+	public StatisticService getStatisticService() {
+		return statisticService;
 	}
 
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
+	public void setStatisticService(StatisticService statisticService) {
+		this.statisticService = statisticService;
 	}
 
 	public TransactionService getTransactionService() {
@@ -40,4 +40,5 @@ public class StatisticsRest {
 	public void setTransactionService(TransactionService transactionService) {
 		this.transactionService = transactionService;
 	}
+
 }

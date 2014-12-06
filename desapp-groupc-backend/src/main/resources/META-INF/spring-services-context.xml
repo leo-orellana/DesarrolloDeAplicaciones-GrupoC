@@ -50,4 +50,8 @@
 	<bean id="services.receipts" class="ar.edu.unq.desapp.grupoc.services.ReceiptService">
 		<property name="dao" ref="persistence.receiptdao" />
 	</bean>
+	
+	<bean id="services.statistics" class="ar.edu.unq.desapp.grupoc.services.StatisticService">
+		<property name="dao" ref="persistence.receiptdao" />
+	</bean>
 </beans>

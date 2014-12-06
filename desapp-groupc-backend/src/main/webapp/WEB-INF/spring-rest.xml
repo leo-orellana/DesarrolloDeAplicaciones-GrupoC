@@ -41,7 +41,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 			<ref bean="DBRest"/>
 			<ref bean="supplierRest"/>
 			<ref bean="typeReceiptRest"/>
-			<ref bean="receiptRest"/>			
+			<ref bean="receiptRest"/>
+			<ref bean="statisticsRest"/>			
 		</jaxrs:serviceBeans>
 		<jaxrs:extensionMappings>
 			<entry key="json" value="application/json" />
@@ -127,6 +128,12 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 		<property name="typeReceiptService" ref="services.typeReceipt"/>
 		<property name="supplierService" ref="services.supplier" />
 		<property name="transactionRest" ref="transactionRest" />
+	</bean>
+	
+	<bean id="statisticsRest" class="ar.edu.unq.desapp.grupoc.web.rest.StatisticsRest">
+		<property name="transactionService" ref="services.transactions" />
+		<property name="statisticService" ref="services.statistics" />
+		<property name="categoryService" ref="services.categories" />
 	</bean>
 	
 </beans>

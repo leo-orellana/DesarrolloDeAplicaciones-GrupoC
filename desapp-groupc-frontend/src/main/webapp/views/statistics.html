@@ -1,28 +1,36 @@
-<script>
-      function drawChart() {
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
-
-        // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-      drawChart();
-</script>
-<!--Div that will hold the pie chart-->
-<div id="chart_div"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="btn-group"
+				id="bs-example-navbar-collapse-1">
+					<button class="btn btn-success" ng-click="drawIngressByShift()">See ingress by shifts</button>
+					<button class="btn btn-success" ng-click="drawIngressBySubcategoriesInCategory()">See ingress of subcategorie's category</button>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="btn-group"
+				id="bs-example-navbar-collapse-1">
+					<button class="btn btn-danger" ng-click="drawExpensesByCategory()">See egress by all categories</button>
+					<button class="btn btn-danger" ng-click="drawEgressBySubcategoriesInCategory()">See egress of subcategorie's category</button>
+			</div>
+		</div>
+	</div>
+	<br>
+     <div class="row">
+	     <div class="col-md-2">
+	     <br><br><br><br><br>
+			<form class="form-group">
+				<h3 ng-show="showSelectCategories">Select a category</h3>
+				<select class="form-control" ng-change="drawEgressBySubcategoriesInCategoryOnChange()" ng-show="showSelectCategoriesInEgress" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categoriesEgress">
+				</select>
+				<select class="form-control" ng-change="drawIngressBySubcategoriesInCategoryOnChange()" ng-show="showSelectCategoriesInIngress" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categoriesIngress">
+				</select>
+			</form>
+		</div>
+		<div class="col-md-6">
+			<div class="col-md-8 col-md-offset-2">
+				<div id="chart_div"></div>
+			</div>
+		</div>
+	</div>
+</div>

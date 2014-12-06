@@ -13,12 +13,7 @@ public class StatisticService extends GenericService<Category>{
 
 	public HashMap<String, Double> getExpensesByCategory(
 			List<Transaction> allTransactions) {
-		List<Transaction> transactions = new ArrayList<Transaction>();
-		for(Transaction t: allTransactions){
-			if(!t.getSubcategory().getCategory().getMovement().isIngress()){
-				transactions.add(t);
-			}
-		}
+		List<Transaction> transactions = filterEgress(allTransactions);
 		HashMap<String, Double> hash = new HashMap<String, Double>();
 		for (Transaction t : transactions) {
 			String name = t.getSubcategory().getCategory().getName();
@@ -34,5 +29,45 @@ public class StatisticService extends GenericService<Category>{
 			}
 		}
 		return hash;
+	}
+
+	public HashMap<String, Double> getIntgressByShift(
+			List<Transaction> allTransactions) {
+		List<Transaction> transactions = filterIngress(allTransactions);
+		HashMap<String, Double> hash = new HashMap<String, Double>();
+		for (Transaction t : transactions) {
+			String shift = t.getTime().name();
+			if (hash.containsKey(shift)) {
+				hash.put(shift, hash.get(shift)
+						+ t.getOperationBankAccount().getAmount()
+						+ t.getOperationCashAccount().getAmount()
+						+ t.getOperationCheckingAccount().getAmount());
+			} else {
+				hash.put(shift, t.getOperationBankAccount().getAmount()
+						+ t.getOperationCashAccount().getAmount()
+						+ t.getOperationCheckingAccount().getAmount());
+			}
+		}
+		return hash;
+	}
+	
+	public List<Transaction> filterIngress(List<Transaction> transactions){
+		List<Transaction> result = new ArrayList<Transaction>();
+		for(Transaction t: transactions){
+			if(t.getSubcategory().getCategory().getMovement().isIngress()){
+				result.add(t);
+			}
+		}
+		return result;
+	}
+	
+	public List<Transaction> filterEgress(List<Transaction> transactions){
+		List<Transaction> result = new ArrayList<Transaction>();
+		for(Transaction t: transactions){
+			if(!t.getSubcategory().getCategory().getMovement().isIngress()){
+				result.add(t);
+			}
+		}
+		return result;
 	}
 }

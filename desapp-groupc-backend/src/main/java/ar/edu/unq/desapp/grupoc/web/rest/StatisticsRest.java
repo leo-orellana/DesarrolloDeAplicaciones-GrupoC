@@ -24,6 +24,13 @@ public class StatisticsRest {
 	public HashMap<String, Double> getExpensesByCategory() {
 		return getStatisticService().getExpensesByCategory(getTransactionService().retriveAll());
 	}
+	
+	@GET
+	@Path("/ingressByShift")
+	@Produces("application/json")
+	public HashMap<String, Double> getIngressByShift() {
+		return getStatisticService().getIntgressByShift(getTransactionService().retriveAll());
+	}
 
 	public StatisticService getStatisticService() {
 		return statisticService;

@@ -6,7 +6,7 @@ function TransactionControllerList($scope, $http, $modal, $route, transactions) 
 	
 	$scope.transactions = transactions.data;
 	
-	$scope.getArray = function(){
+	$scope.exportTransactions = function(){
 			listDict = 			[{
 				a: 'Date',
 				b: 'Category',
@@ -82,7 +82,7 @@ function TransactionControllerList($scope, $http, $modal, $route, transactions) 
     });
 }
 
-function TransactionControllerNew($scope, $http, $location, alert){
+function TransactionControllerNew($scope, $http, $location, alert, focus){
 	
 	$scope.title = 'New transaction';
 	$scope.times = ["Morning", "Afternoon", "Night"];
@@ -118,7 +118,8 @@ function TransactionControllerNew($scope, $http, $location, alert){
   		$http.get($rest + "bankOperationService/operations")
   		.success(function(response) {
   			if($scope.idAccount == 3){
-  				$scope.showBankOperation = true; 				
+  				$scope.showBankOperation = true;
+  				$scope.focusOnSelectBankOperation();
   			}
   			else{
   				$scope.showBankOperation = false;
@@ -129,14 +130,20 @@ function TransactionControllerNew($scope, $http, $location, alert){
   			console.log("error");
   		});
         };
-		
+	
+      $scope.focusOnSelectBankOperation = function(){
+			focus('inputBankOperation');
+      }
+    
 	$scope.submit = function(form){
+		var dateString = ($scope.date).getFullYear() + '-' + (($scope.date).getMonth() + 1) + '-' + ($scope.date).getDate();
+		
 		if (typeof($scope.idBankOperation) == 'undefined'){
 			$scope.idBankOperation = 0;
 		}
 		
 		$http.get(
-				$rest + "transactionService/save" + "/" + $scope.date + "/"
+				$rest + "transactionService/save" + "/" + dateString + "/"
 						+ $scope.idSubcategory + "/" + $scope.concept + "/"
 						+ $scope.time + "/"
 						+ $scope.idAccount + "/" + $scope.idBankOperation + "/" + $scope.amount)
@@ -149,7 +156,34 @@ function TransactionControllerNew($scope, $http, $location, alert){
 			.error(function() {
 				console.log("error");
 		});
-	}
+	};
+	
+	/*** <DATEPICKER> ***/
+	$scope.today = function() {
+	    $scope.date = new Date();
+	};
+	
+	$scope.today();
+
+	$scope.clear = function () {
+		$scope.date = null;
+	};
+
+	$scope.open = function($event) {
+		$event.preventDefault();
+	    $event.stopPropagation();
+
+	    $scope.opened = true;
+	};
+
+	$scope.dateOptions = {
+			formatYear: 'yyyy',
+			startingDay: 1	
+	};
+
+	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'yyyy-MM-dd'];
+	$scope.format = $scope.formats[0];
+	/*** </DATEPICKER> ***/
 }
 
 function TransactionControllerEdit($scope, $http, $routeParams, $location, alert) {
@@ -257,19 +291,7 @@ function TransactionControllerEdit($scope, $http, $routeParams, $location, alert
 			.error(function() {
 				console.log("error");
 		});
-	}		
-}
-
-function TransactionControllerDelete($scope, $http, $routeParams, $location, alert) {
-	$http.get($rest + "transactionService/delete/"+$routeParams.transactionId)
-	.success(function(response){
-		alert("The transaction <" + response.concept + "> was deleted successfully")
-		.then(function(){
-			$location.path('/transactions');
-		});
-	}).error(function(){
-		console.log("error");
-	});
+	}
 }
 
 function ReceiptController($scope) {

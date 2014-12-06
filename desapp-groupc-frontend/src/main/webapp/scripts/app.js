@@ -71,10 +71,6 @@ var app = angular.module(
 		templateUrl : 'views/editTransaction.html',
 		controller : 'TransactionControllerEdit'
 	})
-	.when('/deleteTransaction/:transactionId',{
-		templateUrl : 'views/transactions.html',
-		controller : 'TransactionControllerDelete'
-	})
 	
 	// ACCOUNTMANAGER
 	.when('/consolidate', {
@@ -93,6 +89,15 @@ var app = angular.module(
 		}
 	})
 	.when('/newReceipt', {
+		templateUrl : 'views/editReceipt.html',
+		controller : 'ReceiptControllerNew',
+		resolve: {
+			suppliers: function(sifeagService) {
+				return sifeagService.getSuppliers();
+			}
+		}
+	})
+	.when('/editReceipt/:receiptId', {
 		templateUrl : 'views/editReceipt.html',
 		controller : 'ReceiptControllerNew'
 	})
@@ -146,7 +151,141 @@ app.factory('sifeagService', ['$http', function($http) {
 				return data;
 			});
 			return promise;
+		},
+		
+		getSuppliers: function() {
+			var promise = $http({ method: 'GET', url: rest + 'supplierService/suppliers' }).success(function(data, status, headers, config) {
+				return data;
+			});
+			return promise;
 		}
 	}
 	return result;
 }]);
+
+app.factory('focus', function($timeout) {
+    return function(id) {
+        // timeout makes sure that is invoked after any other event has been triggered.
+        // e.g. click events that need to run before the focus or
+        // inputs elements that are in a disabled state but are enabled when those events
+        // are triggered.
+        $timeout(function() {
+          var element = document.getElementById(id);
+          if(element)
+            element.focus();
+        });
+      };
+    });
+
+app.directive('eventFocus', function(focus) {
+    return function(scope, elem, attr) {
+      elem.on(attr.eventFocus, function() {
+        focus(attr.eventFocusId);
+      });
+
+      // Removes bound events in the element itself
+      // when the scope is destroyed
+      scope.$on('$destroy', function() {
+        element.off(attr.eventFocus);
+      });
+    };
+  });
+
+app.directive('receiptEdit', function($timeout){
+	return {
+		restrict: 'A',
+		link: function (scope, element, attr) {
+			if (!scope.editMode){
+				$timeout(function(){
+					document.getElementById("ex2_value").tabIndex = "4";
+				}, 500);
+				document.getElementById("datePicker").focus();
+				$( "#datePicker").focus(function() {
+					document.getElementById("ex2_value").tabIndex = "4";
+				});
+				$( "#shift" ).focus(function() {
+					$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+				});
+				
+				$( "#datePicker" ).focus(function() {
+					$("html, body").animate({ scrollTop: 0 }, "slow");
+				});
+			}else{
+				$timeout(function(){
+					document.getElementById("ex2_value").tabIndex = "4";
+					document.getElementById("ex2_value").focus();
+				}, 500);
+			}
+        }
+	}
+});
+
+app.directive('transactionEdit', function($timeout){
+	return {
+		restrict: 'A',
+		link: function (scope, element, attr) {
+			if (!scope.editMode){
+				document.getElementById("datePicker").focus();
+			}else{
+				document.getElementById("shift").focus();
+			}
+        }
+	}
+});
+
+app.directive('supplierEdit', function($timeout){
+	return {
+		restrict: 'A',
+		link: 	function (scope, element, attr) {
+					$timeout(function(){
+						$("#code").focus();
+					
+						$("#code").focus(function() {
+							scope.codeInUse = false;
+						});
+					}, 400);
+				}
+        	}
+});
+
+app.factory('messages', function() {
+    return {
+        message : 'anonymous'
+    };
+});
+
+app.factory('supplierService', function ($timeout, $q, $http) {
+	var _checkCodeUnique = function (code) {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'supplierService/checkCodeUnique/' + code)
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				console.log("error");
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	var _getSuppliers = function () {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'supplierService/suppliers')
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	return {
+		checkCodeUnique:_checkCodeUnique,
+		getSuppliers:_getSuppliers,
+	}
+});

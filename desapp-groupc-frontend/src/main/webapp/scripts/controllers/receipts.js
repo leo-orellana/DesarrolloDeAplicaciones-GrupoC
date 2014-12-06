@@ -45,7 +45,7 @@ function ReceiptControllerList($scope, $http, $timeout, receipts, alert, $locati
     }
 }
 
-function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $route, $timeout, suppliers, messages, supplierService){
+function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $route, $timeout, suppliers, supplierService){
 	$scope.title = 'New Receipt';
 	$scope.editMode = false;
 	
@@ -107,7 +107,14 @@ function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $r
 		controller: 'SupplierControllerNew'
 		});
 		
-		modalInstance.result.then($scope.updateSuppliers);
+		modalInstance.result.then(function(message){
+			if (message != "error"){
+				$scope.message = message;
+				$scope.updateSuppliers();
+			}else{
+				$scope.messageError = message;
+			}
+		});
 	};
 	
 	$scope.updateSuppliers = function(){
@@ -117,10 +124,7 @@ function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $r
 	
 	$scope.refreshSuppliersList = function(result){
 		$scope.suppliers = result;
-		console.log("3 - $scope.codeInUse set in function - " + $scope.codeInUse);
 	};
-	
-	$scope.message = messages.message;
 	
 	$scope.times = ["Morning", "Afternoon", "Night"];
 	
@@ -175,7 +179,7 @@ function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $r
     $scope.untaxed = 0;
     $scope.iva = 0;
     
-    $scope.submit = function(form){
+    $scope.submit = function(isValid){
     	var dateString = ($scope.date).getFullYear() + '-' + (($scope.date).getMonth() + 1) + '-' + ($scope.date).getDate();
     	
 		if (typeof($scope.idBankOperation) == 'undefined'){
@@ -200,7 +204,7 @@ function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $r
 	}
 }
 
-function SupplierControllerNew($scope, $http, alert, $modalInstance, $location, $route, $timeout, messages, $q, supplierService, $controller){
+function SupplierControllerNew($scope, $http, alert, $modalInstance, $location, $route, $timeout, $q, supplierService, $controller){
 	$scope.submitted = false;
 	$scope.codeInUse = false;
 	$scope.submit = function(isValid){
@@ -213,18 +217,23 @@ function SupplierControllerNew($scope, $http, alert, $modalInstance, $location, 
 		if ($scope.valid){
 			if (!$scope.codeInUse){
 				$http.get($rest + 'supplierService/save/' + $scope.supplierCode + '/' + $scope.supplierCompanyName + '/' + $scope.supplierCuit)
-				.success(function(response) {
-					alert("The supplier <" + response.companyName + "> was created")
-					.then(function(){
-						$modalInstance.close();
-					});
-					
+				.success(function(data, status, headers, config) {
+					if (status == 200){
+						$modalInstance.close(data.code);
+					}
+					else{
+						$modalInstance.close("error");
+					}
 				}).error(function() {
 					console.log("error");
 				});
 			}
 		}
 		return;
+	}
+	
+	$scope.closemodal = function(){
+		$modalInstance.close();
 	}
 	
 	$scope.unique = function(code){

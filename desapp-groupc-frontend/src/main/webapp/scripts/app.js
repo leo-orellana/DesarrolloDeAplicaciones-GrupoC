@@ -198,22 +198,58 @@ app.directive('receiptEdit', function($timeout){
 			if (!scope.editMode){
 				$timeout(function(){
 					document.getElementById("ex2_value").tabIndex = "4";
-				}, 500);
+					console.log(document.getElementById("ex2_value"));
+				}, 1000);
 				document.getElementById("datePicker").focus();
 				$( "#datePicker").focus(function() {
 					document.getElementById("ex2_value").tabIndex = "4";
 				});
-				$( "#shift" ).focus(function() {
-					$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-				});
+//				$( "#shift" ).focus(function() {
+//					$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+//				});
 				
 				$( "#datePicker" ).focus(function() {
 					$("html, body").animate({ scrollTop: 0 }, "slow");
+				})
+				$( "#ex2_value" ).focus(function() {
+					$("#messageSuccess").delay(2000).fadeOut('slow');
 				});
+				
+				$('form').on("keyup keypress", function(e) {
+					  var code = e.keyCode || e.which; 
+					  if (code  == 13) {               
+					    e.preventDefault();
+					    return false;
+					  }
+				});
+				
+				$( "#totalBill" ).blur(function() {
+					if(scope.isTypeA){
+						var total = parseFloat($("#totalBill").val());
+					
+						if($.isNumeric(total)){
+							var taxed = total;
+							var iva = (taxed * 21) / 100;
+							var untaxed = 0;
+							
+							$("#taxed").val(taxed);
+							$("#iva").val(iva);
+							$("#untaxed").val(untaxed);
+						}
+					}
+				});
+				
 			}else{
 				$timeout(function(){
 					document.getElementById("ex2_value").tabIndex = "4";
 					document.getElementById("ex2_value").focus();
+					$('form').on("keyup keypress", function(e) {
+						  var code = e.keyCode || e.which; 
+						  if (code  == 13) {               
+						    e.preventDefault();
+						    return false;
+						  }
+					});
 				}, 500);
 			}
         }
@@ -226,9 +262,23 @@ app.directive('transactionEdit', function($timeout){
 		link: function (scope, element, attr) {
 			if (!scope.editMode){
 				document.getElementById("datePicker").focus();
+				$('form').on("keyup keypress", function(e) {
+					  var code = e.keyCode || e.which; 
+					  if (code  == 13) {               
+					    e.preventDefault();
+					    return false;
+					  }
+				});
 			}else{
 				document.getElementById("shift").focus();
 			}
+			$('form').on("keyup keypress", function(e) {
+				  var code = e.keyCode || e.which; 
+				  if (code  == 13) {               
+				    e.preventDefault();
+				    return false;
+				  }
+			});
         }
 	}
 });
@@ -244,14 +294,15 @@ app.directive('supplierEdit', function($timeout){
 							scope.codeInUse = false;
 						});
 					}, 400);
+					$('form').on("keyup keypress", function(e) {
+						  var code = e.keyCode || e.which; 
+						  if (code  == 13) {               
+						    e.preventDefault();
+						    return false;
+						  }
+					});
 				}
         	}
-});
-
-app.factory('messages', function() {
-    return {
-        message : 'anonymous'
-    };
 });
 
 app.factory('supplierService', function ($timeout, $q, $http) {

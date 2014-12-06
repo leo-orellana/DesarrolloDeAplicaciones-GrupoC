@@ -1,10 +1,28 @@
-<div class="collapse navbar-collapse"
-	id="bs-example-navbar-collapse-1">
-	<ul class="nav navbar-nav">
-		<li><button class="btn btn-info" ng-click="drawExpensesByCategory()">See egress by categories</button></li>
-		<li><button class="btn btn-info" ng-click="drawIngressByShift()">See ingress by shifts</button></li>
-	</ul>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="btn-group"
+				id="bs-example-navbar-collapse-1">
+					<button class="btn btn-info" ng-click="drawExpensesByCategory()">See egress by categories</button>
+					<button class="btn btn-info" ng-click="drawIngressByShift()">See ingress by shifts</button>
+					<button class="btn btn-info" ng-click="drawEgressBySubcategoriesInCategory()">See egress of subcategorie's category</button>
+			</div>
+		</div>
+	</div>
+	<br>
+     <div class="row">
+	     <div class="col-md-2">
+	     <br><br><br><br><br>
+			<form class="form-group">
+				<h3 ng-show="showSelectCategories">Select a subcategory</h3>
+				<select class="form-control" ng-change="drawEgressBySubcategoriesInCategoryOnChange()" ng-show="showSelectCategories" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories">
+				</select>
+			</form>
+		</div>
+		<div class="col-md-6">
+			<div class="col-md-8 col-md-offset-2">
+				<div id="chart_div"></div>
+			</div>
+		</div>
+	</div>
 </div>
-      
-<!--Div that will hold the pie chart-->
-<div id="chart_div"></div>

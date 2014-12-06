@@ -105,7 +105,12 @@ var app = angular.module(
 	// statistics
 	.when('/statistics', {
 		templateUrl : 'views/statistics.html',
-		controller : 'StatisticsController'
+		controller : 'StatisticsController',
+		resolve: {
+			categories: function(sifeagService) {
+				return sifeagService.getCategoriesEgress();
+			}
+		}
 	})
 	
 	.otherwise({
@@ -148,6 +153,13 @@ app.factory('sifeagService', ['$http', function($http) {
 	
 		getTransactions: function() {
 			var promise = $http({ method: 'GET', url: rest + 'transactionService/transactions' }).success(function(data, status, headers, config) {
+				return data;
+			});
+			return promise;
+		},
+		
+		getCategoriesEgress: function() {
+			var promise = $http({ method: 'GET', url: rest + 'categoryService/categoriesEgress' }).success(function(data, status, headers, config) {
 				return data;
 			});
 			return promise;

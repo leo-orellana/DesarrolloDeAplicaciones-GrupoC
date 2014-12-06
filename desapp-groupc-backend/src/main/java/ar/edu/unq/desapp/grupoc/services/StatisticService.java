@@ -51,6 +51,31 @@ public class StatisticService extends GenericService<Category>{
 		return hash;
 	}
 	
+	public HashMap<String, Double> getEgressBySubcategoriesInCategory(
+			List<Transaction> allTransactions, Category category) {
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		for(Transaction t : allTransactions){
+			if((!t.getSubcategory().getCategory().getMovement().isIngress()) && (t.getSubcategory().getCategory().getName() == category.getName())){
+				transactions.add(t);
+			}
+		}
+		HashMap<String, Double> hash = new HashMap<String, Double>();
+		for (Transaction t : transactions) {
+			String name = t.getSubcategory().getName();
+			if (hash.containsKey(name)) {
+				hash.put(name, hash.get(name)
+						+ t.getOperationBankAccount().getAmount()
+						+ t.getOperationCashAccount().getAmount()
+						+ t.getOperationCheckingAccount().getAmount());
+			} else {
+				hash.put(name, t.getOperationBankAccount().getAmount()
+						+ t.getOperationCashAccount().getAmount()
+						+ t.getOperationCheckingAccount().getAmount());
+			}
+		}
+		return hash;
+	}
+	
 	public List<Transaction> filterIngress(List<Transaction> transactions){
 		List<Transaction> result = new ArrayList<Transaction>();
 		for(Transaction t: transactions){
@@ -70,4 +95,5 @@ public class StatisticService extends GenericService<Category>{
 		}
 		return result;
 	}
+
 }

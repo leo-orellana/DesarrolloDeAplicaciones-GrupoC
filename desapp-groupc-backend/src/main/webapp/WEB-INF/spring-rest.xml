@@ -133,6 +133,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 	<bean id="statisticsRest" class="ar.edu.unq.desapp.grupoc.web.rest.StatisticsRest">
 		<property name="transactionService" ref="services.transactions" />
 		<property name="statisticService" ref="services.statistics" />
+		<property name="categoryService" ref="services.categories" />
 	</bean>
 	
 </beans>

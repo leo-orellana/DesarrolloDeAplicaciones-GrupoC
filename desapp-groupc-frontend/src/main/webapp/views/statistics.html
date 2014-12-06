@@ -1,12 +1,17 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-6">
 			<div class="btn-group"
 				id="bs-example-navbar-collapse-1">
-					<button class="btn btn-info" ng-click="drawExpensesByCategory()">See egress by all categories</button>
-					<button class="btn btn-info" ng-click="drawIngressByShift()">See ingress by shifts</button>
-					<button class="btn btn-info" ng-click="drawEgressBySubcategoriesInCategory()">See egress of subcategorie's category</button>
-					<button class="btn btn-info" ng-click="drawIngressBySubcategoriesInCategory()">See ingress of subcategorie's category</button>
+					<button class="btn btn-success" ng-click="drawIngressByShift()">See ingress by shifts</button>
+					<button class="btn btn-success" ng-click="drawIngressBySubcategoriesInCategory()">See ingress of subcategorie's category</button>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="btn-group"
+				id="bs-example-navbar-collapse-1">
+					<button class="btn btn-danger" ng-click="drawExpensesByCategory()">See egress by all categories</button>
+					<button class="btn btn-danger" ng-click="drawEgressBySubcategoriesInCategory()">See egress of subcategorie's category</button>
 			</div>
 		</div>
 	</div>

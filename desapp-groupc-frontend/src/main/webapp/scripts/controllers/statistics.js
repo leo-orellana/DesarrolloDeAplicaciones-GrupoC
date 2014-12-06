@@ -20,7 +20,7 @@ function StatisticsController($scope, $http, categoriesEgress, categoriesIngress
 									value = response[Object.keys(response)[i]];
 									rows.push([key, value]);
 									data.addRow([key, value]);
-								}drawIngressBySubcategoriesInCategory
+								}
 								// Set chart options
 								var options = {'title':'Egress by categories ',
 										'width':800,

@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoc.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +12,13 @@ public class CategoryService extends GenericService<Category> {
 	private static final long serialVersionUID = 8028635714243199268L;
 
 	public HashMap<String, Double> getExpensesByCategory(
-			List<Transaction> transactions) {
+			List<Transaction> allTransactions) {
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		for(Transaction t: allTransactions){
+			if(!t.getSubcategory().getCategory().getMovement().isIngress()){
+				transactions.add(t);
+			}
+		}
 		HashMap<String, Double> hash = new HashMap<String, Double>();
 		for (Transaction t : transactions) {
 			String name = t.getSubcategory().getCategory().getName();

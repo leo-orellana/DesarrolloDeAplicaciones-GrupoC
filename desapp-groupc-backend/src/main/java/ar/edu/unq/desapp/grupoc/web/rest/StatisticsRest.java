@@ -8,7 +8,6 @@ import javax.ws.rs.Produces;
 
 import org.springframework.stereotype.Service;
 
-import ar.edu.unq.desapp.grupoc.model.Category;
 import ar.edu.unq.desapp.grupoc.services.CategoryService;
 import ar.edu.unq.desapp.grupoc.services.TransactionService;
 

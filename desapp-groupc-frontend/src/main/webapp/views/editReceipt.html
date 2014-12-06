@@ -1,4 +1,4 @@
-	<div receipt-edit="{{editMode}}" is="receiptDiv" class="container" ng-controller="ReceiptControllerNew">
+	<div receipt-edit="{{editMode}}" class="container">
 
 		<div class="row">
 			<div class="col-md-6">
@@ -38,7 +38,7 @@
 	                    		<label for="exampleInputProviderNumber" class="newSupplier">Supplier Code</label>
 	                    	</div>
 	                    	<div class="col-md-6">
-	                    		<button class="btn btn-primary btn-xs pull-right" ng-click="addNewSupplier()" tabindex="3">Load New Supplier &nbsp<i class="fa fa-plus" id="supplierButton"></i></button>
+	                    		<button class="btn btn-primary btn-xs pull-right" ng-click="addNewSupplier()" tabindex="3"><i class="fa fa-plus" id="supplierButton"></i> Load New Supplier</button>
                     		</div>
                     	</div>
                         
@@ -143,19 +143,3 @@
 			</div>
 		</div>
 	</div>
-
-	
-	<!--<script type="text/javascript-lazy">
-		$( "#shift" ).focus(function() {
-			$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-		});
-		
-		$( "#datePicker" ).focus(function() {
-			$("html, body").animate({ scrollTop: 0 }, "slow");
-		});
-		$( window ).load(function() {
-			console.log("que verga");
-			document.getElementById("ex2_value").tabIndex = "4";
-		});
-	</script>
-	-->

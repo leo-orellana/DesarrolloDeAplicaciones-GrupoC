@@ -1,18 +1,25 @@
-<div class="newSupplier-container">
+<div class="newSupplier-container" supplier-edit>
 	<h2>Add new Supplier</h2>
-	<form role="form" id="newSupplierForm" name="newSupplierForm">
-	    <div class="form-group">
-	        <label for="supplierCode">Code</label>
-	        <input type="text" class="form-control" ng-model="supplierCode" placeholder="Enter supplier code">
+	<form name="newSupplierForm" novalidate ng-submit="submit(newSupplierForm.$valid)">
+	    <div class="form-group" ng-class="{'has-error': (newSupplierForm.code.$error.required && submitted) || codeInUse }">
+	        <label for="supplierCode">Code</label><label class="formError">&nbsp*</label>
+	        <input id="code" required type="text" class="form-control" name="code" ng-model="supplierCode" placeholder="Enter supplier code">
+	    	<small id="codeError" class="help-block formError" ng-show="codeInUse">The code already exists, please insert another code</small>
+	    	<small class="help-block" ng-show="newSupplierForm.code.$error.required && submitted">Required</small>
 	    </div>
-	    <div class="form-group">
-	        <label for="supplierCompanyName">Name</label>
-	        <input type="text" class="form-control" ng-model="supplierCompanyName" placeholder="Enter supplier company name">
+	    <div class="form-group" ng-class="{'has-error': newSupplierForm.name.$error.required  && submitted}">
+	        <label for="supplierCompanyName">Name</label><label class="formError">&nbsp*</label>
+	        <input required type="text" class="form-control" name="name" ng-model="supplierCompanyName" placeholder="Enter supplier company name">
+	   		<small class="help-block" ng-show="newSupplierForm.name.$error.required && submitted">Required</small>
 	    </div>
-	    <div class="form-group">
-	        <label for="supplierCuit">CUIT</label>
-	        <input type="text" class="form-control" ng-model="supplierCuit" placeholder="Enter supplier CUIT">
+	    <div class="form-group" ng-class="{'has-error': newSupplierForm.cuit.$error.required  && submitted}">
+	        <label for="supplierCuit">CUIT</label><label class="formError">&nbsp*</label>
+	        <input required type="text" class="form-control" name="cuit" ng-model="supplierCuit" placeholder="Enter supplier CUIT">
+	    	<small class="help-block" ng-show="newSupplierForm.cuit.$invalid && submitted">Required</small>
 	    </div>
-	   	<button data-ng-click="submit(newSupplierForm)" class="btn btn-primary">Submit</button>
+	    
+	    <small class="inputRequired">Fields marked with * are required</small>
+	    <br><br>
+	   	<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 </div>

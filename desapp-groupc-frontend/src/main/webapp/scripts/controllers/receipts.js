@@ -45,16 +45,11 @@ function ReceiptControllerList($scope, $http, $timeout, receipts, alert, $locati
     }
 }
 
-function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $route){
+function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $route, $timeout, suppliers, messages, supplierService){
 	$scope.title = 'New Receipt';
 	$scope.editMode = false;
 	
-	$http.get($rest + "supplierService/suppliers")
-	.success(function(response) {
-		$scope.suppliers = response;
-	}).error(function() {
-		console.log("error");
-	});
+	$scope.suppliers = suppliers.data;
 	
 	$http.get($rest + "typeReceiptService/receipts")
 	.success(function(response) {
@@ -108,10 +103,24 @@ function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $r
 		var modalInstance = $modal.open({
 		templateUrl: 'views/newSupplier.html',
 		backdrop: false,
-		scope: $scope,
+		size: 'sm',
 		controller: 'SupplierControllerNew'
 		});
+		
+		modalInstance.result.then($scope.updateSuppliers);
 	};
+	
+	$scope.updateSuppliers = function(){
+		supplierService.getSuppliers()
+		.then($scope.refreshSuppliersList);
+	}
+	
+	$scope.refreshSuppliersList = function(result){
+		$scope.suppliers = result;
+		console.log("3 - $scope.codeInUse set in function - " + $scope.codeInUse);
+	};
+	
+	$scope.message = messages.message;
 	
 	$scope.times = ["Morning", "Afternoon", "Night"];
 	
@@ -191,20 +200,45 @@ function ReceiptControllerNew($scope, $http, $modal, alert, $location, focus, $r
 	}
 }
 
-function SupplierControllerNew($scope, $http, alert, $modalInstance, $location, $route){
-	$scope.submit = function(form){
-		$http.get($rest + 'supplierService/save/' + $scope.supplierCode + '/' + $scope.supplierCompanyName + '/' + $scope.supplierCuit)
-		.success(function(response) {
-			alert("The supplier <" + response.companyName + "> was created")
-			.then(function(){
-				$modalInstance.close();
-				$location.path('/newReceipt')
-				$route.reload();
-			});
-			
-		}).error(function() {
-			console.log("error");
-		});
+function SupplierControllerNew($scope, $http, alert, $modalInstance, $location, $route, $timeout, messages, $q, supplierService, $controller){
+	$scope.submitted = false;
+	$scope.codeInUse = false;
+	$scope.submit = function(isValid){
+		$scope.valid = isValid;
+		$scope.submitted = true;
+		$scope.unique($scope.supplierCode);
+	};
+	
+	$scope.saveSupplier = function(){
+		if ($scope.valid){
+			if (!$scope.codeInUse){
+				$http.get($rest + 'supplierService/save/' + $scope.supplierCode + '/' + $scope.supplierCompanyName + '/' + $scope.supplierCuit)
+				.success(function(response) {
+					alert("The supplier <" + response.companyName + "> was created")
+					.then(function(){
+						$modalInstance.close();
+					});
+					
+				}).error(function() {
+					console.log("error");
+				});
+			}
+		}
+		return;
+	}
+	
+	$scope.unique = function(code){
+		if (typeof(code) == 'undefined'){
+			return;
+		}else{
+			supplierService.checkCodeUnique(code)
+			.then($scope.updateCodeExists)
+			.then($scope.saveSupplier);
+		}
+	};
+	
+	$scope.updateCodeExists = function(result){
+		$scope.codeInUse = result === 'true';
 	};
 }
 

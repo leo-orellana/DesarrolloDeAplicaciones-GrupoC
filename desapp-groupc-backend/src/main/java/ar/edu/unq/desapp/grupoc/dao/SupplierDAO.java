@@ -24,5 +24,13 @@ public class SupplierDAO extends HibernateGenericDAO<Supplier> implements
 		
 		return c;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Supplier> filterByCode(String code){
+		List<Supplier> c = this.getSession().createCriteria(Supplier.class)
+				.add(Restrictions.ilike("code", code, MatchMode.ANYWHERE)).list();
+		
+		return c;
+	}
 }
 

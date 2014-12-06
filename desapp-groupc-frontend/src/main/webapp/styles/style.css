@@ -96,6 +96,14 @@ td.actions{
 	margin:10px;
 }
 
+.formError{
+	color: #A94442;
+}
+
+.inputRequired{
+	font-style: italic;
+}
+
 input[type=number] {-moz-appearance: textfield;}
 
 ::-webkit-inner-spin-button { -webkit-appearance: none;}

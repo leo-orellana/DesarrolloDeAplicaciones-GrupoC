@@ -90,7 +90,12 @@ var app = angular.module(
 	})
 	.when('/newReceipt', {
 		templateUrl : 'views/editReceipt.html',
-		controller : 'ReceiptControllerNew'
+		controller : 'ReceiptControllerNew',
+		resolve: {
+			suppliers: function(sifeagService) {
+				return sifeagService.getSuppliers();
+			}
+		}
 	})
 	.when('/editReceipt/:receiptId', {
 		templateUrl : 'views/editReceipt.html',
@@ -143,6 +148,13 @@ app.factory('sifeagService', ['$http', function($http) {
 	
 		getTransactions: function() {
 			var promise = $http({ method: 'GET', url: rest + 'transactionService/transactions' }).success(function(data, status, headers, config) {
+				return data;
+			});
+			return promise;
+		},
+		
+		getSuppliers: function() {
+			var promise = $http({ method: 'GET', url: rest + 'supplierService/suppliers' }).success(function(data, status, headers, config) {
 				return data;
 			});
 			return promise;
@@ -221,3 +233,59 @@ app.directive('transactionEdit', function($timeout){
 	}
 });
 
+app.directive('supplierEdit', function($timeout){
+	return {
+		restrict: 'A',
+		link: 	function (scope, element, attr) {
+					$timeout(function(){
+						$("#code").focus();
+					
+						$("#code").focus(function() {
+							scope.codeInUse = false;
+						});
+					}, 400);
+				}
+        	}
+});
+
+app.factory('messages', function() {
+    return {
+        message : 'anonymous'
+    };
+});
+
+app.factory('supplierService', function ($timeout, $q, $http) {
+	var _checkCodeUnique = function (code) {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'supplierService/checkCodeUnique/' + code)
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				console.log("error");
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	var _getSuppliers = function () {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'supplierService/suppliers')
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	return {
+		checkCodeUnique:_checkCodeUnique,
+		getSuppliers:_getSuppliers,
+	}
+});

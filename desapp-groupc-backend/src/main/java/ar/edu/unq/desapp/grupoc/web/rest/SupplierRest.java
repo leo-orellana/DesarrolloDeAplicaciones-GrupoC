@@ -50,6 +50,13 @@ public class SupplierRest {
 	}
 
 	@GET
+	@Path("/checkCodeUnique/{code}")
+	@Produces("application/json")
+	public Boolean checkCode(@PathParam("code") final String code) {
+		return ! getSupplierService().filterByCode(code).isEmpty();
+	}
+	
+	@GET
 	@Path("/save/{code}/{name}/{cuit}")
 	@Produces("application/json")
 	public Supplier saveSupplier(@PathParam("code") final String code,

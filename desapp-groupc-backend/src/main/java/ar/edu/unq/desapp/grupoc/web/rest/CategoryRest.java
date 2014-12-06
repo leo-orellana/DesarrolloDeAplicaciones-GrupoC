@@ -51,6 +51,13 @@ public class CategoryRest {
 	public List<Category> getCategoriesEgress() {
 		return getCategoryService().getCategoriesEgress();
 	}
+	
+	@GET
+	@Path("/categoriesIngress")
+	@Produces("application/json")
+	public List<Category> getCategoriesIngress() {
+		return getCategoryService().getCategoriesIngress();
+	}
 
 	@GET
 	@Path("/filterByName/{name}")

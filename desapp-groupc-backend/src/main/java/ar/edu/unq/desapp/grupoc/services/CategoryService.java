@@ -20,4 +20,15 @@ public class CategoryService extends GenericService<Category> {
 		return result;
 	}
 
+	public List<Category> getCategoriesIngress() {
+		List<Category> categories = retriveAll();
+		List<Category> result = new ArrayList<>();
+		for(Category category : categories){
+			if(category.getMovement().isIngress()){
+				result.add(category);
+			}
+		}
+		return result;
+	}
+
 }

@@ -107,8 +107,11 @@ var app = angular.module(
 		templateUrl : 'views/statistics.html',
 		controller : 'StatisticsController',
 		resolve: {
-			categories: function(sifeagService) {
+			categoriesEgress: function(sifeagService) {
 				return sifeagService.getCategoriesEgress();
+			},
+			categoriesIngress: function(sifeagService) {
+				return sifeagService.getCategoriesIngress();
 			}
 		}
 	})
@@ -160,6 +163,13 @@ app.factory('sifeagService', ['$http', function($http) {
 		
 		getCategoriesEgress: function() {
 			var promise = $http({ method: 'GET', url: rest + 'categoryService/categoriesEgress' }).success(function(data, status, headers, config) {
+				return data;
+			});
+			return promise;
+		},
+		
+		getCategoriesIngress: function() {
+			var promise = $http({ method: 'GET', url: rest + 'categoryService/categoriesIngress' }).success(function(data, status, headers, config) {
 				return data;
 			});
 			return promise;

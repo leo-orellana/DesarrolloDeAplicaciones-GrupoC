@@ -38,8 +38,17 @@ public class StatisticsRest {
 	@GET
 	@Path("/egressBySubcategoriesInCategory/{id}")
 	@Produces("application/json")
-	public HashMap<String, Double> getSubCategory(@PathParam("id") final int id) {
+	public HashMap<String, Double> getSubCategoriesIngress(@PathParam("id") final int id) {
 		return getStatisticService().getEgressBySubcategoriesInCategory(
+				getTransactionService().retriveAll(),
+				getCategoryService().getById(id));
+	}
+	
+	@GET
+	@Path("/ingressBySubcategoriesInCategory/{id}")
+	@Produces("application/json")
+	public HashMap<String, Double> getSubCategoriesEgress(@PathParam("id") final int id) {
+		return getStatisticService().getIngressBySubcategoriesInCategory(
 				getTransactionService().retriveAll(),
 				getCategoryService().getById(id));
 	}

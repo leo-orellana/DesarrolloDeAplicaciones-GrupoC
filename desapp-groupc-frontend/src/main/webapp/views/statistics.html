@@ -3,9 +3,10 @@
 		<div class="col-md-12">
 			<div class="btn-group"
 				id="bs-example-navbar-collapse-1">
-					<button class="btn btn-info" ng-click="drawExpensesByCategory()">See egress by categories</button>
+					<button class="btn btn-info" ng-click="drawExpensesByCategory()">See egress by all categories</button>
 					<button class="btn btn-info" ng-click="drawIngressByShift()">See ingress by shifts</button>
 					<button class="btn btn-info" ng-click="drawEgressBySubcategoriesInCategory()">See egress of subcategorie's category</button>
+					<button class="btn btn-info" ng-click="drawIngressBySubcategoriesInCategory()">See ingress of subcategorie's category</button>
 			</div>
 		</div>
 	</div>
@@ -14,8 +15,10 @@
 	     <div class="col-md-2">
 	     <br><br><br><br><br>
 			<form class="form-group">
-				<h3 ng-show="showSelectCategories">Select a subcategory</h3>
-				<select class="form-control" ng-change="drawEgressBySubcategoriesInCategoryOnChange()" ng-show="showSelectCategories" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories">
+				<h3 ng-show="showSelectCategories">Select a category</h3>
+				<select class="form-control" ng-change="drawEgressBySubcategoriesInCategoryOnChange()" ng-show="showSelectCategoriesInEgress" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categoriesEgress">
+				</select>
+				<select class="form-control" ng-change="drawIngressBySubcategoriesInCategoryOnChange()" ng-show="showSelectCategoriesInIngress" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categoriesIngress">
 				</select>
 			</form>
 		</div>

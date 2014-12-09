@@ -66,6 +66,13 @@ public class SubCategoryRest {
 	}
 	
 	@GET
+	@Path("/checkNameNotInUse/{name}")
+	@Produces("application/json")
+	public Boolean checkNameNotInUse(@PathParam("name") final String name) {
+		return getSubCategoryService().filterByName(name).isEmpty();
+	}
+	
+	@GET
 	@Path("/update/{id}/{name}/{categoryId}")
 	@Produces("application/json")
 	public Subcategory updateSubcategory(@PathParam("id") final int id,

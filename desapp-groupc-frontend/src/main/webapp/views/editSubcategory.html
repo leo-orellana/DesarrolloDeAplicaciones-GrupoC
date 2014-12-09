@@ -1,37 +1,50 @@
 <div class="row">
-	<div class="col-md-6 col-md-offset-3">
+	<div class="col-md-6 col-md-offset-4">
 		<h2>{{title}}</h2>
 
-		<form role="form" name="newSubcategoryForm">
-			<div class="form-group">
-				<label for="subcategorieName">Select the Movement</label>
+		<form name="subcategoryForm" novalidate ng-submit="submit(subcategoryForm.$valid)">
+			<div class="form-group" ng-class="{'has-error': subcategoryForm.optionsMovements.$error.required && submitted}">
+				<label for="subcategorieName">Select the Movement</label><label class="formError">&nbsp*</label>
 				<div class="row">
 					<div class="col-md-6">
-						<select required class="form-control" ng-change="changeCategories()" ng-model="idMovement" ng-options="mov.id as mov.name for mov in movements">
+						<select required class="form-control" name="optionsMovements" ng-change="changeCategories()" ng-model="idMovement" ng-options="mov.id as mov.name for mov in movements" tabindex="1">
 							<option value="">-- select movement --</option>
 						</select>
 					</div>
 				</div>
+				<small class="help-block" ng-show="subcategoryForm.optionsMovements.$error.required && submitted">Required</small>
 			</div>
-			<div class="form-group">
-				<label for="subcategorieName">Select the category</label>
+			<div class="form-group" ng-class="{'has-error': subcategoryForm.category.$error.required && submitted}">
+				<label for="subcategorieName">Select the category</label><label class="formError">&nbsp*</label>
 				<div class="row">
 					<div class="col-md-6">
-						<select required class="form-control" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories">
+						<select required class="form-control" name="category" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories" tabindex="2">
 							<option value="">-- select category --</option>
 						</select>
 					</div>
 				</div>
+				<small class="help-block" ng-show="subcategoryForm.category.$error.required && submitted">Required</small>
 			</div>
 
-			<div class="form-group">
-				<label for="subcategorieName">Name</label> <input required type="text"
-					class="form-control" id="exampleInputName"
-					placeholder="Enter sub categorie name" ng-model="nameSubcategory">
+			<div class="form-group" ng-class="{'has-error': (subcategoryForm.name.$error.required && submitted) || !nameNotInUse}">
+				<label for="subcategorieName">Name</label><label class="formError">&nbsp*</label>
+				<div class="row">
+					<div class="col-md-6">
+						<input required type="text" name="name" class="form-control" id="exampleInputName" placeholder="Enter sub categorie name" ng-model="nameSubcategory" tabindex="3">
+					</div>
+				</div>
+				<small id="codeError" class="help-block formError" ng-show="!nameNotInUse">The name <strong>{{nameSubcategory}}</strong> already exists, please insert another name</small>
+				<small class="help-block" ng-show="subcategoryForm.name.$error.required && submitted">Required</small>
 			</div>
 
-			<button type="submit" class="btn btn-primary">Submit</button>
-			<a href="#/subcategories" class="btn btn-danger">Cancel</a>
+			<div class="row">
+				<div class="col-md-6">
+					<small class="inputRequired">Fields marked with * are required</small>
+				    <br><br>
+					<a href="#/subcategories" class="btn btn-danger" tabindex="5">Cancel</a>
+					<button type="submit" class="btn btn-primary" tabindex="4">Submit</button>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>

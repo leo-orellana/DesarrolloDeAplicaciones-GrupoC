@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
+import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.model.Transaction;
 
 public class TransactionDAO extends HibernateGenericDAO<Transaction> implements
@@ -37,6 +38,13 @@ public class TransactionDAO extends HibernateGenericDAO<Transaction> implements
 	@Override
 	protected Class<Transaction> getDomainClass() {
 		return Transaction.class;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Transaction> filterBySubCategory(Subcategory subcategory){
+		List<Transaction> l = this.getSession().createCriteria(Transaction.class)
+				.add(Restrictions.eq("subcategory", subcategory)).list();
+		return l;
 	}
 
 }

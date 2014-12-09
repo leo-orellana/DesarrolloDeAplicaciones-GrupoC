@@ -457,6 +457,43 @@ app.factory('categoryService', function ($timeout, $q, $http) {
 	}
 });
 
+app.factory('subcategoryService', function ($timeout, $q, $http) {
+	var _checkNameNotInUse = function (name) {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'subcategoryService/checkNameNotInUse/' + name)
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				console.log("error");
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	var _checkSubCategoryNotInUse = function (id) {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'transactionService/checkSubCategoryNotInUse/' + id)
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				console.log("error");
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	return {
+		checkNameNotInUse:_checkNameNotInUse,
+		checkSubCategoryNotInUse:_checkSubCategoryNotInUse,
+	}
+});
+
 function MessageController($scope, $http, $modalInstance, $location, locationPath){
 	
 	$scope.message = "Exito!";

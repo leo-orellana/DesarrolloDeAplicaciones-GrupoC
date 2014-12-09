@@ -101,6 +101,26 @@ public class StatisticService extends GenericService<Category>{
 		return hash;
 	}
 	
+	public HashMap<String, Double> getEgressByShift(
+			List<Transaction> allTransactions) {
+		List<Transaction> transactions = filterEgress(allTransactions);
+		HashMap<String, Double> hash = new HashMap<String, Double>();
+		for (Transaction t : transactions) {
+			String shift = t.getTime().name();
+			if (hash.containsKey(shift)) {
+				hash.put(shift, hash.get(shift)
+						+ t.getOperationBankAccount().getAmount()
+						+ t.getOperationCashAccount().getAmount()
+						+ t.getOperationCheckingAccount().getAmount());
+			} else {
+				hash.put(shift, t.getOperationBankAccount().getAmount()
+						+ t.getOperationCashAccount().getAmount()
+						+ t.getOperationCheckingAccount().getAmount());
+			}
+		}
+		return hash;
+	}
+	
 	public List<Transaction> filterIngress(List<Transaction> transactions){
 		List<Transaction> result = new ArrayList<Transaction>();
 		for(Transaction t: transactions){
@@ -120,6 +140,7 @@ public class StatisticService extends GenericService<Category>{
 		}
 		return result;
 	}
+
 
 
 }

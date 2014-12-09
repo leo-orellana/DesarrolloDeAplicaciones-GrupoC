@@ -36,6 +36,13 @@ public class StatisticsRest {
 	}
 	
 	@GET
+	@Path("/egressByShift")
+	@Produces("application/json")
+	public HashMap<String, Double> getEgressByShift() {
+		return getStatisticService().getEgressByShift(getTransactionService().retriveAll());
+	}
+	
+	@GET
 	@Path("/egressBySubcategoriesInCategory/{id}")
 	@Produces("application/json")
 	public HashMap<String, Double> getSubCategoriesIngress(@PathParam("id") final int id) {

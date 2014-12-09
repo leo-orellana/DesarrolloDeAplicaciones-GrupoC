@@ -29,10 +29,24 @@ public class StatisticsRest {
 	}
 	
 	@GET
+	@Path("/ingressByCategory")
+	@Produces("application/json")
+	public HashMap<String, Double> getIngressByCategory() {
+		return getStatisticService().getIngressByCategory(getTransactionService().retriveAll());
+	}
+	
+	@GET
 	@Path("/ingressByShift")
 	@Produces("application/json")
 	public HashMap<String, Double> getIngressByShift() {
 		return getStatisticService().getIntgressByShift(getTransactionService().retriveAll());
+	}
+	
+	@GET
+	@Path("/egressByShift")
+	@Produces("application/json")
+	public HashMap<String, Double> getEgressByShift() {
+		return getStatisticService().getEgressByShift(getTransactionService().retriveAll());
 	}
 	
 	@GET

@@ -25,7 +25,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<input required type="text" class="form-control" name="name" id="exampleInputName" placeholder="Enter categorie name" ng-model="nameCategory" tabindex="3">
-						<small id="codeError" class="help-block formError" ng-show="!nameNotInUse">The name <strong>{{nameCategory}}</strong> already exists, please insert another name</small>
+						<small id="codeError" class="help-block formError" ng-show="!nameNotInUse">This name already exists, please insert another name</small>
 						<small class="help-block" ng-show="categoryForm.name.$error.required && submitted">Required</small>
 					</div>
 				</div>

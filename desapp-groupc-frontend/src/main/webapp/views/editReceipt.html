@@ -76,7 +76,7 @@
                     </div>
                     <div class="form-group" ng-class="{'has-error': receiptForm.totalBill.$error.required && submitted}">
                         <label for="exampleAmount">Total amount</label><label class="formError">&nbsp*</label>
-                        <input required id="totalBill" name="totalBill" type="number" class="form-control" ng-model="totalBill" placeholder="Enter total amount (must be a number)" ng-disabled="false" tabindex="8">
+                        <input required id="totalBill" name="totalBill" type="number" class="form-control" ng-model="totalBill" placeholder="Enter total amount (must be a number)" ng-disabled="{{editMode}}" tabindex="8">
                    		<small class="help-block" ng-show="receiptForm.totalBill.$error.required && submitted">Required. Please insert a valid number</small>
                     </div>
                     <div ng-show="isTypeA">

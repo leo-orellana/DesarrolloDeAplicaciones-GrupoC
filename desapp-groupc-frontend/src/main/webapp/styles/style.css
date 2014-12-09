@@ -87,6 +87,38 @@ td.actions{
 	font-family:"Verdana";
 }
 
+.home{
+	font-family:"Verdana";
+}
+
+.home h2{
+	text-align:center;
+}
+
+.linkHome{
+	color:black;
+}
+
+.homeImage{
+	text-align:center;
+    font-size:120px;
+    color:#0A2A29 !important;
+}
+
+.homeImage a{
+    color:#0A2A29 !important;
+}
+
+.fa-home{
+	size:72px;
+}
+
+.home h1{
+	font-size:40px;
+	font-weight: bold;
+	text-align:center;
+}
+
 .angucomplete-dropdown {
     overflow-y: auto;
     max-height: 200px;
@@ -111,6 +143,17 @@ td.actions{
 
 .formError{
 	color: #A94442;
+}
+
+.foot {
+   position:absolute;
+   bottom:20px;
+   height:22px;   /* Height of the footer */
+   background:#0A2A22;
+}
+
+.foot p{
+   color:white !important;
 }
 
 .inputRequired{

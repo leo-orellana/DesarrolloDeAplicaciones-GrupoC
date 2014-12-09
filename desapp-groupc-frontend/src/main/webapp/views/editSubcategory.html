@@ -33,7 +33,7 @@
 						<input required type="text" name="name" class="form-control" id="exampleInputName" placeholder="Enter sub categorie name" ng-model="nameSubcategory" tabindex="3">
 					</div>
 				</div>
-				<small id="codeError" class="help-block formError" ng-show="!nameNotInUse">The name <strong>{{nameSubcategory}}</strong> already exists, please insert another name</small>
+				<small id="codeError" class="help-block formError" ng-show="!nameNotInUse">This name already exists, please insert another name</small>
 				<small class="help-block" ng-show="subcategoryForm.name.$error.required && submitted">Required</small>
 			</div>
 

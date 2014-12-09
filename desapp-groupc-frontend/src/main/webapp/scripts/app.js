@@ -14,6 +14,9 @@ var app = angular.module(
 	$routeProvider
 	
 	/*** CATEGORIES ***/
+	.when('/', {
+		templateUrl : 'views/home.html',
+	})
 	.when('/categories', {
 		templateUrl : 'views/categories.html',
 		controller : 'CategoryControllerList'

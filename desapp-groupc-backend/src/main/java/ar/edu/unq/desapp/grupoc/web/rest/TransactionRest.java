@@ -144,6 +144,15 @@ public class TransactionRest {
 	}
 	
 	@GET
+	@Path("/checkSubCategoryNotInUse/{subcategoryId}")
+	@Produces("application/json")
+	public Boolean checkSubCategoryNotInUse(@PathParam("subcategoryId") final int subcategoryId) {
+		Subcategory subcategory = getSubCategoryService().getById(subcategoryId);
+		List<Transaction> trans = getTransactionService().filterByCategory(subcategory);
+		return trans.isEmpty();
+	}
+	
+	@GET
 	@Path("/getByReceiptId/{idReceipt}")
 	@Produces("application/json")
 	public Transaction getByReceiptId(@PathParam("idReceipt") final int idReceipt){

@@ -1,31 +1,45 @@
 <div class="row">
-	<div class="col-md-6 col-md-offset-3">
+	<div class="col-md-6 col-md-offset-4">
 		<h2>{{title}}</h2>
 
 		<form name="categoryForm" novalidate ng-submit="submit(categoryForm.$valid)">
 			<div class="form-group" ng-class="{'has-error': categoryForm.optionsMovements.$error.required && submitted}">
-				<label for="categorieName">Type operation</label>
+				<label for="categorieName">Type operation</label><label class="formError">&nbsp*</label>
 				<div class="row">
-					<div class="col-md-6" ng-repeat="mov in movements">
-						<div class="radio">
+					<div class="col-md-6"> <!-- ng-repeat="mov in movements"> -->
+						<select required class="form-control" name="optionsMovements" ng-change="changeCategories()" ng-model="idMovement" ng-options="mov.id as mov.name for mov in movements" tabindex="1">
+							<option value="">-- select movement --</option>
+						</select>
+						<!-- <div class="radio">
 							<label>
-							<input required type="radio" name="optionsMovements" id="{{mov.id}}" ng-model="$parent.idMovement" value="{{mov.id}}">
+							<input required type="radio" name="optionsMovements" id="{{mov.id}}" ng-model="$parent.idMovement" value="{{mov.id}}" tabindex="1">
 							{{mov.name}}</label>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<small class="help-block" ng-show="categoryForm.optionsMovements.$error.required && submitted">Required</small>
 			</div>
 
 			<div class="form-group" ng-class="{'has-error': (categoryForm.name.$error.required && submitted) || !nameNotInUse}">
-				<label for="categorieName">Name</label>
-				<input required type="text" class="form-control" name="name" id="exampleInputName" placeholder="Enter categorie name" ng-model="nameCategory">
-				<small id="codeError" class="help-block formError" ng-show="!nameNotInUse">The code already exists, please insert another code</small>
-				<small class="help-block" ng-show="categoryForm.name.$error.required && submitted">Required</small>
+				<label for="categorieName">Name</label><label class="formError">&nbsp*</label>
+				<div class="row">
+					<div class="col-md-6">
+						<input required type="text" class="form-control" name="name" id="exampleInputName" placeholder="Enter categorie name" ng-model="nameCategory" tabindex="3">
+						<small id="codeError" class="help-block formError" ng-show="!nameNotInUse">The name <strong>{{nameCategory}}</strong> already exists, please insert another name</small>
+						<small class="help-block" ng-show="categoryForm.name.$error.required && submitted">Required</small>
+					</div>
+				</div>
 			</div>
-
-			<button type="submit" class="btn btn-primary">Submit</button>
-			<a href="#/categories" class="btn btn-danger">Cancel</a>
+			
+			<div class="row">
+				<div class="col-md-6">
+					<small class="inputRequired">Fields marked with * are required</small>
+				    <br><br>
+					<a href="#/categories" class="btn btn-danger" tabindex="5">Cancel</a>
+					<button type="submit" class="btn btn-primary" tabindex="4">Submit</button>
+				</div>
+			</div>
+			
 		</form>
 	</div>
 </div>

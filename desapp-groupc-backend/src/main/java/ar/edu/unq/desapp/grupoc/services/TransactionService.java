@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unq.desapp.grupoc.dao.TransactionDAO;
+import ar.edu.unq.desapp.grupoc.model.Subcategory;
 import ar.edu.unq.desapp.grupoc.model.Transaction;
 
 public class TransactionService extends GenericService<Transaction>{
@@ -27,5 +28,9 @@ public class TransactionService extends GenericService<Transaction>{
 	public Transaction getByReceiptId(int receiptId){
 		Transaction t = ((TransactionDAO)this.dao).getByReceiptId(receiptId);
 		return t;
+	}
+	
+	public List<Transaction> filterByCategory(Subcategory subcategory) {
+		return ((TransactionDAO) getDao()).filterBySubCategory(subcategory);
 	}
 }

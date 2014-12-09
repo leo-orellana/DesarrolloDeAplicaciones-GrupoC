@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoc.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.unq.desapp.grupoc.dao.CategoryDAO;
 import ar.edu.unq.desapp.grupoc.model.Category;
 
 public class CategoryService extends GenericService<Category> {
@@ -31,4 +32,11 @@ public class CategoryService extends GenericService<Category> {
 		return result;
 	}
 
+	public List<Category> filterByMovement(int movementId) {
+		return ((CategoryDAO) this.dao).filterByMovement(movementId);
+	}
+	
+	public List<Category> findByExample(Category categoryExample) {
+		return this.dao.findByExample(categoryExample);
+	}
 }

@@ -1,6 +1,6 @@
 <div class="newSupplier-container" supplier-edit>
 	<h2>Add new Supplier</h2>
-	<form name="newSupplierForm" novalidate ng-submit="submit(newSupplierForm.$valid)">
+	<form name="newSupplierForm" novalidate>
 	    <div class="form-group" ng-class="{'has-error': (newSupplierForm.code.$error.required && submitted) || codeInUse }">
 	        <label for="supplierCode">Code</label><label class="formError">&nbsp*</label>
 	        <input id="code" required type="text" class="form-control" name="code" ng-model="supplierCode" placeholder="Enter supplier code">
@@ -20,6 +20,6 @@
 	    
 	    <small class="inputRequired">Fields marked with * are required</small>
 	    <br><br>
-	   	<button type="submit" class="btn btn-primary">Submit</button>
+	   	<button type="submit" class="btn btn-primary" ng-click="submit(newSupplierForm.$valid)">Submit</button>
 	</form>
 </div>

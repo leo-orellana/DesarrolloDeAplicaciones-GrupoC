@@ -24,25 +24,27 @@
 			</div>
 		</div>
 		
-        <form name="receiptForm" novalidate>
+        <form name="receiptForm" novalidate ng-submit="submit(receiptForm.$valid)">
 			<div class="row">
 	            <div class="col-md-5">
-                    <div class="form-group" ng-class="{'has-error': receiptForm.date.$error.required}">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.date.$error.required && submitted}">
                     	<label for="exampleInputDate">Date</label><label class="formError">&nbsp*</label>
 				        <p class="input-group">
-				        	<input id="datePicker" type="text" class="form-control" datepicker-popup="{{format}}" name="name" ng-model="date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-disabled="{{editMode}}" tabindex="1"/>
+				        	<input id="datePicker" type="text" class="form-control" datepicker-popup="{{format}}" name="date" ng-model="date" is-open="opened" datepicker-options="dateOptions" ng-required={{!editMode}} close-text="Close" ng-disabled="{{editMode}}" tabindex="1"/>
 				        	<span class="input-group-btn">
 				           	<button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="{{editMode}}" tabindex="1"><i class="glyphicon glyphicon-calendar"></i></button>
 				           	</span>
 			            </p>
+			            <small class="help-block" ng-show="receiptForm.date.$error.required && submitted">Required. Please select a valid date</small>
 				    </div>
-                    <div class="form-group" ng-class="{'has-error': receiptForm.typeReceipt.$error.required}">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.typeReceipt.$error.required && submitted}">
                         <label for="type">Type</label><label class="formError">&nbsp*</label>
-                        <select id="type" required class="form-control" ng-change="changeTypeReceipt()" name="typeReceipt" ng-model="typeReceipt" ng-options="type as type.name for type in typeReceipts" ng-disabled="{{editMode}}" tabindex="2">
+                        <select id="type" ng-required="editMode" class="form-control" ng-change="changeTypeReceipt()" name="typeReceipt" ng-model="typeReceipt" ng-options="type as type.name for type in typeReceipts" ng-disabled="{{editMode}}" tabindex="2">
 							<option value="">-- select type receipt --</option>
 						</select>
+						<small class="help-block" ng-show="receiptForm.typeReceipt.$error.required && submitted">Required</small>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.selectedSupplier.$error.required && submitted}">
                     	<div class="row">
                     		<br/>
 	                    	<div class="col-md-6">
@@ -52,45 +54,40 @@
 	                    		<button class="btn btn-primary btn-xs pull-right" ng-click="addNewSupplier()" tabindex="3"><i class="fa fa-plus" id="supplierButton"></i> Load New Supplier</button>
                     		</div>
                     	</div>
-                        <div angucomplete-alt id="ex2"
-				        	placeholder="Search supplier code"
-				        	pause="100"
-				           	selected-object="supplierSelectedCode"
-				           	local-data="suppliers"
-				          	search-fields="code"
-				           	title-field="code"
-				           	minlength="1"
-				           	initial-value=""
-				           	input-class="form-control form-control-small">
-			        	</div>
+                    	<input type="text" name="selectedSupplier" id="selectedSupplier" ng-model="selectedSupplier" typeahead="supplier as supplier.code for supplier in suppliers | filter:$viewValue" class="form-control" required tabindex="4">
+                        <small class="help-block" ng-show="receiptForm.selectedSupplier.$error.required && submitted">Required</small>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.supplierName.$error.required && submitted}">
                         <label for="exampleInputBusinessName">Supplier Name</label><label class="formError">&nbsp*</label>
-                        <input ng-disabled="true" type="text" class="form-control" id="exampleInputProviderName" ng-model="supplier.companyName" placeholder="Enter provider name" tabindex="5">
+                        <input ng-disabled="true" name="supplierName" type="text" class="form-control" id="exampleInputProviderName" ng-model="selectedSupplier.companyName" placeholder="Enter provider name" tabindex="5" required>
+                    	<small class="help-block" ng-show="receiptForm.supplierName.$error.required && submitted">Required. Please select a valid Code Supplier</small>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.supplierCuit.$error.required && submitted}">
                         <label for="exampleInputCUIT">CUIT</label><label class="formError">&nbsp*</label>
-                        <input ng-disabled="true" type="text" class="form-control" id="exampleInputCUIT" ng-model="supplier.cuit" placeholder="Enter cuit" tabindex="6">
+                        <input ng-disabled="true" name="supplierCuit" type="text" class="form-control" id="exampleInputCUIT" ng-model="selectedSupplier.cuit" placeholder="Enter cuit" tabindex="6" required>
+                    	<small class="help-block" ng-show="receiptForm.supplierCuit.$error.required && submitted">Required. Please select a valid Code Supplier</small>
                     </div>
             	</div>
             	<div class="col-md-5 col-md-offset-2">
-            		<div class="form-group" ng-class="{'has-error': receiptForm.concept.$error.required}">
+            		<div class="form-group" ng-class="{'has-error': receiptForm.concept.$error.required && submitted}">
                         <label for="exampleInputConcept">Concept</label><label class="formError">&nbsp*</label>
                         <input required name="concept" id="concept" type="text" class="form-control" ng-model="concept" placeholder="Enter concept" tabindex="7">
+                   		<small class="help-block" ng-show="receiptForm.concept.$error.required && submitted">Required</small>
                     </div>
-                    <div class="form-group" ng-class="{'has-error': receiptForm.totalBill.$error.required}">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.totalBill.$error.required && submitted}">
                         <label for="exampleAmount">Total amount</label><label class="formError">&nbsp*</label>
-                        <input required id="totalBill" name="totalBill" type="number" class="form-control" ng-model="totalBill" placeholder="Enter total amount (must be a number)" ng-disabled="{{editMode}}" tabindex="8">
+                        <input required id="totalBill" name="totalBill" type="number" class="form-control" ng-model="totalBill" placeholder="Enter total amount (must be a number)" ng-disabled="false" tabindex="8">
+                   		<small class="help-block" ng-show="receiptForm.totalBill.$error.required && submitted">Required. Please insert a valid number</small>
                     </div>
                     <div ng-show="isTypeA">
 	                    <h4 class="amount-detail">Amount detail</h4>
-	                    <!-- <div class="form-group">
+	                    <div class="form-group">
 	                        <label for="exampleTaxed">Taxed</label><label class="formError">&nbsp*</label>
-	                        <input id="taxed" ng-required="isTypeA || editMode" ng-disabled="true" type="number" class="form-control" ng-model="taxed" placeholder="Enter taxed" tabindex="9">
-	                    </div> -->
+	                        <input id="taxed" ng-required="{{isTypeA && !editMode}}" ng-disabled="true" type="number" class="form-control" ng-model="taxed" placeholder="Enter taxed" tabindex="9">
+	                    </div>
 	                    <div class="form-group">
 	                        <label for="exampleIVA">IVA</label><label class="formError">&nbsp*</label>
-	                        <input id="iva" ng-required="isTypeA || editMode" ng-disabled="true" type="number" class="form-control" ng-model="iva" placeholder="Enter IVA" tabindex="10">
+	                        <input id="iva" ng-required="{{isTypeA && !editMode}}" ng-disabled="true" type="number" class="form-control" ng-model="iva" placeholder="Enter IVA" tabindex="10">
 	                    </div>
 	                    <!-- <div class="form-group">
 	                        <label for="exampleUntaxed">Untaxed</label><label class="formError">&nbsp*</label>
@@ -109,37 +106,42 @@
 			
         	<div class="row">
             	<div class="col-md-5">
-                    <div class="form-group" ng-class="{'has-error': receiptForm.shift.$error.required}">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.shift.$error.required && submitted}">
                         <label for="shift">Shift</label><label class="formError">&nbsp*</label>
 						<select required name="shift" id="shift" required class="form-control" ng-model="time" ng-options="time for time in times" tabindex="12">
 							<option value="">-- select shift --</option>
 						</select>
+						<small class="help-block" ng-show="receiptForm.shift.$error.required && submitted">Required</small>
                     </div>
-                    <div class="form-group" ng-class="{'has-error': receiptForm.category.$error.required}">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.category.$error.required && submitted}">
                         <label for="categorieName">Category</label><label class="formError">&nbsp*</label>
-						<select required name="category" class="form-control" ng-change="changeSubcategory()" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories" ng-disabled="{{editMode}}" tabindex="13>
+						<select required name="category" ng-disabled="true" class="form-control" ng-change="changeSubcategory()" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories" ng-disabled="{{editMode}}" tabindex="13">
 							<option value="">-- select category --</option>
 						</select>
+						<small class="help-block" ng-show="receiptForm.category.$error.required && submitted">Required</small>
                     </div>
-                    <div class="form-group" ng-class="{'has-error': receiptForm.subcategory.$error.required}">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.subcategory.$error.required && submitted}">
                         <label for="subcategorieName">Sub-category</label><label class="formError">&nbsp*</label>
 						<select required name="subcategory" class="form-control" ng-model="idSubcategory" ng-options="subcat.id as subcat.name for subcat in subcategories" ng-disabled="{{editMode}}" tabindex="14">
 							<option value="">-- select sub-category --</option>
 						</select>
+						<small class="help-block" ng-show="receiptForm.subcategory.$error.required && submitted">Required</small>
                     </div>
             	</div>
             	<div class="col-md-5 col-md-offset-2">
-                    <div class="form-group" ng-class="{'has-error': receiptForm.account.$error.required}">
+                    <div class="form-group" ng-class="{'has-error': receiptForm.account.$error.required && submitted}">
 						<label>Select the account</label><label class="formError">&nbsp*</label>
 						<select required name="account" class="form-control" ng-change="changeBankOperation()" ng-model="idAccount" ng-options="acc.id as acc.name for acc in accounts" ng-disabled="{{editMode}}" tabindex="15">
 							<option value="">-- select account --</option>
 						</select>
+						<small class="help-block" ng-show="receiptForm.account.$error.required && submitted">Required</small>
 					</div>
-					<div class="form-group" ng-class="{'has-error': receiptForm.bankOperation.$error.required}" ng-show="showBankOperation">
+					<div class="form-group" ng-class="{'has-error': receiptForm.bankOperation.$error.required && submitted}" ng-show="showBankOperation">
 						<label>Select the bank operation</label><label class="formError">&nbsp*</label>
-						<select ng-required="showBankOperation || editMode" name="bankOperation" class="form-control" ng-model="idBankOperation" ng-options="op.id as op.name for op in bankOperations" ng-disabled="{{editMode}}" id="inputBankOperation" tabindex="16">
+						<select name="bankOperation" class="form-control" ng-model="idBankOperation" ng-options="op.id as op.name for op in bankOperations" ng-disabled="{{editMode}}" id="inputBankOperation" tabindex="16">
 							<option value="">-- select bank operation --</option>
 						</select>
+						<small class="help-block" ng-show="receiptForm.bankOperation.$error.required && submitted">Required</small>
 					</div>
             	</div>
         	</div>
@@ -148,16 +150,8 @@
 					<small class="inputRequired">Fields marked with * are required</small>
 				    <br><br>
 					<a href="#/receipts" class="btn btn-danger">Cancel</a>
-				   	<button type="submit" class="btn btn-primary" ng-click="submit(receiptForm.$valid)" tabindex="17">Submit</button>
+				   	<button type="submit" class="btn btn-primary" tabindex="17">Submit</button>
 				</div>
 			</div>
         </form>
-        <br/>
-		
-		<div>
-			{{receiptForm.bankOperation.$error.required}}
-			{{receiptForm.$valid}}
-			{{typeOf(supplierSelectedCode)}}
-		</div>
-		
 	</div>

@@ -2,27 +2,29 @@
 	<div class="col-md-6 col-md-offset-3">
 		<h2>{{title}}</h2>
 
-		<form role="form" name="newCategoryForm">
-			<div class="form-group">
+		<form name="categoryForm" novalidate ng-submit="submit(categoryForm.$valid)">
+			<div class="form-group" ng-class="{'has-error': categoryForm.optionsMovements.$error.required && submitted}">
 				<label for="categorieName">Type operation</label>
 				<div class="row">
-					<div class="col-md-3" ng-repeat="mov in movements">
+					<div class="col-md-6" ng-repeat="mov in movements">
 						<div class="radio">
 							<label>
 							<input required type="radio" name="optionsMovements" id="{{mov.id}}" ng-model="$parent.idMovement" value="{{mov.id}}">
-							{{mov.name}}</label> 
+							{{mov.name}}</label>
 						</div>
 					</div>
 				</div>
+				<small class="help-block" ng-show="categoryForm.optionsMovements.$error.required && submitted">Required</small>
 			</div>
 
-			<div class="form-group">
-				<label for="categorieName">Name</label> <input required type="text"
-					class="form-control" id="exampleInputName"
-					placeholder="Enter categorie name" ng-model="nameCategory">
+			<div class="form-group" ng-class="{'has-error': (categoryForm.name.$error.required && submitted) || !nameNotInUse}">
+				<label for="categorieName">Name</label>
+				<input required type="text" class="form-control" name="name" id="exampleInputName" placeholder="Enter categorie name" ng-model="nameCategory">
+				<small id="codeError" class="help-block formError" ng-show="!nameNotInUse">The code already exists, please insert another code</small>
+				<small class="help-block" ng-show="categoryForm.name.$error.required && submitted">Required</small>
 			</div>
 
-			<button data-ng-click="submit(newCategoryForm)" class="btn btn-primary">Submit</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
 			<a href="#/categories" class="btn btn-danger">Cancel</a>
 		</form>
 	</div>

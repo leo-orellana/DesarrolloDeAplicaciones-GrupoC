@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupoc.model.AccountManager;
 import ar.edu.unq.desapp.grupoc.model.BankOperation;
-import ar.edu.unq.desapp.grupoc.model.Ingress;
 import ar.edu.unq.desapp.grupoc.model.Operation;
 import ar.edu.unq.desapp.grupoc.model.OperationBankAccount;
 import ar.edu.unq.desapp.grupoc.model.OperationCashAccount;
@@ -94,11 +93,11 @@ public class TransactionRest {
 				.getNewOperation(amount,
 						subcategory.getCategory().getMovement(), bankOperation);
 		OperationCashAccount operationCash = new OperationCashAccount(
-				new Ingress(), new Double(0));
+				subcategory.getCategory().getMovement(), new Double(0));
 		OperationCheckingAccount operationChecking = new OperationCheckingAccount(
-				new Ingress(), new Double(0));
+				subcategory.getCategory().getMovement(), new Double(0));
 		OperationBankAccount operationBank = new OperationBankAccount(
-				new Ingress(), new Double(0), bankOperation);
+				subcategory.getCategory().getMovement(), new Double(0), bankOperation);
 
 		if (operation.getClass() == OperationBankAccount.class) {
 			operationBank = (OperationBankAccount) operation;
@@ -125,7 +124,7 @@ public class TransactionRest {
 	}
 
 	@GET
-	@Path("/update/{idTransaction}/{concept}/{time}/{numOperation}")
+	@Path("/update/{idTransaction}/{concept}/{time}")
 	@Produces("application/json")
 	public Transaction updateTransaction(
 			@PathParam("idTransaction") final int idTransaction,

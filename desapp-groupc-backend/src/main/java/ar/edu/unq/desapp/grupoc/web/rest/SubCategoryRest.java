@@ -88,6 +88,15 @@ public class SubCategoryRest {
 		return subcats;
 	}
 	
+	@GET
+	@Path("/checkCategoryNotInUse/{categoryId}")
+	@Produces("application/json")
+	public Boolean checkCategoryNotInUse(@PathParam("categoryId") final int categoryId) {
+		Category category = getCategoryService().getById(categoryId);
+		List<Subcategory> subcats = getSubCategoryService().filterByCategory(category);
+		return subcats.isEmpty();
+	}
+	
 	public SubCategoryService getSubCategoryService() {
 		return subCategoryService;
 	}

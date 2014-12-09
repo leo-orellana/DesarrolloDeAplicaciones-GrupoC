@@ -30,8 +30,8 @@
 		        </thead>
 		        <tbody>
 		            <tr>
-		                <td>{{receipt.concept}}</td>
-		                <td>{{receipt.totalBill}}</td>
+		                <td class="detail">{{receipt.concept}}</td>
+		                <td class="money">{{receipt.totalBill | currency}}</td>
 		            </tr>
 		        </tbody>
 		    </table>
@@ -49,23 +49,23 @@
 		        </thead>
 		        <tbody>
 		            <tr>
-		                <td rowspan="4">{{receipt.concept}}</td>
+		                <td rowspan="4" class="detail">{{receipt.concept}}</td>
 		            </tr>
 		            <tr>
 		                <td>Taxed</td>
-		                <td>{{receipt.taxed}}</td>
+		                <td class="money">{{receipt.taxed | currency}}</td>
 		            </tr>
 		            <tr>
 		                <td>Untaxed</td>
-		                <td>{{receipt.untaxed}}</td>
+		                <td class="money">{{receipt.untaxed | currency}}</td>
 		            </tr>
 		            <tr>
 		                <td>IVA</td>
-		                <td>{{receipt.iva}}</td>
+		                <td class="money">{{receipt.iva | currency}}</td>
 		            </tr>
 		            <tr>
 		            	<th colspan="2">TOTAL:</th>
-		            	<th>{{receipt.totalBill}}</th>
+		            	<th class="money">{{receipt.totalBill | currency}}</th>
 		            </tr>
 		        </tbody>
 		    </table>

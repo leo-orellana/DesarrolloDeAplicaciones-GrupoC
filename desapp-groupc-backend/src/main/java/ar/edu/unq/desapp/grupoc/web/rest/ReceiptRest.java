@@ -100,15 +100,19 @@ public class ReceiptRest {
 		
 		Receipt receipt = new Receipt(javaDate, typeReceipt, supplier, concept, totalBill, taxed, untaxed, iva);
 
+		getReceiptService().save(receipt);
+		
+		Receipt savedReceipt = getReceiptService().getById(receipt.getId());
+		
 		Transaction trans = getTransactionRest().saveTransaction(date,
 				idSubcategory, concept, time, idAccount,
 				idBankOperation, totalBill);
 
-		trans.setReceipt(receipt);
+		trans.setReceipt(savedReceipt);
 
 		getTransactionService().update(trans);
 
-		return receipt;
+		return savedReceipt;
 	}
 
 	@GET
@@ -128,8 +132,8 @@ public class ReceiptRest {
 
 		Transaction trans = getTransactionService().getByReceiptId(idReceipt);
 		
-		getTransactionRest().updateTransaction(trans.getId(), concept, time);
 		getReceiptService().update(receipt);
+		getTransactionRest().updateTransaction(trans.getId(), concept, time);
 		
 		return receipt;
 	}

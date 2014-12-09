@@ -94,12 +94,27 @@ var app = angular.module(
 		resolve: {
 			suppliers: function(sifeagService) {
 				return sifeagService.getSuppliers();
+			},
+			categoryCompras: function(sifeagService) {
+				return sifeagService.getCategoryCompras();
 			}
 		}
 	})
 	.when('/editReceipt/:receiptId', {
 		templateUrl : 'views/editReceipt.html',
-		controller : 'ReceiptControllerNew'
+		controller : 'ReceiptControllerEdit',
+		resolve: {
+			suppliers: function(sifeagService) {
+				return sifeagService.getSuppliers();
+			},
+			receipt: function (sifeagService, $route) {
+				var id = $route.current.params.receiptId;
+				return sifeagService.getReceipt(id);
+			},
+			typeReceipts: function (sifeagService) {
+				return sifeagService.getTypeReceipts();
+			}
+		}
 	})
 	
 	// statistics
@@ -180,6 +195,25 @@ app.factory('sifeagService', ['$http', function($http) {
 				return data;
 			});
 			return promise;
+		},
+		
+		getReceipt: function(id) {
+			var promise = $http({ method: 'GET', url: rest + 'receiptService/receipt/' + id}).success(function(data, status, headers, config) {
+				return data;
+			});
+			return promise;
+		},
+		getTypeReceipts: function() {
+			var promise = $http({ method: 'GET', url: rest + 'typeReceiptService/receipts'}).success(function(data, status, headers, config) {
+				return data;
+			});
+			return promise;
+		},
+		getCategoryCompras: function() {
+			var promise = $http({ method: 'GET', url: rest + 'categoryService/filterByName/Compras'}).success(function(data, status, headers, config) {
+				return data;
+			});
+			return promise;
 		}
 	}
 	return result;
@@ -218,24 +252,13 @@ app.directive('receiptEdit', function($timeout){
 		restrict: 'A',
 		link: function (scope, element, attr) {
 			if (!scope.editMode){
-				$timeout(function(){
-					document.getElementById("ex2_value").tabIndex = "4";
-					console.log(document.getElementById("ex2_value"));
-				}, 1000);
 				document.getElementById("datePicker").focus();
-				$( "#datePicker").focus(function() {
-					document.getElementById("ex2_value").tabIndex = "4";
-				});
-//				$( "#shift" ).focus(function() {
-//					$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-//				});
 				
-				$( "#datePicker" ).focus(function() {
-					$("html, body").animate({ scrollTop: 0 }, "slow");
-				})
-				$( "#ex2_value" ).focus(function() {
-					$("#messageSuccess").delay(2000).fadeOut('slow');
-				});
+				$("html, body").scrollTop(0);
+				
+//				$( "#datePicker" ).focus(function() {
+//					$("html, body").animate({ scrollTop: 0 }, "slow");
+//				})
 				
 				$('form').on("keyup keypress", function(e) {
 					  var code = e.keyCode || e.which; 
@@ -250,8 +273,8 @@ app.directive('receiptEdit', function($timeout){
 						var total = parseFloat($("#totalBill").val());
 					
 						if($.isNumeric(total)){
-							var taxed = total;
-							var iva = (taxed * 21) / 100;
+							var iva = (total * 21) / 100;
+							var taxed = total - iva;
 							var untaxed = 0;
 							
 							$("#taxed").val(taxed);
@@ -263,8 +286,6 @@ app.directive('receiptEdit', function($timeout){
 				
 			}else{
 				$timeout(function(){
-					document.getElementById("ex2_value").tabIndex = "4";
-					document.getElementById("ex2_value").focus();
 					$('form').on("keyup keypress", function(e) {
 						  var code = e.keyCode || e.which; 
 						  if (code  == 13) {               
@@ -284,23 +305,23 @@ app.directive('transactionEdit', function($timeout){
 		link: function (scope, element, attr) {
 			if (!scope.editMode){
 				document.getElementById("datePicker").focus();
-				$('form').on("keyup keypress", function(e) {
-					  var code = e.keyCode || e.which; 
-					  if (code  == 13) {               
-					    e.preventDefault();
-					    return false;
-					  }
-				});
+//				$('form').on("keyup keypress", function(e) {
+//					  var code = e.keyCode || e.which; 
+//					  if (code  == 13) {               
+//					    e.preventDefault();
+//					    return false;
+//					  }
+//				});
 			}else{
 				document.getElementById("shift").focus();
 			}
-			$('form').on("keyup keypress", function(e) {
-				  var code = e.keyCode || e.which; 
-				  if (code  == 13) {               
-				    e.preventDefault();
-				    return false;
-				  }
-			});
+//			$('form').on("keyup keypress", function(e) {
+//				  var code = e.keyCode || e.which; 
+//				  if (code  == 13) {               
+//				    e.preventDefault();
+//				    return false;
+//				  }
+//			});
         }
 	}
 });
@@ -316,13 +337,13 @@ app.directive('supplierEdit', function($timeout){
 							scope.codeInUse = false;
 						});
 					}, 400);
-					$('form').on("keyup keypress", function(e) {
-						  var code = e.keyCode || e.which; 
-						  if (code  == 13) {               
-						    e.preventDefault();
-						    return false;
-						  }
-					});
+//					$('form').on("keyup keypress", function(e) {
+//						  var code = e.keyCode || e.which; 
+//						  if (code  == 13) {               
+//						    e.preventDefault();
+//						    return false;
+//						  }
+//					});
 				}
         	}
 });
@@ -362,3 +383,96 @@ app.factory('supplierService', function ($timeout, $q, $http) {
 		getSuppliers:_getSuppliers,
 	}
 });
+
+app.factory('receiptService', function ($timeout, $q, $http) {
+	var _checkNameUnique = function (code) {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'supplierService/checkCodeUnique/' + code)
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				console.log("error");
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	var _getReceipts = function () {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'receiptService/receipts')
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	return {
+		checkNameUnique:_checkNameUnique,
+		getReceipts:_getReceipts,
+	}
+});
+
+app.factory('categoryService', function ($timeout, $q, $http) {
+	var _checkNameNotInUse = function (name) {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'categoryService/checkNameNotInUse/' + name)
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				console.log("error");
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	var _checkCategoryNotInUse = function (id) {
+		var deferred = $q.defer();
+		$timeout(function () {
+			var unique;
+			$http.get($rest + 'subcategoryService/checkCategoryNotInUse/' + id)
+			.success(function(response) {
+				deferred.resolve(response);
+			}).error(function() {
+				console.log("error");
+				deferred.reject("error");
+			});
+		}, 250);
+		return deferred.promise;
+	};
+	
+	return {
+		checkNameNotInUse:_checkNameNotInUse,
+		checkCategoryNotInUse:_checkCategoryNotInUse,
+	}
+});
+
+function MessageController($scope, $http, $modalInstance, $location, locationPath){
+	
+	$scope.message = "Exito!";
+	
+	$scope.close = function(){
+		$modalInstance.close();
+		$location.path(locationPath);
+	}
+}
+
+function MessageControllerReceipt($scope, $http, $modalInstance, $location, locationPath){
+	
+	$scope.message = "Exito!";
+	
+	$scope.close = function(){
+		$modalInstance.close();
+	}
+}
+

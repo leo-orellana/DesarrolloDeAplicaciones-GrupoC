@@ -30,8 +30,8 @@
                     <tbody>
                         <tr ng-repeat="subcategory in subcategories | filter:query">
                             <td class="actions">
-                                <a href="#/editSubcategory/{{subcategory.id}}" class="btn btn-link"><i class="fa fa-pencil fa-fw"></i></a>
-                                <a href="#/deleteSubcategory/{{subcategory.id}}" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></a>
+                                <!-- <a href="#/editSubcategory/{{subcategory.id}}" class="btn btn-link"><i class="fa fa-pencil fa-fw"></i></a> -->
+                                <button ng-click="tryDelete({{subcategory.id}})" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></button>
                             </td>
                             <td>{{ subcategory.name }}</td>
                             <td>{{ subcategory.category.name }}</td>

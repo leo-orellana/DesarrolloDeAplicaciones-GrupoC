@@ -11,13 +11,25 @@ function SubcategoryControllerList($scope, $http) {
 }
 
 function SubcategoryControllerNew($scope, $http, $location, alert){
-	$http.get($rest + "categoryService/categories")
-			.success(function(response) {
-				$scope.categories = response;
-			})
-			.error(function() {
-				console.log("error");
-			});	
+	
+	$http.get($rest + "movementService/movements")
+	.success(function(response) {
+		$scope.movements = response;
+	})
+	.error(function() {
+		console.log("error");
+	});
+	
+	$scope.changeCategories = function() {
+		$http.get($rest + "categoryService/filterByMovement/" + $scope.idMovement)
+		.success(function(response) {
+			$scope.categories = response;
+		})
+		.error(function() {
+			console.log("error");
+		});
+      };
+	
 	$scope.title = 'New Sub - Category';
 	$scope.submit = function(form){
 		$http.get($rest + "subcategoryService/save/"+$scope.nameSubcategory+"/"+$scope.idCategory)

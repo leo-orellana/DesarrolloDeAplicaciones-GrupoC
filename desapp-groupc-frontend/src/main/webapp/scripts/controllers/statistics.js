@@ -36,6 +36,37 @@ function StatisticsController($scope, $http, categoriesEgress, categoriesIngress
 						
 	}
 	
+	$scope.drawIngressByCategory =        function(){ 
+		$http.get($rest + "statistics/ingressByCategory")
+		.success(function(response) {
+			$scope.showSelectCategoriesInEgress = false;
+			$scope.showSelectCategoriesInIngress = false;
+			// Create the data table.
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Category');
+			data.addColumn('number', 'Amount');
+			rows = []
+			for(i=0;i<(Object.keys(response).length);i++){
+				key = Object.keys(response)[i];
+				value = response[Object.keys(response)[i]];
+				rows.push([key, value]);
+				data.addRow([key, value]);
+			}
+			// Set chart options
+			var options = {'title':'Egress by categories ',
+					'width':800,
+					'height':800};
+			
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
+		})
+		.error(function() {
+			console.log("error");
+		});
+	
+}
+	
 	$scope.drawIngressByShift =        function(){ 
 		$http.get($rest + "statistics/ingressByShift")
 		.success(function(response) {

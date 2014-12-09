@@ -30,8 +30,8 @@
                     <tbody>
                         <tr ng-repeat="category in categories | filter:query">
                             <td class="actions">
-                                <a href="#/editCategory/{{category.id}}" class="btn btn-link"><i class="fa fa-pencil fa-fw"></i></a>
-                                <a href="#/deleteCategory/{{category.id}}" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></a>
+                                <!--<a href="#/editCategory/{{category.id}}" class="btn btn-link"><i class="fa fa-pencil fa-fw"></i></a>-->
+                                <button ng-click="tryDelete({{category.id}})" class="btn btn-link"><i class="fa fa-trash-o fa-fw delete"></i></button>
                             </td>
                             <td>{{ category.name }}</td>
                             <td>{{ category.movement.name }}</td>

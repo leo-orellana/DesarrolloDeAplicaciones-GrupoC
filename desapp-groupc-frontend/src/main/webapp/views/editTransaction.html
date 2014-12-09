@@ -7,61 +7,83 @@
 			<br/>
 		</div>
 
-        <form role="form">
+        <form name="transactionForm" novalidate ng-submit="submit(transactionForm.$valid)">
 	        <div class="row">
 	            <div class="col-md-5">
-	                    <div class="form-group">
-	                    	<label for="exampleInputDate">Date</label>
-					        <p class="input-group">
-					        	<input id="datePicker" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" ng-disabled="{{editMode}}" tabindex="1"/>
-					        	<span class="input-group-btn">
-					           	<button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="{{editMode}}" tabindex="1"><i class="glyphicon glyphicon-calendar"></i></button>
-					           	</span>
-				            </p>
-					    </div>
-	                    <div class="form-group">
-	                        <label for="shift">Shift</label>
-							<select id="shift" required class="form-control" ng-model="time" ng-options="time for time in times" tabindex="2">
-								<option value="">-- select shift --</option>
-							</select>
-	                    </div>
-	                    <div class="form-group">
-	                        <label for="categorieName">Category</label>
-							<select required class="form-control" ng-change="changeSubcategory()" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories" ng-disabled="{{editMode}}" tabindex="3">
-								<option value="">-- select category --</option>
-							</select>
-	                    </div>
-	                    <div class="form-group">
-	                        <label for="subcategorieName">Sub-categorie</label>
-							<select required class="form-control" ng-model="idSubcategory" ng-options="subcat.id as subcat.name for subcat in subcategories" ng-disabled="{{editMode}}" tabindex="4">
-								<option value="">-- select sub-category --</option>
-							</select>
-	                    </div>
+                    <div class="form-group" ng-class="{'has-error': transactionForm.date.$error.required && submitted}">
+                    	<label for="exampleInputDate">Date</label><label class="formError">&nbsp*</label>
+				        <p class="input-group">
+				        	<input id="datePicker" name="date" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="date" is-open="opened" datepicker-options="dateOptions" required close-text="Close" ng-disabled="{{editMode}}" tabindex="1"/>
+				        	<span class="input-group-btn">
+				           	<button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="{{editMode}}" tabindex="1"><i class="glyphicon glyphicon-calendar"></i></button>
+				           	</span>
+			            </p>
+				        <small class="help-block" ng-show="transactionForm.date.$error.required && submitted">Required. Please select a valid date</small>
+				    </div>
+                    <div class="form-group" ng-class="{'has-error': transactionForm.time.$error.required && submitted}">
+                        <label for="shift">Shift</label><label class="formError">&nbsp*</label>
+						<select id="shift" required class="form-control" name="time" ng-model="time" ng-options="time for time in times" tabindex="2">
+							<option value="">-- select shift --</option>
+						</select>
+						<small class="help-block" ng-show="transactionForm.time.$error.required && submitted">Required</small>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': transactionForm.movement.$error.required && submitted}">
+                        <label for="movementName">Movement</label><label class="formError">&nbsp*</label>
+						<select required class="form-control" name="movement" ng-change="changeCategory()" ng-model="idMovement" ng-options="mov.id as mov.name for mov in movements" ng-disabled="{{editMode}}" tabindex="3">
+							<option value="">-- select movement --</option>
+						</select>
+						<small class="help-block" ng-show="transactionForm.movement.$error.required && submitted">Required</small>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': transactionForm.category.$error.required && submitted}">
+                        <label for="categorieName">Category</label><label class="formError">&nbsp*</label>
+						<select required class="form-control" name="category" ng-change="changeSubcategory()" ng-model="idCategory" ng-options="cat.id as cat.name for cat in categories" ng-disabled="{{editMode}}" tabindex="3">
+							<option value="">-- select category --</option>
+						</select>
+						<small class="help-block" ng-show="transactionForm.category.$error.required && submitted">Required</small>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': transactionForm.subcategory.$error.required && submitted}">
+                        <label for="subcategorieName">Sub-categorie</label><label class="formError">&nbsp*</label>
+						<select required class="form-control" name="subcategory" ng-model="idSubcategory" ng-options="subcat.id as subcat.name for subcat in subcategories" ng-disabled="{{editMode}}" tabindex="4">
+							<option value="">-- select sub-category --</option>
+						</select>
+						<small class="help-block" ng-show="transactionForm.subcategory.$error.required && submitted">Required</small>
+                    </div>
 	            </div>
 	            <div class="col-md-5 col-md-offset-2">
-	                    <div class="form-group">
-	                        <label>Concept</label>
-	                        <input type="text" class="form-control" placeholder="Enter concept" ng-model="concept" tabindex="5">
-	                    </div>
-			            <div class="form-group">
-	                        <label>Amount</label>
-	                        <input type="number" class="form-control" placeholder="Enter amount" ng-model="amount" ng-disabled="{{editMode}}" tabindex="6">
-	                    </div>
-	                    <div class="form-group">
-							<label>Select the account</label>
-							<select required class="form-control" ng-change="changeBankOperation()" ng-model="idAccount" ng-options="acc.id as acc.name for acc in accounts" ng-disabled="{{editMode}}" tabindex="7">
-								<option value="">-- select account --</option>
-							</select>
-						</div>
-						<div class="form-group" ng-show="showBankOperation">
-							<label>Select the bank operation</label>
-							<select required class="form-control" ng-model="idBankOperation" ng-options="op.id as op.name for op in bankOperations" ng-disabled="{{editMode}}" tabindex="8" id="inputBankOperation">
-								<option value="">-- select bank operation --</option>
-							</select>
-						</div>
-						<a href="#/transactions" class="btn btn-danger">Cancel</a>
-	                    <button data-ng-click="submit(newTransactionForm)" class="btn btn-primary" tabindex="10">Submit</button>
-	            </div>
+                    <div class="form-group" ng-class="{'has-error': transactionForm.concept.$error.required && submitted}">
+                        <label>Concept</label><label class="formError">&nbsp*</label>
+                        <input required type="text" class="form-control" name="concept" placeholder="Enter concept" ng-model="concept" tabindex="5">
+                        <small class="help-block" ng-show="transactionForm.concept.$error.required && submitted">Required</small>
+                    </div>
+		            <div class="form-group" ng-class="{'has-error': transactionForm.amount.$error.required && submitted}">
+                        <label>Amount</label><label class="formError">&nbsp*</label>
+                        <input required type="number" class="form-control" name="amount" placeholder="Enter amount" ng-model="amount" ng-disabled="{{editMode}}" tabindex="6">
+                    	<small class="help-block" ng-show="transactionForm.amount.$error.required && submitted">Required. Please insert a valid number</small>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': transactionForm.account.$error.required && submitted}">
+						<label>Select the account</label><label class="formError">&nbsp*</label>
+						<select required class="form-control" name="account" ng-change="changeBankOperation()" ng-model="idAccount" ng-options="acc.id as acc.name for acc in accounts" ng-disabled="{{editMode}}" tabindex="7">
+							<option value="">-- select account --</option>
+						</select>
+						<small class="help-block" ng-show="transactionForm.account.$error.required && submitted">Required</small>
+					</div>
+					<div class="form-group" ng-show="showBankOperation" ng-class="{'has-error': transactionForm.bankOperation.$error.required && submitted}">
+						<label>Select the bank operation</label><label class="formError">&nbsp*</label>
+						<select ng-required="showBankOperation" name="bankOperation" class="form-control" ng-model="idBankOperation" ng-options="op.id as op.name for op in bankOperations" ng-disabled="{{editMode}}" tabindex="8" id="inputBankOperation">
+							<option value="">-- select bank operation --</option>
+						</select>
+						<small class="help-block" ng-show="transactionForm.bankOperation.$error.required && submitted">Required</small>
+					</div>
+            	</div>
 	        </div>
+        	<div class="row">
+				<div class="col-md-6 col-md-offset-6 pull-right">
+					<small class="inputRequired">Fields marked with * are required</small>
+				    <br><br>
+					<a href="#/receipts" class="btn btn-danger">Cancel</a>
+				   	<button type="submit" class="btn btn-primary" tabindex="17">Submit</button>
+				</div>
+			</div>
+	   	</form>
 	</div>
  

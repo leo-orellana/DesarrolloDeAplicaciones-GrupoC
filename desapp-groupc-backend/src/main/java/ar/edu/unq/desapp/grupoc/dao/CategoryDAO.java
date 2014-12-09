@@ -20,8 +20,14 @@ public class CategoryDAO extends HibernateGenericDAO<Category> implements
 	@SuppressWarnings("unchecked")
 	public List<Category> filterByName(String name){
 		List<Category> c = this.getSession().createCriteria(Category.class)
-				.add(Restrictions.ilike("name", name, MatchMode.ANYWHERE)).list();
-		
+				.add(Restrictions.like("name", name, MatchMode.EXACT)).list();
+		return c;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Category> filterByMovement(int movementId){
+		List<Category> c = this.getSession().createCriteria(Category.class)
+				.add(Restrictions.eq("movement.id", movementId)).list();
 		return c;
 	}
 }

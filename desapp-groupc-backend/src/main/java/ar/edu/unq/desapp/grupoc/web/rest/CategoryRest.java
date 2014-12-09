@@ -37,6 +37,13 @@ public class CategoryRest {
 		getCategoryService().delete(c);
 		return c;
 	}
+	
+	@GET
+	@Path("/checkNameNotInUse/{name}")
+	@Produces("application/json")
+	public Boolean checkNameNotInUse(@PathParam("name") final String name) {
+		return getCategoryService().filterByName(name).isEmpty();
+	}
 
 	@GET
 	@Path("/categories")
@@ -64,6 +71,13 @@ public class CategoryRest {
 	@Produces("application/json")
 	public List<Category> filterByName(@PathParam("name") final String name) {
 		return getCategoryService().filterByName(name);
+	}
+	
+	@GET
+	@Path("/filterByMovement/{movementId}")
+	@Produces("application/json")
+	public List<Category> filterByMovement(@PathParam("movementId") final int movementId) {
+		return getCategoryService().filterByMovement(movementId);
 	}
 
 	@GET

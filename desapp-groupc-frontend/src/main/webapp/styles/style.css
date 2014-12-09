@@ -36,12 +36,16 @@ body { padding-top: 70px; }
    	text-align: right !important;
 }
 
+.detail{
+   	text-align: left !important;
+}
+
 .negative{
 	color: red;
 }
 
 td.actions{
-	width: auto;
+	width: 110px;
 } 
 
 .egress{
@@ -94,6 +98,15 @@ td.actions{
 
 .newSupplier-container{
 	margin:10px;
+}
+
+.message-container{
+	margin-top:20px;
+	margin-left:10px;
+	margin-right:10px;
+	margin-bottom:10px;
+	font-family:'Verdana';
+	font-size:12px;
 }
 
 .formError{

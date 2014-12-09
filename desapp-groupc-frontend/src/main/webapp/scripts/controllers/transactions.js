@@ -82,19 +82,30 @@ function TransactionControllerList($scope, $http, $modal, $route, transactions) 
     });
 }
 
-function TransactionControllerNew($scope, $http, $location, alert, focus){
+function TransactionControllerNew($scope, $http, $location, alert, focus, $modal){
 	
 	$scope.title = 'New transaction';
 	$scope.times = ["Morning", "Afternoon", "Night"];
 	$scope.editMode = false;
+	$scope.submitted = false;
 	
-	$http.get($rest + "categoryService/categories")
-			.success(function(response) {
-				$scope.categories = response;
-			})
-			.error(function() {
-				console.log("error");
-			});
+	$http.get($rest + "movementService/movements")
+	.success(function(response) {
+		$scope.movements = response;
+	})
+	.error(function() {
+		console.log("error");
+	});
+	
+	$scope.changeCategory = function() {
+		$http.get($rest + "categoryService/filterByMovement/" + $scope.idMovement)
+		.success(function(response) {
+			$scope.categories = response;
+		})
+		.error(function() {
+			console.log("error");
+		});
+      };
 	
 	$http.get($rest + "accountService/accounts")
 	.success(function(response) {
@@ -135,27 +146,31 @@ function TransactionControllerNew($scope, $http, $location, alert, focus){
 			focus('inputBankOperation');
       }
     
-	$scope.submit = function(form){
+	$scope.submit = function(isValid){
+		$scope.submitted = true;
 		var dateString = ($scope.date).getFullYear() + '-' + (($scope.date).getMonth() + 1) + '-' + ($scope.date).getDate();
 		
-		if (typeof($scope.idBankOperation) == 'undefined'){
-			$scope.idBankOperation = 0;
+		if(isValid){
+			if (typeof($scope.idBankOperation) == 'undefined'){
+				$scope.idBankOperation = 0;
+			}
+			
+			$http.get(
+					$rest + "transactionService/save" + "/" + dateString + "/"
+							+ $scope.idSubcategory + "/" + $scope.concept + "/"
+							+ $scope.time + "/"
+							+ $scope.idAccount + "/" + $scope.idBankOperation + "/" + $scope.amount)
+				.success(function(response){
+//					alert("The transaction <" + response.concept + "> was created successfully")
+//					.then(function(){
+//							$location.path('/transactions');
+//						});
+					$scope.showMessage("The transaction <strong>" + response.concept + "</strong> <br> was created successfully!!", '/transactions');
+				})
+				.error(function() {
+					console.log("error");
+			});
 		}
-		
-		$http.get(
-				$rest + "transactionService/save" + "/" + dateString + "/"
-						+ $scope.idSubcategory + "/" + $scope.concept + "/"
-						+ $scope.time + "/"
-						+ $scope.idAccount + "/" + $scope.idBankOperation + "/" + $scope.amount)
-			.success(function(response){
-				alert("The transaction <" + response.concept + "> was created successfully")
-				.then(function(){
-						$location.path('/transactions');
-					});
-			})
-			.error(function() {
-				console.log("error");
-		});
 	};
 	
 	/*** <DATEPICKER> ***/
@@ -184,12 +199,51 @@ function TransactionControllerNew($scope, $http, $location, alert, focus){
 	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'yyyy-MM-dd'];
 	$scope.format = $scope.formats[0];
 	/*** </DATEPICKER> ***/
+	
+	$scope.showMessage = function (message, path) {
+		var modalInstance = $modal.open({
+		template: 
+			'<div class="row message-container">' +
+			'<div class="col-md-12">' +
+			'<div id="messageSuccess" class="alert alert-success" ng-show="message != null">' + message +  '</div>' +
+			'<div class="pull-right"><button class="btn btn-primary" ng-click=close()>Close</button></div>' +
+			'</div>' +
+			'</div>',
+		backdrop: 'static',
+		keyboard: false,
+		size: 'sm',
+		controller: 'MessageController',
+		resolve: {
+	        locationPath: function () {
+	          return path;
+	        }
+	      }
+		});
+		
+		modalInstance.result.then(function(){
+			$location.path(path);
+		});
+		modalInstance.dismiss(function(){
+			$location.path(path);
+		});
+	};
 }
 
-function TransactionControllerEdit($scope, $http, $routeParams, $location, alert) {
+function TransactionControllerEdit($scope, $http, $routeParams, $location, alert, $modal) {
 	$scope.title = 'Edit transaction';
 	$scope.times = ["Morning", "Afternoon", "Night"];
 	$scope.editMode = true;
+	
+	$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'yyyy-MM-dd'];
+	$scope.format = $scope.formats[0];
+	
+	$http.get($rest + "movementService/movements")
+	.success(function(response) {
+		$scope.movements = response;
+	})
+	.error(function() {
+		console.log("error");
+	});
 	
 	$http.get($rest + "categoryService/categories")
 	.success(function(response) {
@@ -268,7 +322,8 @@ function TransactionControllerEdit($scope, $http, $routeParams, $location, alert
 	
 	$http.get($rest + "transactionService/transaction/"+$routeParams.transactionId)
 	.success(function(response) {
-		$scope.date = response.date;
+		$scope.date = $scope.date = new Date( response.date.replace( /(\d{4})-(\d{2})-(\d{2})/, "$1/$2/$3"));
+		$scope.idMovement = response.subcategory.category.movement.id;
 		$scope.idCategory = response.subcategory.category.id;
 		$scope.changeSubcategory();
 		$scope.idSubcategory = response.subcategory.id;
@@ -280,18 +335,51 @@ function TransactionControllerEdit($scope, $http, $routeParams, $location, alert
 		console.log("error");
 	});	
 		
-	$scope.submit = function(form){
-		$http.get($rest + "transactionService/update/" + $routeParams.transactionId + '/' + $scope.concept + "/" + $scope.time)
-			.success(function(response){
-				alert("The transaction <" + response.concept + "> was updated successfully")
-					.then(function(){
-						$location.path('/transactions');
-					});
-			})
-			.error(function() {
-				console.log("error");
-		});
+	$scope.submit = function(isValid){
+		$scope.submitted = true;
+		
+		if(isValid){
+			$http.get($rest + "transactionService/update/" + $routeParams.transactionId + '/' + $scope.concept + "/" + $scope.time)
+				.success(function(response){
+//					alert("The transaction <" + response.concept + "> was updated successfully")
+//						.then(function(){
+//							$location.path('/transactions');
+//						});
+					$scope.showMessage("The transaction <strong>" + response.concept + "</strong> <br> was edited successfully!!", '/transactions');
+				})
+				.error(function() {
+					console.log("error");
+			});
+		}
 	}
+	
+	$scope.showMessage = function (message, path) {
+		var modalInstance = $modal.open({
+		template: 
+			'<div class="row message-container">' +
+			'<div class="col-md-12">' +
+			'<div id="messageSuccess" class="alert alert-success" ng-show="message != null">' + message +  '</div>' +
+			'<div class="pull-right"><button class="btn btn-primary" ng-click=close()>Close</button></div>' +
+			'</div>' +
+			'</div>',
+		backdrop: 'static',
+		keyboard: false,
+		size: 'sm',
+		controller: 'MessageController',
+		resolve: {
+	        locationPath: function () {
+	          return path;
+	        }
+	      }
+		});
+		
+		modalInstance.result.then(function(){
+			$location.path(path);
+		});
+		modalInstance.dismiss(function(){
+			$location.path(path);
+		});
+	};
 }
 
 function ReceiptController($scope) {
